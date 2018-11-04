@@ -34,6 +34,8 @@ class UserManager(BaseUserManager):
 class User(AbstractUser):
     username = None
     email = models.EmailField(_('email address'), unique=True)
+    enrollment_no = models.CharField(max_length=20, unique=True, null=False, blank=False)
+
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -49,21 +51,20 @@ class User(AbstractUser):
     def get_short_name(self):
         return self.email
 
-class StudentProfile(User):
+class StudentProfile(models.Model):
     class Meta:
         verbose_name = "Student Profile"
 
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, parent_link=True)
-    enrollment_no = models.CharField(max_length=20)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.user.email
 
-class FacultyProfile(User):
+class FacultyProfile(models.Model):
     class Meta:
         verbose_name = 'Faculty Profile'
 
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, parent_link=True)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.user.email

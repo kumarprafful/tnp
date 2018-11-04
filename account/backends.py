@@ -2,6 +2,8 @@ from account.models import StudentProfile
 from django.db.models import Q
 from django.conf import settings
 
+from .models import User
+
 class EnrollmentBackend(object):
     supports_object_permissions = True
     supports_anonymous_user = False
@@ -11,16 +13,14 @@ class EnrollmentBackend(object):
     def get_user(self, user_id):
         print("USER CALLING CALLING USER")
         try:
-            return StudentProfile.objects.get(pk=user_id)
-        except StudentProfile.DoesNotExist:
+            return User.objects.get(pk=user_id)
+        except User.DoesNotExist:
             return None
 
     def authenticate(self, request, username=None, password=None):
         print("calling")
         try:
-            user = StudentProfile.objects.get(
-                Q(enrollment_no=username)
-            )
-        except StudentProfile.DoesNotExist:
+            user = User.objects.get(Q(enrollment_no=username))
+        except User.DoesNotExist:
             return None
-        return user if user.user.check_password(password) else None
+        return user if user.check_password(password) else None
