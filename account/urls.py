@@ -1,10 +1,13 @@
 from django.urls import path
-from .views import index, student_register, student_login, user_logout
+from account import views as account_views
 
 urlpatterns = [
-    path('', index, name='index'),
-    path('register/', student_register, name='student_register'),
-    path('login/', student_login, name='student_login'),
-    path('logout/', user_logout, name='logout'),
+    path('', account_views.index, name='index'),
+    path('register/', account_views.student_register, name='student_register'),
+    path('login/', account_views.student_login, name='student_login'),
+    path('logout/', account_views.user_logout, name='logout'),
+    path('faculty_register', account_views.faculty_register, name='faculty_register'),
+    path('faculty_login', account_views.faculty_login, name='faculty_login'),
+    path('faculty_dashboard', account_views.faculty_dashboard, name='faculty_dashboard'),
 
 ]

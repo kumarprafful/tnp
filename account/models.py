@@ -1,3 +1,4 @@
+import random, string
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser, BaseUserManager
@@ -35,6 +36,7 @@ class User(AbstractUser):
     username = None
     email = models.EmailField(_('email address'), unique=True)
     enrollment_no = models.CharField(max_length=20, unique=True, null=False, blank=False)
+    is_faculty = models.BooleanField(default=False)
 
 
     USERNAME_FIELD = 'email'
@@ -51,11 +53,22 @@ class User(AbstractUser):
     def get_short_name(self):
         return self.email
 
+    def fill_enr_no(self):
+        x = ''.join(random.choices(string.ascii_letters + string.digits, k=10))
+        print("X", x)
+        y = ''.join(random.choices(string.ascii_letters + string.digits, k=8))
+        print("Y", y)
+        z = x+y
+        print("ENR", z)
+        return z
+
 class StudentProfile(models.Model):
     class Meta:
         verbose_name = "Student Profile"
 
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    enrollment_no = models.CharField(max_length=20, unique=True, null=False, blank=False)
+
 
     def __str__(self):
         return self.user.email
@@ -65,6 +78,8 @@ class FacultyProfile(models.Model):
         verbose_name = 'Faculty Profile'
 
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
+
 
     def __str__(self):
         return self.user.email

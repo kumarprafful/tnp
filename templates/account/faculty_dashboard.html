@@ -1,0 +1,10 @@
+{% extends './base.html' %}
+
+{% block body %}
+<h1>Faculty Dashboard</h1>
+{% if user.is_authenticated %}
+{{user.email}}
+{% else %}
+how?
+{% endif %}
+{% endblock %}
