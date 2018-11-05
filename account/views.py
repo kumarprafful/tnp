@@ -4,6 +4,7 @@ from django.urls import reverse, reverse_lazy
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ValidationError
 from .models import StudentProfile, FacultyProfile
 from .forms import UserForm, StudentProfileForm, FacultyUserForm, FacultyProfileForm
 
@@ -83,7 +84,7 @@ def student_login(request):
 
 def faculty_login(request):
     if request.method == 'POST':
-        username = request.POST['username']
+        username = request.POST['email']
         password = request.POST['password']
         user = authenticate(username=username, password=password)
         if user is not None:
@@ -96,6 +97,9 @@ def faculty_login(request):
             else:
                 # write a message for user voilation and instead o redirecting to home page we can do something else
                 return HttpResponseRedirect(reverse('index'))
+        else:
+            messages.error(request, "Your email and password didn't match. Please try again.")
+            return HttpResponseRedirect(reverse('faculty_login'))
     else:
         if request.user.is_authenticated:
             return HttpResponseRedirect(reverse('index'))
