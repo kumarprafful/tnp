@@ -36,7 +36,7 @@ class User(AbstractUser):
     username = None
     email = models.EmailField(_('email address'), unique=True)
     enrollment_no = models.CharField(max_length=20, unique=True, null=False, blank=False)
-    is_faculty = models.BooleanField(default=False)
+    is_faculty = models.BooleanField(default=False, help_text="Designates whether the account is of student's or faculty")
 
 
     USERNAME_FIELD = 'email'

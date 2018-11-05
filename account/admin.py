@@ -11,8 +11,8 @@ from .models import User, StudentProfile, FacultyProfile
 class UserAdmin(DjangoUserAdmin):
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        (_('Personal info'), {'fields': ('first_name', 'last_name',)}),
-        (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
+        (_('Personal info'), {'fields': ('first_name', 'last_name', 'enrollment_no')}),
+        (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_faculty', 'is_superuser', 'groups', 'user_permissions')}),
         (_('Important date'), {'fields': ('last_login', 'date_joined')}),
     )
     add_fieldsets = (
@@ -21,10 +21,10 @@ class UserAdmin(DjangoUserAdmin):
             'fields': ('email', 'password1', 'password2'),
         }),
     )
-    list_display = ('email', 'first_name', 'last_name', 'is_staff')
+    list_display = ('email', 'first_name', 'last_name', 'is_staff', 'is_faculty')
     search_fields = ('email', 'first_name', 'last_name')
     ordering = ('email',)
 
 
 admin.site.register(StudentProfile)
-admin.site.register(FacultyProfile)
+admin.site.register(FacultyProfile,)
