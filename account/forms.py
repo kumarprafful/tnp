@@ -6,7 +6,7 @@ class UserForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['email', 'password', 'enrollment_no']
+        fields = ['enrollment_no', 'email', 'password']
 
 class StudentProfileForm(forms.ModelForm):
     class Meta:

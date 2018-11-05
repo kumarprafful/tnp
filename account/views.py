@@ -15,7 +15,7 @@ def index(request):
 def student_register(request):
     registered = False
     if request.user.is_authenticated:
-        return HttpResponseRedirect(reverse('index'))
+        return HttpResponseRedirect(reverse('student:dashboard'))
     elif request.method == 'POST':
         user_form = UserForm(data=request.POST)
         student_profile_form = StudentProfileForm(data=request.POST)
@@ -29,7 +29,7 @@ def student_register(request):
             student_profile.enrollment_no = user.enrollment_no
             student_profile.save()
             registered = True
-            return HttpResponseRedirect(reverse('login'))
+            return HttpResponseRedirect(reverse('account:student_login'))
     else:
         user_form = UserForm()
         student_profile_form = StudentProfileForm()
@@ -38,7 +38,7 @@ def student_register(request):
 def faculty_register(request):
     registered = False
     if request.user.is_authenticated:
-        return HttpResponseRedirect(reverse('index'))
+        return HttpResponseRedirect(reverse('faculty:dashboard'))
     elif request.method == 'POST':
         faculty_user_form = FacultyUserForm(data=request.POST)
         faculty_profile_form = FacultyProfileForm(data=request.POST)
@@ -53,7 +53,7 @@ def faculty_register(request):
             faculty_profile.user = faculty
             faculty_profile.save()
             registered = True
-            return HttpResponseRedirect(reverse('faculty_login'))
+            return HttpResponseRedirect(reverse('account:faculty_login'))
     else:
         faculty_user_form = FacultyUserForm()
         faculty_profile_form = FacultyProfileForm()
@@ -68,19 +68,19 @@ def student_login(request):
             if user.is_faculty is False:
                 if user.is_active:
                     login(request, user)
-                    return HttpResponseRedirect(reverse('index'))
+                    return HttpResponseRedirect(reverse('student:dashboard'))
                 else:
-                    return HttpResponseRedirect(reverse('student_login'))
+                    return HttpResponseRedirect(reverse('account:student_login'))
             else:
                 # write a message for violation
-                return HttpResponseRedirect(reverse('index'))
+                return HttpResponseRedirect(reverse('account:student_login'))
         else:
-            return HttpResponseRedirect(reverse('student_login'))
+            return HttpResponseRedirect(reverse('account:student_login'))
     else:
         if request.user.is_authenticated:
-            return HttpResponseRedirect(reverse('index'))
+            return HttpResponseRedirect(reverse('student:dashboard'))
         else:
-            return render(request, 'registration/login.html', {})
+            return render(request, 'registration/student_login.html', {})
 
 def faculty_login(request):
     if request.method == 'POST':
@@ -91,18 +91,18 @@ def faculty_login(request):
             if user.is_faculty:
                 if user.is_active:
                     login(request, user)
-                    return HttpResponseRedirect(reverse('faculty_dashboard'))
+                    return HttpResponseRedirect(reverse('faculty:dashboard'))
                 else:
-                    return HttpResponseRedirect(reverse('faculty_login'))
+                    return HttpResponseRedirect(reverse('account:faculty_login'))
             else:
                 # write a message for user voilation and instead o redirecting to home page we can do something else
-                return HttpResponseRedirect(reverse('index'))
+                return HttpResponseRedirect(reverse('account:faculty_login'))
         else:
             messages.error(request, "Your email and password didn't match. Please try again.")
-            return HttpResponseRedirect(reverse('faculty_login'))
+            return HttpResponseRedirect(reverse('account:faculty_login'))
     else:
         if request.user.is_authenticated:
-            return HttpResponseRedirect(reverse('index'))
+            return HttpResponseRedirect(reverse('faculty:dashboard'))
         else:
             return render(request, 'registration/faculty_login.html', {})
 
@@ -111,8 +111,4 @@ def faculty_login(request):
 @login_required
 def user_logout(request):
     logout(request)
-    return HttpResponseRedirect(reverse('index'))
-
-@login_required(login_url=reverse_lazy(faculty_login))
-def faculty_dashboard(request):
-    return render(request, 'account/faculty_dashboard.html')
+    return HttpResponseRedirect(reverse('home:index'))

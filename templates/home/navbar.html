@@ -1,0 +1,22 @@
+
+{% load staticfiles %}
+<nav>
+  <div class="nav-wrapper indigo darken-4">
+    <a href="{% url 'home:index' %}" class="brand-logo">
+      <div class="ipu-brand">
+        <img class="ipu_logo" src="{% static 'img/ipu-logo.png' %}" alt="ipu-logo">
+        <h6>Training & Placements Cell</h6><br><br>
+        <!-- <p class="ipu-title-brand">Guru Gobind Singh Indraprastha University</p> -->
+      </div>
+
+    </a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      {% if user.is_authenticated %}
+        <li><a href="{% url 'account:logout' %}" class="btn waves-effect">Logout</a></li>
+      {% else %}
+        <li><a href="{% url 'account:student_login' %}" class="btn waves-effect">Login/Register</a></li>
+      {% endif %}
+
+    </ul>
+  </div>
+</nav>
