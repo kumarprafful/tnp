@@ -70,11 +70,13 @@ def student_login(request):
                     login(request, user)
                     return HttpResponseRedirect(reverse('student:dashboard'))
                 else:
+                    messages.error(request, 'Account not active. Kindly contact TNP cell')
                     return HttpResponseRedirect(reverse('account:student_login'))
             else:
                 # write a message for violation
                 return HttpResponseRedirect(reverse('account:student_login'))
         else:
+            messages.error(request, 'Invalid credentials. Try again.')
             return HttpResponseRedirect(reverse('account:student_login'))
     else:
         if request.user.is_authenticated:
@@ -93,9 +95,10 @@ def faculty_login(request):
                     login(request, user)
                     return HttpResponseRedirect(reverse('faculty:dashboard'))
                 else:
+                    messages.error(request, 'Account not active. Kindly contact TNP cell')
                     return HttpResponseRedirect(reverse('account:faculty_login'))
             else:
-                # write a message for user voilation and instead o redirecting to home page we can do something else
+                messages.error(request, "Your email and password didn't match. Please try again.")
                 return HttpResponseRedirect(reverse('account:faculty_login'))
         else:
             messages.error(request, "Your email and password didn't match. Please try again.")

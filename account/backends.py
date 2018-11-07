@@ -17,7 +17,7 @@ class EnrollmentBackend(object):
 
     def authenticate(self, request, username=None, password=None):
         try:
-            user = User.objects.get(Q(enrollment_no=username))
+            user = User.objects.get(Q(enrollment_no=username) |Q(email=username))
         except User.DoesNotExist:
             return None
         return user if user.check_password(password) else None
