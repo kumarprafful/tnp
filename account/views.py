@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
 from .models import StudentProfile, FacultyProfile
-from .forms import UserForm, StudentProfileForm, FacultyUserForm, FacultyProfileForm
+from .forms import UserForm, FacultyUserForm, FacultyProfileForm
 
 # Create your views here.
 def index(request):
@@ -18,22 +18,22 @@ def student_register(request):
         return HttpResponseRedirect(reverse('student:dashboard'))
     elif request.method == 'POST':
         user_form = UserForm(data=request.POST)
-        student_profile_form = StudentProfileForm(data=request.POST)
-        if user_form.is_valid() and student_profile_form.is_valid():
+       # student_profile_form = StudentProfileForm(data=request.POST)
+        if user_form.is_valid(): #and student_profile_form.is_valid():
             user = user_form.save()
             user.set_password(user.password)
             user.save()
 
-            student_profile = student_profile_form.save(commit=False)
-            student_profile.user = user
-            student_profile.enrollment_no = user.enrollment_no
-            student_profile.save()
+            #student_profile = student_profile_form.save(commit=False)
+            #student_profile.user = user
+            #student_profile.enrollment_no = user.enrollment_no
+            #student_profile.save()
             registered = True
             return HttpResponseRedirect(reverse('account:student_login'))
     else:
         user_form = UserForm()
-        student_profile_form = StudentProfileForm()
-    return render(request, 'registration/student_register.html', {'registered': registered, 'user_form': user_form, 'student_profile_form': student_profile_form})
+        #student_profile_form = StudentProfileForm()
+    return render(request, 'registration/student_register.html', {'registered': registered, 'user_form': user_form }) #, 'student_profile_form': student_profile_form})
 
 def faculty_register(request):
     registered = False

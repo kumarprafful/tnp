@@ -1,4 +1,86 @@
 {% extends '../home/base.html' %}
 {% block body %}
 
+<div class="container">
+
+<div class="row">
+	<div class="col s9">
+ <h4 class="center">{{ Student.name }}</h4>
+</div>
+<div class="col s3" style="padding-top: 25px;">
+  <a href="{% url 'student:edit_profile' %}" class="waves-effect waves-light btn right">Edit Profile</a>
+</div>
+</div>
+
+
+<div class="divider"></div>
+
+<table class="centered">
+
+{% if Student.name %}
+  <tr>
+    <td>Full Name</td>
+    <td>{{ Student.name }}</td>
+  </tr>
+{% endif %}
+
+{% if Student.college %}
+<tr>
+    <td>College</td>
+    <td>{{ Student.college }}</td>
+  </tr>
+{% endif %}
+
+{% if Student.course %}
+  <tr>
+    <td>Course</td>
+    <td>{{ Student.get_course_display }}</td>
+  </tr>
+{% endif %}
+
+{% if Student.dob %}
+  <tr>
+    <td>Date of Birth</td>
+    <td>{{ Stdent.dob }}</td>
+  </tr>
+{% endif %}
+
+{% if Student.admission_year %}
+  <tr>
+    <td>Year of Admission</td>
+    <td>{{ Stdent.admission_year }}</td>
+  </tr>
+{% endif %}
+
+{% if Student.fathers_name %}
+  <tr>
+    <td>Father's name</td>
+    <td>{{ Student.fathers_name }}</td>
+  </tr>
+{% endif %}
+
+{% if Student.region %}
+  <tr>
+    <td>Region</td>
+    <td>{{ Student.get_region_display }}</td>
+  </tr>
+{% endif %}
+
+{% if Student.category %}
+  <tr>
+    <td>Category</td>
+    <td>{{ Student.get_category_display }}</td>
+  </tr>
+{% endif %}
+
+{% if Student.mobile %}
+  <tr>
+    <td>Mobile</td>
+    <td>{{ Student.mobile }}</td>
+  </tr>
+{% endif %}
+
+</table>
+
+</div>
 {% endblock %}

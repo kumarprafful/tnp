@@ -1,4 +1,32 @@
 {% extends '../home/base.html' %}
 {% block body %}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+  
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 
+
+<div class="container">
+<table id="student-table">
+    <thead>
+        <tr>
+            <th>enrollment no</th>
+            <th>name</th>
+        </tr>		
+    </thead>
+    <tbody>
+    	{% for student in Students %}
+			<tr>
+            	<td>{{ student.enrollment_no }}</td>
+            	<td>{{ student.name }}</td>
+        	</tr>
+		{% endfor %}
+    </tbody>
+</table>
+</div>
+
+<script type="text/javascript">
+	$(document).ready( function () {
+    $('#student-table').DataTable();
+} );
+</script>
 {% endblock %}

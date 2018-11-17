@@ -11,7 +11,8 @@ class UserForm(forms.ModelForm):
 class StudentProfileForm(forms.ModelForm):
     class Meta:
         model = StudentProfile
-        fields = []
+        fields = ['college', 'course', 'dob', 'admission_year', 'fathers_name', 'region', 'category', 'mobile']
+
 
 class FacultyUserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())

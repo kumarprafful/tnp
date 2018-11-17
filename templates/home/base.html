@@ -1,3 +1,5 @@
+{% load staticfiles %}
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -12,11 +14,14 @@
     <!--material icons  -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+
 
     <!-- custom css -->
     <link rel="stylesheet" href="{% static './css/style.css' %}">
-
-    <title>TNP</title>
+    <link rel="shortcut icon" href="{% static 'img/ipu-logo.png' %}" />
+    <title>Training and Placement Cell | USICT</title>
   </head>
   <body>
     {% include './navbar.html' %}

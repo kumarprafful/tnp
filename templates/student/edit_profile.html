@@ -1,0 +1,25 @@
+{% extends '../home/base.html' %}
+{% block body %}
+
+<div class="row">
+  <div class="col s6 offset-s3">
+    <br><br>
+  <div class="card center lime lighten-5 z-depth-5">
+    <div class="card-inner">
+      <h5 class="login"> <i class="material-icons">accessibility</i>Edit Profile</h5>
+
+
+<form method="post">
+  {% csrf_token %}
+  {{ student_profile_form.as_p }}
+
+  <input type="submit" class="btn" value="Submit">
+
+</form>
+
+</div>
+</div>
+</div>
+</div>
+
+{% endblock %}
