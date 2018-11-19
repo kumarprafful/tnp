@@ -25,9 +25,10 @@ def student_register(request):
             user.save()
 
             #student_profile = student_profile_form.save(commit=False)
+            student_profile = StudentProfile.objects.create(user = user)
             #student_profile.user = user
-            #student_profile.enrollment_no = user.enrollment_no
-            #student_profile.save()
+            student_profile.enrollment_no = user.enrollment_no
+            student_profile.save()
             registered = True
             return HttpResponseRedirect(reverse('account:student_login'))
     else:
