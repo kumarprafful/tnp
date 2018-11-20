@@ -5,7 +5,9 @@ html{
 body{
   background: linear-gradient(90deg, #90a4ae, #eceff1);
 }
-
+select{
+  display: block;
+}
 /* for login alerts */
 .close:not(:disabled):not(.disabled) {
     cursor: pointer;
