@@ -26,5 +26,5 @@ class UserAdmin(DjangoUserAdmin):
     ordering = ('email',)
 
 
-admin.site.register(StudentProfile, search_fields=('enrollment_no', ))
+admin.site.register(StudentProfile,list_display=['name', 'course', 'enrollment_no'], search_fields=('enrollment_no', ))
 admin.site.register(FacultyProfile,)

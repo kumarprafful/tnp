@@ -1,7 +1,7 @@
 {% extends '../home/base.html' %}
 {% block body %}
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
-  
+
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 
 
@@ -11,14 +11,30 @@
         <tr>
             <th>enrollment no</th>
             <th>name</th>
-        </tr>		
+            <th>college</th>
+            <th>course</th>
+            <th>dob</th>
+            <th>admission year</th>
+            <th>father's name</th>
+            <th>region</th>
+            <th>category</th>
+            <th>mobile</th>
+        </tr>
     </thead>
     <tbody>
     	{% for student in Students %}
 			<tr>
             	<td>{{ student.enrollment_no }}</td>
             	<td>{{ student.name }}</td>
-        	</tr>
+              <td>{{ student.college }}</td>
+              <td>{{ student.course }}</td>
+              <td>{{ student.dob }}</td>
+              <td>{{ student.admission_year }}</td>
+              <td>{{ student.fathers_name }}</td>
+              <td>{{ student.region }}</td>
+              <td>{{ student.category }}</td>
+              <td>{{ student.mobile }}</td>
+      </tr>
 		{% endfor %}
     </tbody>
 </table>
