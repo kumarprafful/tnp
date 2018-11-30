@@ -1,6 +1,11 @@
 from django import forms
 from .models import User, StudentProfile, FacultyProfile
 
+
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
+
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
 
@@ -9,6 +14,9 @@ class UserForm(forms.ModelForm):
         fields = ['enrollment_no', 'email', 'password']
 
 class StudentProfileForm(forms.ModelForm):
+
+    dob = forms.DateField(required = False, widget = DateInput())
+
     class Meta:
         model = StudentProfile
         fields = ['college', 'course', 'dob', 'admission_year', 'fathers_name', 'region', 'category', 'mobile']
