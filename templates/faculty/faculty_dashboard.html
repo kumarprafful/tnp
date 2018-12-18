@@ -26,13 +26,13 @@
 			<tr>
             	<td>{{ student.enrollment_no }}</td>
             	<td>{{ student.name }}</td>
-              <td>{{ student.college }}</td>
-              <td>{{ student.course }}</td>
+              <td>{{ student.get_college_display }}</td>
+              <td>{{ student.get_course_display }}</td>
               <td>{{ student.dob }}</td>
-              <td>{{ student.admission_year }}</td>
+              <td>{{ student.get_admission_year_display }}</td>
               <td>{{ student.fathers_name }}</td>
-              <td>{{ student.region }}</td>
-              <td>{{ student.category }}</td>
+              <td>{{ student.get_region_display }}</td>
+              <td>{{ student.get_category_display }}</td>
               <td>{{ student.mobile }}</td>
       </tr>
 		{% endfor %}
