@@ -6,6 +6,83 @@
 
 
 <div class="container">
+  <div class="card center lime lighten-5 z-depth-5">
+    <div class="card-inner">
+      <div id="filter" class="row">
+        <h4>Apply Filters</h4>
+        <div id="course" class="col s6">
+          <h5>COURSES</h5>
+          <p>
+            <label>
+              <input type="checkbox" class="filled-in" name="courses" value="BtechCSE" />
+              <span>B.TECH-CSE</span>
+            </label>
+          </p>
+          <p>
+            <label>
+              <input type="checkbox" class="filled-in" name="courses" value="BtechIT" />
+              <span>B.TECH - I T </span>
+            </label>
+          </p>
+          <p>
+            <label>
+              <input type="checkbox" class="filled-in" name="courses" value="BtechECE" />
+              <span>B.TECH-ECE</span>
+            </label>
+          </p>
+          <p>
+            <label>
+              <input type="checkbox" class="filled-in" name="courses" value="MtechCSE" />
+              <span>M.TECH-CSE</span>
+            </label>
+          </p>
+          <p>
+            <label>
+              <input type="checkbox" class="filled-in" name="courses" value="MtechIT" />
+              <span>M.TECH - I T </span>
+            </label>
+          </p>
+          <p>
+            <label>
+              <input type="checkbox" class="filled-in" name="courses" value="MtechECE" />
+              <span>M.TECH-ECE</span>
+            </label>
+          </p>
+        </div>
+
+        <div class="col s6" id="year">
+          <h5>YEAR</h5>
+          <p>
+            <label>
+              <input type="checkbox" class="filled-in" name="year" value="2015" />
+              <span>2015</span>
+            </label>
+          </p>
+          <p>
+            <label>
+              <input type="checkbox" class="filled-in" name="year" value="2016" />
+              <span>2016</span>
+            </label>
+          </p>
+          <p>
+            <label>
+              <input type="checkbox" class="filled-in" name="year" value="2017" />
+              <span>2017</span>
+            </label>
+          </p>
+          <p>
+            <label>
+              <input type="checkbox" class="filled-in" name="year" value="2018" />
+              <span>2018</span>
+            </label>
+          </p>
+        </div>
+      </div>
+    </div>
+    <button class="btn waves-effect waves-light" id="filter-btn" onclick="func()" type="submit" name="action">Apply</button><br><br>
+
+  </div>
+
 <table id="student-table">
     <thead>
         <tr>
@@ -44,5 +121,40 @@
 	$(document).ready( function () {
     $('#student-table').DataTable();
 } );
+
+  function func(){
+    var all_courses = $('[name="courses"]');
+    var selected_courses=[];
+    for(var i =0; i<all_courses.length; i++){
+      if(all_courses[i].checked == true)
+        selected_courses.push(all_courses[i].value);
+    }
+    selected_courses = JSON.stringify(selected_courses);
+
+    var all_years = $('[name="year"]');
+    var selected_years = [];
+    for(var i=0; i<all_years.length; i++){
+      if(all_years[i].checked == true)
+        selected_years.push(all_years[i].value);
+    }
+    selected_years = JSON.stringify(selected_years);
+
+    $.ajax({
+        url: '{% url "faculty:filter" %}',
+        data: {
+          'selected_courses': selected_courses,
+          'selected_years': selected_years,
+        },
+        dataType: 'json',
+        success: function (data) {
+          students = data.filtered_students;
+          $('#student-table tbody tr').remove();
+          for(i=0; i< students.length; i++){
+            $('#student-table').append('<tr><td>'+students[i].enrollment_no+'</td><td>'+students[i].name+'</td><td>'+students[i].college+'</td><td>'+students[i].course+'</td><td>'+students[i].dob+'</td><td>'+students[i].admission_year+'</td><td>'+students[i].fathers_name+'</td><td>'+students[i].region+'</td><td>'+students[i].category+'</td><td>'+students[i].mobile+'  </td></tr>');
+            } 
+        }
+      });
+
+   }
 </script>
 {% endblock %}
