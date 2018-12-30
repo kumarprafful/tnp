@@ -31,4 +31,4 @@ def edit_profile(request):
 
 		else:
 			student_profile_form = StudentProfileForm(instance=Student)
-			return render(request, template_name='student/edit_profile.html', context = {'student_profile_form': student_profile_form})
+		return render(request, template_name='student/edit_profile.html', context = {'student_profile_form': student_profile_form})

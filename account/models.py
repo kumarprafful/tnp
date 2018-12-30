@@ -107,7 +107,7 @@ class StudentProfile(models.Model):
     college = models.CharField(max_length=10,choices=COLLEGE,default='USICT')
     course = models.CharField(max_length = 20, choices=COURSE, blank=True, null=True)
     dob = models.DateField(_("Date of birth"), blank=True, null=True)
-    admission_year = models.CharField(_('Year of Admission'), max_length=4, choices=YEAR_CHOICES, blank=True, null=True)
+    admission_year = models.IntegerField(_('Year of Admission'), choices=YEAR_CHOICES, blank=True, null=True)
     fathers_name = models.CharField(max_length=50, null=True, blank=True)
     region = models.CharField(max_length=20, choices=REGION, blank=True, null=True)
     category = models.CharField(max_length=20, choices=CATEGORY, blank=True, null=True)
