@@ -1,4 +1,5 @@
-from account.models import User, StudentProfile
+from account.models import User
+from student.models import StudentProfile
 from faker import Faker
 import random, string
 import datetime
@@ -23,7 +24,7 @@ COURSE = (
         'MtechECE',
         'MCA',
     )
-    
+
 YEAR_CHOICES = []
 for r in range(2015, (datetime.datetime.now().year+1)):
     YEAR_CHOICES.append(r)
@@ -46,7 +47,7 @@ def choose(para):
     return random.choices(para)[0]
 
 
-for i in range(50):
+for i in range(100):
     u = User.objects.create(id=i+400, enrollment_no=x+str(i), email=fake.free_email())
     StudentProfile.objects.create(
                                 user=u,

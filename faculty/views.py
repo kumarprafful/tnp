@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, JsonResponse
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.decorators import login_required
-from account.models import StudentProfile
+from student.models import StudentProfile
 import json
 from django.core import serializers
 
@@ -37,18 +37,16 @@ def filter(request):
 		for i in course_filter:
 			if selected_years:
 				for j in selected_years:
-					if i.admission_year == j:
+					if int(i.admission_year) == int(j):
 						year_filter += StudentProfile.objects.filter(enrollment_no = i.enrollment_no).values()
 						break
 			else:
 				year_filter += StudentProfile.objects.filter(enrollment_no = i.enrollment_no).values()
 
 
-		
+
 		data = {
 			'filtered_students': year_filter
 		}
 
 		return JsonResponse(data, safe=False)
-
-

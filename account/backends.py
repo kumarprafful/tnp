@@ -1,4 +1,4 @@
-from account.models import StudentProfile
+from student.models import StudentProfile
 from django.db.models import Q
 from django.conf import settings
 

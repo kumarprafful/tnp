@@ -3,7 +3,7 @@ from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
 from django.utils.translation import ugettext_lazy as _
 
 # models
-from .models import User, StudentProfile, FacultyProfile
+from .models import User, FacultyProfile
 
 # Register your models here.
 
@@ -26,5 +26,4 @@ class UserAdmin(DjangoUserAdmin):
     ordering = ('email',)
 
 
-admin.site.register(StudentProfile,list_display=['name', 'course', 'enrollment_no'], search_fields=('enrollment_no', ))
 admin.site.register(FacultyProfile,)

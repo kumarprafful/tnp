@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.decorators import login_required
-from account.models import StudentProfile
-from account.forms import StudentProfileForm
+from student.models import StudentProfile
+from student.forms import StudentProfileForm
 
 # Create your views here.
 @login_required(login_url=reverse_lazy('account:student_login'))
