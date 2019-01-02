@@ -1,0 +1,49 @@
+<div class="stud_nav">
+  <nav class="indigo darken-3">
+    <div class="navbar-wrapper">
+      <ul>
+        <li><a href="{% url 'student:dashboard' %}" class="">Dashboard</a></li>
+
+      </ul>
+
+      <ul class="center right">
+        <li><a href="{% url 'student:edit_profile' %}" class="">Personal Info</a></li>
+        <li><a href="{% url 'student:add_marks' %}" class="">Add/Update marks</a></li>
+        <li><a href="{% url 'student:edit_profile' %}" class="">Edit Profile</a></li>
+
+      </ul>
+  </div>
+
+  </nav>
+</div>
+
+
+<style media="screen">
+
+.stud_nav nav {
+    height: 40px;
+    line-height: 40px;
+}
+
+.stud_nav nav i, .stud_nav nav [class^="mdi-"], .stud_nav nav [class*="mdi-"], .stud_nav nav i.material-icons {
+    height: 40px;
+    line-height: 40px;
+}
+
+.stud_nav nav .button-collapse i {
+    height: 40px;
+    line-height: 40px;
+}
+
+.stud_nav nav .brand-logo {
+    font-size: 1.6rem;
+}
+
+@media only screen and (min-width: 601px){
+    .stud_nav nav, .stud_nav nav .nav-wrapper i, .stud_nav nav a.button-collapse, .stud_nav nav a.button-collapse i {
+        height: 40px;
+        line-height: 40px;
+    }
+}
+
+</style>

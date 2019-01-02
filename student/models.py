@@ -50,9 +50,26 @@ class StudentProfile(models.Model):
     fathers_name = models.CharField(max_length=50, null=True, blank=True)
     region = models.CharField(max_length=20, choices=REGION, blank=True, null=True)
     category = models.CharField(max_length=20, choices=CATEGORY, blank=True, null=True)
+    tweth_marks = models.IntegerField(_("12th marks"), blank=True, null=True)
     mobile = models.PositiveIntegerField(blank=True, null=True, validators=[MaxValueValidator(9999999999)])
 
 
 
     def __str__(self):
         return self.user.email
+
+
+class MarkSheet(models.Model):
+    student = models.OneToOneField(StudentProfile, on_delete=models.CASCADE)
+    semester_1 = models.IntegerField(blank=True, null=True)
+    semester_2 = models.IntegerField(blank=True, null=True)
+    semester_3 = models.IntegerField(blank=True, null=True)
+    semester_4 = models.IntegerField(blank=True, null=True)
+    semester_5 = models.IntegerField(blank=True, null=True)
+    semester_6 = models.IntegerField(blank=True, null=True)
+    semester_7 = models.IntegerField(blank=True, null=True)
+    semester_8 = models.IntegerField(blank=True, null=True)
+    CGPA = models.IntegerField(blank=True, null=True)
+
+    def __str__(self):
+        return self.student.user

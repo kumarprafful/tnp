@@ -1,5 +1,7 @@
 {% extends '../home/base.html' %}
 {% block body %}
+{% include './stud_nav.html' %}
+
 
 <div class="container">
 
@@ -8,7 +10,6 @@
  <h4 class="center">{{ Student.name }}</h4>
 </div>
 <div class="col s3" style="padding-top: 25px;">
-  <a href="{% url 'student:edit_profile' %}" class="waves-effect waves-light btn right">Edit Profile</a>
 </div>
 </div>
 

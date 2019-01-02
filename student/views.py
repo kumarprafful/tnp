@@ -2,8 +2,9 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.decorators import login_required
-from student.models import StudentProfile
-from student.forms import StudentProfileForm
+
+from student.models import StudentProfile, MarkSheet
+from student.forms import StudentProfileForm, MarkSheetForm
 
 # Create your views here.
 @login_required(login_url=reverse_lazy('account:student_login'))
@@ -32,3 +33,23 @@ def edit_profile(request):
 		else:
 			student_profile_form = StudentProfileForm(instance=Student)
 		return render(request, template_name='student/edit_profile.html', context = {'student_profile_form': student_profile_form})
+
+
+def createMarkSheetView(request):
+    if request.user.is_faculty:
+        return HttpResponseRedirect(reverse('faculty:dashboard'))
+    else:
+        marksheet_added = False
+        student = StudentProfile.objects.get(enrollment_no = request.user.enrollment_no)
+        marks = MarkSheet.objects.get(student=student)
+        if request.method == 'POST':
+            marksheet_form = MarkSheetForm(data=request.POST, instance=marks)
+            if marksheet_form.is_valid():
+                marksheet =  marksheet_form.save(commit=False)
+                marksheet.student = student
+                marksheet.save()
+                marksheet_added = True
+                return HttpResponseRedirect(reverse('student:dashboard'))
+        else:
+            marksheet_form = MarkSheetForm(instance=marks)
+        return render(request, 'student/add_marksheet.html', {'marksheet_form': marksheet_form, 'marksheet_added': marksheet_added})
