@@ -5,13 +5,14 @@
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 
 
-<div class="container">
-  <div class="card center lime lighten-5 z-depth-5">
+<div class="row">
+  <div class="col s2 rm">
+   <div class="card center lime lighten-5">
     <div class="card-inner">
-      <div id="filter" class="row">
-        <h4>Apply Filters</h4>
-        <div id="course" class="col s6">
-          <h5>COURSES</h5>
+      <div id="filter" class="">
+        <h5>Show results for</h5>
+        <div id="course" class="">
+          <h6>COURSES</h6>
           <p>
             <label>
               <input type="checkbox" class="filled-in" name="courses" value="BtechCSE" />
@@ -50,8 +51,8 @@
           </p>
         </div>
 
-        <div class="col s6" id="year">
-          <h5>YEAR</h5>
+        <div class="" id="year">
+          <h6>YEAR</h6>
           <p>
             <label>
               <input type="checkbox" class="filled-in" name="year" value="2015" />
@@ -82,7 +83,9 @@
     <button class="btn waves-effect waves-light" id="filter-btn" onclick="func()" type="submit" name="action">Apply</button><br><br>
 
   </div>
+</div>
 
+  <div class="col s10">
 <table id="student-table">
     <thead>
         <tr>
@@ -114,7 +117,10 @@
       </tr>
 		{% endfor %}
     </tbody>
+
 </table>
+</div>
+
 </div>
 
 <script type="text/javascript">
@@ -151,7 +157,7 @@
           $('#student-table tbody tr').remove();
           for(i=0; i< students.length; i++){
             $('#student-table').append('<tr><td>'+students[i].enrollment_no+'</td><td>'+students[i].name+'</td><td>'+students[i].college+'</td><td>'+students[i].course+'</td><td>'+students[i].dob+'</td><td>'+students[i].admission_year+'</td><td>'+students[i].fathers_name+'</td><td>'+students[i].region+'</td><td>'+students[i].category+'</td><td>'+students[i].mobile+'  </td></tr>');
-            } 
+            }
         }
       });
 

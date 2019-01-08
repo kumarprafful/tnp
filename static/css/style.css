@@ -3,10 +3,19 @@ html{
 }
 
 body{
-  background: linear-gradient(90deg, #90a4ae, #eceff1);
+  /* background: linear-gradient(90deg, #90a4ae, #eceff1); */
+  background: rgb(215,215,215)
 }
 select{
   display: block;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
 }
 /* for login alerts */
 .close:not(:disabled):not(.disabled) {
@@ -71,11 +80,16 @@ button.close {
   border-radius: 20px;
 }
 
+.rm{
+  padding: 0!important;
+
+}
 .card{
-  border-radius: 10px;
+  left: 0;
+  /* border-radius: 1px!important; */
 }
 .card-inner{
-  padding: 2em 2em;
+  padding: 1em;
 }
 .login{
   color: #222;
