@@ -117,4 +117,4 @@ def faculty_login(request):
 @login_required
 def user_logout(request):
     logout(request)
-    return HttpResponseRedirect(reverse('home:index'))
+    return HttpResponseRedirect(reverse('account:student_login'))
