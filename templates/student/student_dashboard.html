@@ -9,7 +9,19 @@
 
 <div class="row">
 	<div class="col s9">
- <h4 class="center">{{ Student.name }}</h4>
+		 {% if Student.name %}
+ 	 		<h4 class="center">
+				{{ Student.name }}
+ 			</h4>
+	 	{% else %}
+			<h4>
+	 		<a href="{% url 'student:edit_profile' %}">Edit details</a>
+			</h4>
+	 	{% endif %}
+
+</div>
+<div class="col s3">
+<h4 class="center">{{ Student.enrollment_no }}</h4>
 </div>
 <div class="col s3" style="padding-top: 25px;">
 
