@@ -23,7 +23,7 @@ def student_register(request):
         if user_form.is_valid(): #and student_profile_form.is_valid():
             user = user_form.save()
             user.set_password(user.password)
-            user.save()
+            # user.save(commit=False)
 
             #student_profile = student_profile_form.save(commit=False)
             student_profile = StudentProfile.objects.create(user = user)
@@ -32,6 +32,7 @@ def student_register(request):
             student_profile.save()
             MarkSheet.objects.create(student=student_profile)
             ExtraInfo.objects.create(student=student_profile)
+            user.save()
 
             registered = True
             return HttpResponseRedirect(reverse('account:student_login'))

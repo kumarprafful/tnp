@@ -48,20 +48,20 @@ class StudentProfile(models.Model):
 
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     enrollment_no = models.CharField(max_length=20, unique=True, null=False, blank=False)
-    name = models.CharField(_("Full Name"), max_length=100, blank=True, null=True)
+    name = models.CharField(_("Full Name"), max_length=100)
     gender = models.CharField(max_length=11, choices=GENDER)
 
     college = models.CharField(max_length=10,choices=COLLEGE,default='USICT')
     institute_code = models.IntegerField(default=0)
     program_code = models.IntegerField(default=0)
-    course = models.CharField(max_length = 20, choices=COURSE, blank=True, null=True)
+    course = models.CharField(max_length = 20, choices=COURSE)
     dob = models.DateField(_("Date of birth"), blank=True, null=True)
-    admission_year = models.IntegerField(_('Year of Admission'), choices=YEAR_CHOICES, blank=True, null=True)
-    fathers_name = models.CharField(max_length=50, null=True, blank=True)
-    mothers_name = models.CharField(max_length=50, null=True, blank=True)
+    admission_year = models.IntegerField(_('Year of Admission'), blank=True, null=True, choices=YEAR_CHOICES)
+    fathers_name = models.CharField(max_length=50, )
+    mothers_name = models.CharField(max_length=50)
 
-    region = models.CharField(max_length=20, choices=REGION, blank=True, null=True)
-    category = models.CharField(max_length=20, choices=CATEGORY, blank=True, null=True)
+    region = models.CharField(max_length=20, choices=REGION)
+    category = models.CharField(max_length=20, choices=CATEGORY)
     tweth_marks = models.IntegerField(_("12th marks"), blank=True, null=True)
     mobile = models.PositiveIntegerField(blank=True, null=True, validators=[MaxValueValidator(9999999999)])
 
