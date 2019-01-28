@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
-from student.models import StudentProfile, MarkSheet
+from student.models import StudentProfile, MarkSheet, ExtraInfo
 from .models import FacultyProfile
 from .forms import UserForm, FacultyUserForm, FacultyProfileForm
 
@@ -31,6 +31,8 @@ def student_register(request):
             student_profile.enrollment_no = user.enrollment_no
             student_profile.save()
             MarkSheet.objects.create(student=student_profile)
+            ExtraInfo.objects.create(student=student_profile)
+
             registered = True
             return HttpResponseRedirect(reverse('account:student_login'))
     else:
