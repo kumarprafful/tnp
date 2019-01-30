@@ -7,12 +7,12 @@
     <br><br>
   <div class="card center lime lighten-5 z-depth-5">
     <div class="card-inner">
-      <h5 class="login">Edit Profile</h5>
+      <h5 class="login">Basic details</h5>
 
 
 <form method="post">
   {% csrf_token %}
-  {{ student_profile_form.as_p }}
+  {{ extra_info_form.as_p }}
 
   <input type="submit" class="btn" value="Submit">
 

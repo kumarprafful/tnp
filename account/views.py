@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
-from student.models import StudentProfile, MarkSheet
+from student.models import StudentProfile, MarkSheet, ExtraInfo
 from .models import FacultyProfile
 from .forms import UserForm, FacultyUserForm, FacultyProfileForm
 
@@ -23,8 +23,10 @@ def student_register(request):
         if user_form.is_valid(): #and student_profile_form.is_valid():
             user = user_form.save()
             user.set_password(user.password)
-            user.save()
-            print(request.POST)
+
+
+            # user.save(commit=False)
+
 
             #student_profile = student_profile_form.save(commit=False)
             student_profile = StudentProfile.objects.create(user = user)
@@ -32,6 +34,9 @@ def student_register(request):
             student_profile.enrollment_no = user.enrollment_no
             student_profile.save()
             MarkSheet.objects.create(student=student_profile)
+            ExtraInfo.objects.create(student=student_profile)
+            user.save()
+
             registered = True
             return HttpResponseRedirect(reverse('account:student_login'))
     else:
@@ -118,4 +123,4 @@ def faculty_login(request):
 @login_required
 def user_logout(request):
     logout(request)
-    return HttpResponseRedirect(reverse('home:index'))
+    return HttpResponseRedirect(reverse('account:student_login'))

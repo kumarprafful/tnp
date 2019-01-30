@@ -1,5 +1,5 @@
 from django import forms
-from student.models import StudentProfile, MarkSheet
+from student.models import StudentProfile, MarkSheet, ExtraInfo
 
 class DateInput(forms.DateInput):
     input_type = 'date'
@@ -16,4 +16,9 @@ class MarkSheetForm(forms.ModelForm):
 
     class Meta:
         model = MarkSheet
+        exclude = ['student',]
+
+class ExtraInfoForm(forms.ModelForm):
+    class Meta:
+        model = ExtraInfo
         exclude = ['student',]

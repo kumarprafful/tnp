@@ -7,12 +7,18 @@
     <br><br>
   <div class="card center lime lighten-5 z-depth-5">
     <div class="card-inner">
-      <h5 class="login"> <i class="material-icons">accessibility</i>Enter your marks</h5>
+      <h5 class="login">Enter your marks</h5>
 
 
 <form method="post">
   {% csrf_token %}
-  {{ marksheet_form.as_p }}
+  {% for field in marksheet_form %}
+        <div class="input-field control">
+            {{ field.errors }}
+            {{ field.label_tag }}
+            {{ field }}
+        </div>
+    {% endfor %}
 
   <input type="submit" class="btn" value="Submit">
 
