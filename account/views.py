@@ -24,6 +24,7 @@ def student_register(request):
             user = user_form.save()
             user.set_password(user.password)
             user.save()
+            print(request.POST)
 
             #student_profile = student_profile_form.save(commit=False)
             student_profile = StudentProfile.objects.create(user = user)
