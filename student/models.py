@@ -56,7 +56,7 @@ class StudentProfile(models.Model):
     program_code = models.IntegerField(default=0)
     course = models.CharField(max_length = 20, choices=COURSE)
     dob = models.DateField(_("Date of birth"), blank=True, null=True)
-    admission_year = models.IntegerField(_('Year of Admission'), blank=True, null=True, choices=YEAR_CHOICES)
+    admission_year = models.CharField(_('Year of Admission'), max_length=10, blank=True, null=True, choices=YEAR_CHOICES)
     fathers_name = models.CharField(max_length=50, )
     mothers_name = models.CharField(max_length=50)
 
