@@ -37,7 +37,7 @@ def filter(request):
 		for i in course_filter:
 			if selected_years:
 				for j in selected_years:
-					if int(i.admission_year) == int(j):
+					if i.admission_year == j:
 						year_filter += StudentProfile.objects.filter(enrollment_no = i.enrollment_no).values()
 						break
 			else:
