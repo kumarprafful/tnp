@@ -8,7 +8,8 @@
 
 #### api/register/student
 #### api/register/faculty
-
+#### api/login
+####
 #### api/student/student-profile
 #### api/student/extra-info
 #### api/student/marksheet
