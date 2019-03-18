@@ -1,7 +1,9 @@
+from django.contrib.auth import authenticate
 from account.models import User
 from rest_framework import serializers, generics
 from student.models import StudentProfile, ExtraInfo, MarkSheet, WorkExperience, SchoolEducation, CollegeEducation
 from knox.models import AuthToken
+
 
 class CreateStudentUserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -22,6 +24,16 @@ class CreateFacultyUserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user = User.objects.create_user(validated_data['email'], validated_data['password'])
         return user
+
+class LoginUserSerializer(serializers.Serializer):
+    username = serializers.CharField()
+    password = serializers.CharField()
+
+    def validate(self, data):
+        user = authenticate(**data)
+        if user and user.is_active:
+            return user
+        raise serializers.ValidationError("Credentials wrong")
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
