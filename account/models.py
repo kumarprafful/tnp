@@ -17,6 +17,8 @@ class UserManager(BaseUserManager):
         if enrollment_no is None:
             user = self.model(email=email, **kwargs)
             user.enrollment_no = user.fill_enr_no()
+            user.is_faculty = True
+            user.is_active = False
         user.set_password(password)
         user.save(using=self._db)
         return user
