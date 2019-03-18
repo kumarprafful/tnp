@@ -1,6 +1,9 @@
 Django==2.1.2
+django-cors-headers==2.5.1
 djangorestframework==3.9.2
+djangorestframework-jwt==1.11.0
 Faker==1.0.0
+PyJWT==1.7.1
 python-dateutil==2.7.5
 pytz==2018.7
 six==1.11.0

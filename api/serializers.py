@@ -1,5 +1,32 @@
-from rest_framework import serializers
+from account.models import User
+from rest_framework import serializers, generics
 from student.models import StudentProfile, ExtraInfo, MarkSheet, WorkExperience, SchoolEducation, CollegeEducation
+from knox.models import AuthToken
+
+class CreateStudentUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['enrollment_no', 'email', 'password']
+        extra_kwargs = {'password': {'write_only': True}}
+
+    def create(self, validated_data):
+        user = User.objects.create_user(validated_data['email'], validated_data['password'], validated_data['enrollment_no'])
+        return user
+
+class CreateFacultyUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['email', 'password']
+        extra_kwargs = {'password': {'write_only': True}}
+
+    def create(self, validated_data):
+        user = User.objects.create_user(validated_data['email'], validated_data['password'])
+        return user
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = '__all__'
 
 class StudentProfileSerialzer(serializers.ModelSerializer):
     class Meta:

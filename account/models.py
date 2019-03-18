@@ -8,19 +8,23 @@ import datetime
 # Create your models here.
 class UserManager(BaseUserManager):
 
-    def _create_user(self, email, password, **kwargs):
+    def _create_user(self, email, password, enrollment_no=None, **kwargs):
         if not email:
             raise ValueError("Provide your email address")
         email = self.normalize_email(email)
-        user = self.model(email=email, **kwargs)
+        if enrollment_no is not None:
+            user = self.model(email=email,enrollment_no=enrollment_no, **kwargs)
+        if enrollment_no is None:
+            user = self.model(email=email, **kwargs)
+            user.enrollment_no = user.fill_enr_no()
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_user(self, email, password=None, **kwargs):
+    def create_user(self, email, password=None, enrollment_no=None, **kwargs):
         kwargs.setdefault('is_staff', False)
         kwargs.setdefault('is_superuser', False)
-        return self._create_user(email, password, **kwargs)
+        return self._create_user(email, password, enrollment_no, **kwargs)
 
     def create_superuser(self, email, password, **kwargs):
         kwargs.setdefault('is_staff', True)
@@ -39,7 +43,6 @@ class User(AbstractUser):
     enrollment_no = models.CharField(max_length=20, unique=True, null=False, blank=False)
     is_faculty = models.BooleanField(default=False, help_text="Designates whether the account is of student's or faculty")
 
-
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
@@ -56,11 +59,8 @@ class User(AbstractUser):
 
     def fill_enr_no(self):
         x = ''.join(random.choices(string.ascii_letters + string.digits, k=10))
-        print("X", x)
         y = ''.join(random.choices(string.ascii_letters + string.digits, k=8))
-        print("Y", y)
         z = x+y
-        print("ENR", z)
         return z
 
 

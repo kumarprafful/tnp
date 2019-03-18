@@ -1,7 +1,35 @@
+from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
+
+from knox.models import AuthToken
+
 from student.models import StudentProfile, ExtraInfo, MarkSheet, WorkExperience, SchoolEducation, CollegeEducation
-from api.serializers import StudentProfileSerialzer, ExtraInfoSerialzer, MarkSheetSerialzer, WorkExperienceSerialzer, SchoolEducationSerialzer, CollegeEducationSerialzer
+from api.serializers import *
+
+class StudentRegistrationAPI(generics.GenericAPIView):
+    serializer_class = CreateStudentUserSerializer
+    def post(self, request, *args, **kwargs):
+        print("YESS")
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.save()
+        return Response({
+            "user": UserSerializer(user, context=self.get_serializer_context()).data,
+            "token": AuthToken.objects.create(user)
+        })
+
+class FacultyRegistrationAPI(generics.GenericAPIView):
+    serializer_class = CreateFacultyUserSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.save()
+        return Response({
+            "user": UserSerializer(user, context=self.get_serializer_context()).data,
+            "token": AuthToken.objects.create(user)
+        })
 
 class StudentProfileViewset(APIView):
     def get(self, request, format=None):
