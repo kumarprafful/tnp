@@ -5,6 +5,10 @@
 
 
 ## endpoints
+
+#### api/register/student
+#### api/register/faculty
+
 #### api/student/student-profile
 #### api/student/extra-info
 #### api/student/marksheet
