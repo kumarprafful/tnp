@@ -1,32 +1,50 @@
 {% extends '../home/base.html' %}
-
 {% block body %}
-<div class="row">
-  <div class="col s6 offset-s3">
-    <br><br>
-  <div class="card center lime lighten-5 z-depth-5">
-    <div class="card-inner">
-      <h5 class="login"> <i class="material-icons">accessibility</i>Faculty Register</h5>
-      {% for message in messages %}
-        <div class="alert {{ message.tags }} alert-dismissible" role="alert">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-          {{ message }}
-        </div>
-        {% endfor %}
 
-        <form class="" method="post">
-          {% csrf_token %}
-          {{faculty_user_form.as_p}}
-          {{faculty_profile_form.as_p}}
-          <input type="submit" class="btn" value="Register">
+        <div class="ui centered grid container">
+          <div class="ten wide column">
+            <br><br>
+          <div class="ui raised card">
+            <div class="content">
+              <br /><p class="login-title">Faculty Register</p>
+            </div>
+            {% if faculty_user_form.errors %}
+             {% for field in faculty_user_form %}
+                {% for error in field.errors %}
+                    <h3 class="ui warning message center">{{ error|escape }}</h3>
+                {% endfor %}
+             {% endfor %}
+            {% endif %}
 
-        </form>
-        <p><a href="{% url 'account:faculty_login' %}">Login</a> here.</p>
-        </div>
-        </div>
-        </div>
-        </div>
+              <div class="content">
+
+              <form class="ui form" method="POST">
+                {% csrf_token %}
+                <div class="field">
+                  <label for="email" class="auth-label">Email address</label>
+                  <div class="ui left icon input ">
+                    <input class="" type="text" name="email" id="email" placeholder="Enter your email address" required><br>
+                    <i class="at icon"></i>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label for="password" class="auth-label">Password</label>
+                  <div class="ui left icon input ">
+                    <input class="" type="password" name="password" placeholder="Enter your password" required><br>
+                    <i class="eye slash icon"></i>
+                  </div>
+                </div>
+                <br />
+                <input type="submit" class="fluid ui inverted blue button" value="Register">
+
+              </form>
+              <br /><br />
+              <p class="center">Already have an account.<a href="{% url 'account:faculty_login' %}">Login</a>.</p>
+<br /><br />
+            </div>
+    </div>
+    </div>
+  </div>
 
 {% endblock %}
