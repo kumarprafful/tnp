@@ -1,15 +1,20 @@
 html{
   width: 100%;
 }
-
 body{
   /* background: linear-gradient(90deg, #90a4ae, #eceff1); */
-  background: rgb(215,215,215)
+  background: #f8f9fa;
 }
 select{
   display: block;
 }
-
+ul li {
+  text-decoration: none;
+  list-style: none;
+}
+.center{
+  text-align: center;
+}
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
@@ -17,6 +22,38 @@ input[type=number]::-webkit-outer-spin-button {
     appearance: none;
     margin: 0;
 }
+
+.navbar{
+  background: #1a237e !important;
+  height: 5em;
+  color: #fff !important;
+
+}
+
+.navbar-right-menu{
+  color: #fff;
+  font-size: 1.2rem;
+  margin-top: 1em;
+}
+.navbar-right-menu:hover{
+  color: yellow !important;
+}
+.ipu_logo{
+  height: 3em;
+}
+.ipu-brand{
+  display: flex;
+  padding: 1em;
+}
+.ipu-title-brand{
+  color: #fff;
+  font-size: 1.2rem;
+}
+.ipu-title-brand:hover{
+  color: yellow;
+}
+
+
 /* for login alerts */
 .close:not(:disabled):not(.disabled) {
     cursor: pointer;
@@ -64,39 +101,32 @@ button.close {
 }
 
 /* end */
-.ipu_logo{
-  height: 1.5em;
-  margin: .2em;
-}
-.ipu-brand{
-  display: flex;
-}
-.ipu-title-brand{
-  font-size: .2em;
 
-}
-.header{
+/* .header{
   background: #757575;
   border-radius: 20px;
-}
+} */
 
 .rm{
   padding: 0!important;
 
 }
 .card{
-  left: 0;
+  width: auto !important;
   /* border-radius: 1px!important; */
 }
-.card-inner{
-  padding: 1em;
-}
-.login{
+
+.login-title{
   color: #222;
-  border-bottom: 2px solid maroon;
+  text-align: center;
+  font-size: 2.5rem;
+  /* border-bottom: 2px solid maroon;
   display: inline;
-  padding: .4em;
+  padding: .4em; */
 }
+.auth-label{
+}
+
 .tag{
   color: #fff;
   text-align: center;
@@ -104,10 +134,7 @@ button.close {
   width: 70%;
   margin: 2em auto;
 }
-.input-login{
-  display: flex;
-  margin: 1.5em;
-}
+
 .pages{
 
 }

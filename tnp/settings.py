@@ -114,9 +114,9 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 REST_FRAMEWORK = {
-    # 'DEFAULT_PERMISSION_CLASSES': {
+    # 'DEFAULT_PERMISSION_CLASSES': (
     #     'rest_framework.permissions.IsAuthenticated',
-    # },
+    # ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         # 'account.backends.EnrollmentBackend',
         # 'api.enr_backend.DrfAuthBackend',
@@ -136,7 +136,7 @@ CORS_ORIGIN_WHITELIST = (
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
