@@ -1,0 +1,243 @@
+{% extends '../home/base.html' %}
+{% block body %}
+{% include './stud_nav.html' %}
+
+
+<!-- --------------------------- INTERNSHIP SECTION ------------------------------------>
+<section class="internship">
+<div class="row">
+  <div class="col s6 offset-s3">
+    <br><br>
+  <div class="card center lime lighten-5 z-depth-5">
+    <div class="card-inner">
+      <h4>INTERNSHIPS</h4>
+
+        {% for work_experience in work_experience_all %}
+        {% if work_experience.category == 'Internship' %}
+          <div>
+            <p>Title: {{ work_experience.title }}</p>
+            <p>Start Date: {{ work_experience.start_date }}
+            <p>End Date: {{ work_experience.end_date }}</p>
+            <p>Url: {{ work_experience.url }}</p>
+            <p>Description: {{ work_experience.description }}</p>
+            <a class="modal-trigger edit-experience-modal-btn" data-value="{{ work_experience.pk }}" href="#modal2">Edit</a> |
+            <a href="#" class="delete-btn" data-value="{{ work_experience.pk }}" >Delete</a><br><br>
+          </div>
+        {% endif %}
+        {% endfor %}
+
+        <a class="modal-trigger add-experience-modal-btn" href="#modal1" id="add-internship-modal-btn" data-value="Internship" >Add Internship</a>
+
+</div>
+</div>
+</div>
+</div>
+</section>
+<!--------------------------    INTERNSHIP SECTION END -------------------------------------->
+
+<!-- --------------------------- TRAINING SECTION ------------------------------------>
+<section class="internship">
+<div class="row">
+  <div class="col s6 offset-s3">
+    <br><br>
+  <div class="card center lime lighten-5 z-depth-5">
+    <div class="card-inner">
+      <h4>TRAININGS</h4>
+
+        {% for work_experience in work_experience_all %}
+        {% if work_experience.category == "Training" %}
+          <div>
+            <p>Title: {{ work_experience.title }}</p>
+            <p>Start Date: {{ work_experience.start_date }}
+            <p>End Date: {{ work_experience.end_date }}</p>
+            <p>Url: {{ work_experience.url }}</p>
+            <p>Description: {{ work_experience.description }}</p>
+            <a class="modal-trigger edit-experience-modal-btn" data-value="{{ work_experience.pk }}" href="#modal2">Edit</a> |
+            <a href="#" class="delete-btn" data-value="{{ work_experience.pk }}" >Delete</a><br><br>
+          </div>
+        {% endif %}
+        {% endfor %}
+
+        <a class="modal-trigger add-experience-modal-btn" href="#modal1" id="add-training-modal-btn"  data-value="Training">Add Training</a>
+
+</div>
+</div>
+</div>
+</div>
+</section>
+<!--------------------------    TRAINING SECTION END -------------------------------------->
+
+<!-- --------------------------- PROJECT SECTION ------------------------------------>
+<section class="internship">
+<div class="row">
+  <div class="col s6 offset-s3">
+    <br><br>
+  <div class="card center lime lighten-5 z-depth-5">
+    <div class="card-inner">
+      <h4>PROJECTS</h4>
+
+        {% for work_experience in work_experience_all %}
+        {% if work_experience.category == "Project" %}
+          <div>
+            <p>Title: {{ work_experience.title }}</p>
+            <p>Start Date: {{ work_experience.start_date }}
+            <p>End Date: {{ work_experience.end_date }}</p>
+            <p>Url: {{ work_experience.url }}</p>
+            <p>Description: {{ work_experience.description }}</p>
+            <a class="modal-trigger edit-experience-modal-btn" data-value="{{ work_experience.pk }}" href="#modal2">Edit</a> |
+            <a href="#" class="delete-btn" data-value="{{ work_experience.pk }}" >Delete</a><br><br>
+          </div>
+        {% endif %}
+        {% endfor %}
+
+        <a class="modal-trigger add-experience-modal-btn" href="#modal1" id="add-project-modal-btn"  data-value="Project">Add project</a>
+
+</div>
+</div>
+</div>
+</div>
+</section>
+<!--------------------------    PROJECT SECTION END -------------------------------------->
+
+<!-- --------------------------- ACHIEVEMENT SECTION ------------------------------------>
+<section class="internship">
+<div class="row">
+  <div class="col s6 offset-s3">
+    <br><br>
+  <div class="card center lime lighten-5 z-depth-5">
+    <div class="card-inner">
+      <h4>ACHIEVEMENTS</h4>
+
+        {% for work_experience in work_experience_all %}
+        {% if work_experience.category == "Achievements" %}
+          <div>
+            <p>Title: {{ work_experience.title }}</p>
+            <p>Start Date: {{ work_experience.start_date }}
+            <p>End Date: {{ work_experience.end_date }}</p>
+            <p>Url: {{ work_experience.url }}</p>
+            <p>Description: {{ work_experience.description }}</p>
+            <a class="modal-trigger edit-experience-modal-btn" data-value="{{ work_experience.pk }}" href="#modal2">Edit</a> |
+            <a href="#" class="delete-btn" data-value="{{ work_experience.pk }}" >Delete</a><br><br>
+          </div>
+        {% endif %}
+        {% endfor %}
+
+        <a class="modal-trigger add-experience-modal-btn" href="#modal1" id="add-achievement-modal-btn"  data-value="Achievement">Add Achievement</a>
+
+</div>
+</div>
+</div>
+</div>
+</section>
+<!--------------------------    ACHIEVEMENT SECTION END -------------------------------------->
+
+
+
+  <!--Work Experience Modal Structure -->
+  <div id="modal1" class="modal">
+      <form method="post" id="add-work-experience-form">
+          <div class="modal-content">
+              <h5>Work Experience Details</h5>
+            </div>
+          {% csrf_token %}
+          <div class ="form-goes-here">{{ work_experience_form.as_p }}</div>
+          <div class="modal-footer">
+          <div><input type="submit" class="btn" id="submit-btn" value="Submit"></div>
+            </div>
+          
+        
+        </form>
+  </div>
+
+  <!--Edit Experience Modal Structure -->
+  <div id="modal2" class="modal">
+      <form method="post" id="edit-work-experience-form">
+          <div class="modal-content">
+              <h5>Add Details</h5>
+            </div>
+          {% csrf_token %}
+          <div id="edit-form-goes-here"></div>
+          <div class="modal-footer">
+          <div id="form-btn-goes-here"><input type="submit" class="btn" id="edit-form-submit-btn" value="Submit"></div>
+            </div>
+          
+        
+        </form>
+  </div>
+
+
+
+
+
+
+<!--------------------------  WORK EXPERIENCE SCRIPT --------------------------------->
+ <script>
+      $(document).ready(function(){
+
+        $('.add-experience-modal-btn').click(function(){
+          $('.modal').modal();
+          var category = $(this).data("value");
+          $('#add-work-experience-form #id_category').val(category);
+        });
+
+
+        /* EDIT WORK EXPERIENCE GET REQUEST */
+        pk=0;
+        $('.edit-experience-modal-btn').click(function(){
+          pk = ($(this).data("value"));
+          var url = '{% url "student:edit_work_experience"  000 %}'.replace(000, pk);
+          $.ajax({
+                   type: "GET",
+                   url: url,
+                   success: function(data)
+                   {      
+                       $('#edit-form-goes-here').html(data);
+                   }
+      
+                 });
+          $('.modal').modal();
+        });
+
+
+         /* EDIT WORK EXPERIENCE POST REQUEST */
+        $('#edit-work-experience-form').submit(function(e){
+          e.preventDefault();
+          var url = '{% url "student:edit_work_experience"  pk=000 %}'.replace(000, pk);
+          form = $(this); 
+          $.ajax({
+                   type: "POST",
+                   url: url,
+                   data : form.serialize(),
+                   success: function(data)
+                   {
+                       console.log('edit successful');
+                   }
+                 });
+        location.reload();
+        });
+
+        /* DELETE WORK EXPERIENCE */
+        $('.delete-btn').click(function(e){
+          e.preventDefault();
+          var response = confirm('Are you sure you want to delete this work experience');
+          if(response === true){
+          var pk1 = ($(this).data("value"));
+          var url = '{% url "student:delete_work_experience"  pk=000 %}'.replace(000, pk1);
+          $.ajax({
+            type: "GET",
+            url: url,
+            success: function(data){
+              console.log(data);
+            }
+          });
+          location.reload();
+        }
+        });
+
+      });
+    </script>
+<!--------------------------------------- WORK EXPERIENCE SCRIPT END ----------------------------------------------->
+
+  {% endblock %}
+  
+

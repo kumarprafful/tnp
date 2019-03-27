@@ -209,7 +209,7 @@ class WorkExperience(models.Model):
     description = models.TextField(max_length = 200, null=True)
 
     def __str__(self):
-        return self.student.enrollment_no
+        return str(self.student.enrollment_no +': '+ self.category +': '+ self.title)
 
 
 class SchoolEducation(models.Model):
