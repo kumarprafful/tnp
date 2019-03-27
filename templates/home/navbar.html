@@ -1,21 +1,21 @@
 
 {% load staticfiles %}
-<nav>
-  <div class="nav-wrapper indigo darken-4">
-    <a href="{% url 'home:index' %}" class="brand-logo">
+<nav class="">
+  <div class="ui navbar menu">
+    <a href="{% url 'home:index' %}" class="">
       <div class="ipu-brand">
         <img class="ipu_logo" src="{% static 'img/ipu-logo.png' %}" alt="ipu-logo">
-        <h6>Training & Placements Cell<br>
-        University School of Information, Communication and Technology</h6>
+        <p class="ipu-title-brand">Training & Placements Cell<br>
+        University School of Information, Communication and Technology</p>
         <!-- <p class="ipu-title-brand">Guru Gobind Singh Indraprastha University</p> -->
       </div>
 
     </a>
-    <ul id="nav-mobile" class="right hide-on-med-and-down">
+    <ul id="nav-mobile" class="right menu">
       {% if user.is_authenticated %}
-        <li><a href="{% url 'account:logout' %}" class="btn waves-effect">Logout</a></li>
+        <li class="navbar-right-menu"><a href="{% url 'account:logout' %}" class="ui button inverted primary">Logout</a></li>
       {% else %}
-        <li><a href="{% url 'account:student_login' %}" class="btn waves-effect">Login/Register</a></li>
+        <li class="navbar-right-menu"><a href="{% url 'account:student_login' %}" class="ui button inverted primary">Login/Register</a></li>
       {% endif %}
 
     </ul>
