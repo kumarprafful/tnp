@@ -5,7 +5,14 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
-from student.models import StudentProfile, MarkSheet, ExtraInfo
+from student.models import (
+    StudentProfile,
+    MarkSheet,
+    ExtraInfo,
+    WorkExperience,
+    SchoolEducation,
+    CollegeEducation,
+    )
 from .models import FacultyProfile
 from .forms import UserForm, FacultyUserForm, FacultyProfileForm
 
@@ -35,6 +42,9 @@ def student_register(request):
             student_profile.save()
             MarkSheet.objects.create(student=student_profile)
             ExtraInfo.objects.create(student=student_profile)
+            WorkExperience.objects.create(student=student_profile)
+            SchoolEducation.objects.create(student=student_profile)
+            CollegeEducation.objects.create(student=student_profile)
             user.save()
 
             registered = True

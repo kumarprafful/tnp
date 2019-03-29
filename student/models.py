@@ -155,7 +155,7 @@ class ExtraInfo(models.Model):
 
 
     def __str__(self):
-        return self.student
+        return self.student.enrollment_no
 
 class MarkSheet(models.Model):
     student = models.OneToOneField(StudentProfile, on_delete=models.CASCADE)

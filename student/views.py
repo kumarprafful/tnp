@@ -28,9 +28,11 @@ def dashboard(request):
     if request.user.is_faculty:
         return HttpResponseRedirect(reverse('faculty:dashboard'))
     else:
-    	Student = StudentProfile.objects.get(enrollment_no = request.user.enrollment_no)
-
-    	return render(request, template_name='student/student_dashboard.html', context = {'student' : Student})
+        Student = StudentProfile.objects.get(enrollment_no = request.user.enrollment_no)
+        work_experience = WorkExperience.objects.get(student=Student)
+        school_education = SchoolEducation.objects.get(student=Student)
+        college_education = CollegeEducation.objects.get(student=Student)
+        return render(request, template_name='student/student_dashboard.html', context = {'student' : Student})
 
 
 @login_required(login_url=reverse_lazy('account:student_login'))
@@ -140,8 +142,22 @@ def deleteWorkExperienceView(request, pk):
     return HttpResponse('deletion successful')
 
 
-def education(request):
-    return render(request, 'student/education.html')
+def schoolEducation(request):
+    if request.user.is_faculty:
+        return HttpResponseRedirect(reverse('faculty:dashboard'))
+    else:
+        student = StudentProfile.objects.get(enrollment_no=request.user.enrollment_no)
+        if request.method == 'POST':
+            school_education = SchoolEducationForm(data=request.POST)
+            if school_education.is_valid():
+                school_education.save()
+                return HttpResponse('Form Submitted')
+            else:
+                return HttpResponse('INVALID FORM')
+        else:
+            school_education = SchoolEducationForm()
+            return HttpResponse(school_education.as_p())
+
 
 def studentProfileDashView(request):
     student = StudentProfile.objects.get(enrollment_no=request.user.enrollment_no)
@@ -149,11 +165,10 @@ def studentProfileDashView(request):
         studentProfile = StudentProfileDashForm(data=request.POST, instance=student)
         if studentProfile.is_valid():
             studentProfile.save()
-            return HttpResponse('Form submitteds')
+            return HttpResponse('Form submitted')
         else:
             return HttpResponse('INVALID FORM')
-        # print("A BIT EXTERNAL")
-        # print("TOTALLY EXTERNAL")
+
     else:
         studentProfile = StudentProfileDashForm(instance=student)
         return HttpResponse(studentProfile.as_p())

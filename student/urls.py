@@ -13,6 +13,6 @@ urlpatterns = [
     path('workexperience/', student_views.WorkExperienceView, name='work_experience'),
     path('editworkexperience/<int:pk>/', student_views.editWorkExperienceView, name='edit_work_experience'),
     path('deleteworkexperience/<int:pk>/', student_views.deleteWorkExperienceView, name='delete_work_experience'),
-    path('education/', student_views.education, name='education'),
+    path('school-education/', student_views.schoolEducation, name='school-education'),
 
 ]
