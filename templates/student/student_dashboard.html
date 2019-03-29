@@ -49,7 +49,7 @@
 	</div>
 	<!-- Ends Personal Deatils -->
 
-	<!-- Work Experience -->
+	<!-- School Education -->
 	<div class="ui card">
 		<div class="content">
 			<div class="header">
@@ -57,7 +57,16 @@
 			</div>
 			<div class="content">
 				{% if school_education == None %}
+
 				{% else %}
+				{% for edu in school_education reversed %}
+					{% if edu.qualificaion != None %}
+						<p><b>{{edu.qualificaion}}</b> - {{edu.school}} ({{edu.board}})</p>
+						<p><b>Year of completition</b> - {{edu.year}}</p>
+						<p><b>Percentage/CGPA</b> - {{edu.marks}}</p>
+						<br />
+					{% endif %}
+				{% endfor %}
 				{% endif %}
 				<div class="center school-edu-modal-btn">
 					<i class="large plus icon"></i>
@@ -70,7 +79,7 @@
 						School Education
 					</div>
 					<div class="content description">
-						<form class="ui form">
+						<form class="ui form school-edu-form-data">
 							{% csrf_token %}
 							<div class="school-edu-form"></div>
 							<button class="ui button">Submit</button>
@@ -84,7 +93,49 @@
 		</div>
 
 	</div>
-	<!-- Ends Work Experience -->
+	<!-- Ends School Education -->
+
+	<!-- College Education -->
+	<div class="ui card">
+		<div class="content">
+			<div class="header">
+				College Education
+			</div>
+			<div class="content">
+				{% if college_education == None %}
+				{% else %}
+					{% for edu in college_education %}
+						{{edu.course}}
+						{{edu.branch}}
+
+					{% endfor %}
+				{% endif %}
+				<div class="center college-edu-modal-btn">
+					<i class="large plus icon"></i>
+					<p>Add College</p>
+				</div>
+
+				<div class="ui modal college-edu-modal">
+					<i class="close icon"></i>
+					<div class="header">
+						College Education
+					</div>
+					<div class="content description">
+						<form class="ui form college-edu-form-data">
+							{% csrf_token %}
+							<div class="college-edu-form"></div>
+							<button class="ui button">Submit</button>
+						</form>
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+	<!-- Ends College Education -->
 
 
 
@@ -99,6 +150,11 @@
 
 	$('.school-edu-modal-btn').click(function(){
 		$('.school-edu-modal').modal('show');
+
+	})
+
+	$('.college-edu-modal-btn').click(function(){
+		$('.college-edu-modal').modal('show');
 
 	})
 
@@ -146,6 +202,60 @@
 				$('.school-edu-form').html(data);
 			}
 		});
+	});
+
+	$('.school-edu-form-data').submit(function(e){
+		e.preventDefault();
+		var url = '{% url "student:school-education" %}';
+		var form = $(this);
+		$.ajax({
+			type: 'POST',
+			url: url,
+			data: form.serialize(),
+			success: function(data) {
+				if(data === 'INVALID FORM'){
+					$('.error').html(data);
+				}
+				else{
+					location.reload();
+
+				}
+			}
+		});
+	});
+
+
+	$('.college-edu-modal-btn').click(function(){
+		var url = '{% url "student:college-education" %}';
+		$.ajax({
+			type: "GET",
+			url: url,
+			success: function(data){
+				$('.college-edu-form').html(data);
+			}
+		});
+	});
+
+	$('.college-edu-form-data').submit(function(e){
+		e.preventDefault();
+		var url = '{% url "student:college-education" %}';
+		var form = $(this);
+		$.ajax({
+			type: 'POST',
+			url: url,
+			data: form.serialize(),
+			success: function(data){
+				console.log(data);
+				if(data==='INVALID FORM'){
+					$('.error').html(data);
+					}
+					else{
+						console.log(data);
+					// location.reload();
+
+					}
+			}
+		})
 	});
 </script>
 

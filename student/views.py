@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.decorators import login_required
@@ -29,10 +29,10 @@ def dashboard(request):
         return HttpResponseRedirect(reverse('faculty:dashboard'))
     else:
         Student = StudentProfile.objects.get(enrollment_no = request.user.enrollment_no)
-        work_experience = WorkExperience.objects.get(student=Student)
-        school_education = SchoolEducation.objects.get(student=Student)
-        college_education = CollegeEducation.objects.get(student=Student)
-        return render(request, template_name='student/student_dashboard.html', context = {'student' : Student})
+        work_experience = WorkExperience.objects.filter(student=Student)
+        school_education = SchoolEducation.objects.filter(student=Student)
+        college_education = CollegeEducation.objects.filter(student=Student)
+        return render(request, template_name='student/student_dashboard.html', context = {'student' : Student, 'school_education': school_education, 'college_education': college_education})
 
 
 @login_required(login_url=reverse_lazy('account:student_login'))
@@ -146,13 +146,33 @@ def schoolEducation(request):
         if request.method == 'POST':
             school_education = SchoolEducationForm(data=request.POST)
             if school_education.is_valid():
-                school_education.save()
+                edu = school_education.save(commit=False)
+                edu.student = student
+                edu.save()
                 return HttpResponse('Form Submitted')
             else:
                 return HttpResponse('INVALID FORM')
         else:
             school_education = SchoolEducationForm()
             return HttpResponse(school_education.as_p())
+
+def collegeEducation(request):
+    if request.user.is_faculty:
+        return HttpResponseRedirect(reverse('faculty:dashboard'))
+    else:
+        student = StudentProfile.objects.get(enrollment_no=request.user.enrollment_no)
+        if request.method == 'POST':
+            college_education = CollegeEducationForm(data=request.POST)
+            if college_education.is_valid():
+                edu = college_education.save(commit=False)
+                edu.student = student
+                edu.save()
+                return HttpResponse('Form Submitted')
+            else:
+                return HttpResponse('INVALID FORM')
+        else:
+            college_education = CollegeEducationForm()
+            return HttpResponse(college_education.as_p())
 
 
 def studentProfileDashView(request):
