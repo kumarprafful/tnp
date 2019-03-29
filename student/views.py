@@ -102,7 +102,6 @@ def WorkExperienceView(request):
         if request.method == 'POST':
             work_experience_form = WorkExperienceForm(request.POST)
             if work_experience_form.is_valid():
-                print('i was here lllalalal')
                 work_experience = work_experience_form.save(commit=False)
                 work_experience.student = student
                 work_experience.save()
@@ -123,15 +122,12 @@ def editWorkExperienceView(request, pk):
     student = StudentProfile.objects.get(enrollment_no = request.user.enrollment_no)
     instance = WorkExperience.objects.get(pk=pk)
     if request.method == 'POST':
-        print("i Think it nuttts")
         work_experience_form = WorkExperienceForm(data=request.POST, instance=instance)
         if work_experience_form.is_valid():
-            print('i was here ollaaa')
             work_experience_form.save()
             return HttpResponse('edit successful')
 
     else:
-        print("i am gonna ")
         student_profile_form = WorkExperienceForm(instance=instance)
         return HttpResponse(student_profile_form.as_p())
 
