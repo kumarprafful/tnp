@@ -8,9 +8,16 @@ from student.models import (
     SchoolEducation,
     CollegeEducation,
     )
-
 class DateInput(forms.DateInput):
     input_type = 'date'
+
+
+class StudentProfileDashForm(forms.ModelForm):
+    dob = forms.DateField(required = False, widget = DateInput())
+
+    class Meta:
+        model = StudentProfile
+        exclude = ['user', 'enrollment_no', 'college',]
 
 class StudentProfileForm(forms.ModelForm):
 
@@ -51,4 +58,3 @@ class CollegeEducationForm(forms.ModelForm):
     class Meta:
         model = CollegeEducation
         exclude = ['student',]
-
