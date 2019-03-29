@@ -15,10 +15,11 @@ from student.models import (
 from student.forms import(
     StudentProfileForm,
     MarkSheetForm,
-    ExtraInfoForm, 
-    WorkExperienceForm, 
-    SchoolEducationForm, 
+    ExtraInfoForm,
+    WorkExperienceForm,
+    SchoolEducationForm,
     CollegeEducationForm,
+    StudentProfileDashForm,
     )
 
 # Create your views here.
@@ -29,7 +30,7 @@ def dashboard(request):
     else:
     	Student = StudentProfile.objects.get(enrollment_no = request.user.enrollment_no)
 
-    	return render(request, template_name='student/student_dashboard.html', context = {'Student' : Student})
+    	return render(request, template_name='student/student_dashboard.html', context = {'student' : Student})
 
 
 @login_required(login_url=reverse_lazy('account:student_login'))
@@ -47,7 +48,7 @@ def edit_profile(request):
 
 		else:
 			student_profile_form = StudentProfileForm(instance=Student)
-		return render(request, template_name='student/edit_profile.html', context = {'student_profile_form': student_profile_form})
+		return render(request, template_name='student/student_dashboard.html', context = {'student_profile_form': student_profile_form})
 
 
 def createMarkSheetView(request):
@@ -112,7 +113,7 @@ def WorkExperienceView(request):
             'work_experience_all' : work_experience_all,
             'work_experience_form' : work_experience_form,
         }
-        
+
         return render(request, 'student/work_experience.html', context)
 
 def editWorkExperienceView(request, pk):
@@ -141,3 +142,18 @@ def deleteWorkExperienceView(request, pk):
 
 def education(request):
     return render(request, 'student/education.html')
+
+def studentProfileDashView(request):
+    student = StudentProfile.objects.get(enrollment_no=request.user.enrollment_no)
+    if request.method == 'POST':
+        studentProfile = StudentProfileDashForm(data=request.POST, instance=student)
+        if studentProfile.is_valid():
+            studentProfile.save()
+            return HttpResponse('Form submitteds')
+        else:
+            return HttpResponse('INVALID FORM')
+        # print("A BIT EXTERNAL")
+        # print("TOTALLY EXTERNAL")
+    else:
+        studentProfile = StudentProfileDashForm(instance=student)
+        return HttpResponse(studentProfile.as_p())

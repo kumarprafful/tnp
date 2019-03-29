@@ -55,26 +55,18 @@ class StudentProfile(models.Model):
     name = models.CharField(_("Full Name"), max_length=100)
     gender = models.CharField(max_length=11, choices=GENDER)
     dob = models.DateField(_("Date of birth"), blank=True, null=True)
-
-
     college = models.CharField(max_length=10,choices=COLLEGE,default='USICT')
     #institute_code = models.IntegerField(default=0)
     #program_code = models.IntegerField(default=0)
     course = models.CharField(max_length = 20, choices=COURSE)
     admission_year = models.IntegerField(_('Year of Admission'), blank=True, null=True, choices=ADMISSION_YEAR_CHOICES)
     passing_year = models.IntegerField(_('Year of Passing Out'), blank=True, null=True, choices=PASSING_YEAR_CHOICES)
-
-
     fathers_name = models.CharField(max_length=100)
-
     region = models.CharField(max_length=20, choices=REGION)
     category = models.CharField(max_length=20, choices=CATEGORY)
-
     primary_mobile = models.PositiveIntegerField(_("Mobile Number"), blank=True, null=True, validators=[MaxValueValidator(9999999999)])
     secondary_mobile = models.PositiveIntegerField(_("Alternative Mobile Number"), blank=True, null=True, validators=[MaxValueValidator(9999999999)])
-    secondary_email = models.EmailField(_('Alternative email'), blank=True, null=True)
     address = models.TextField(max_length=200, blank=True, null=True)
-
 
     def __str__(self):
         return self.user.email
@@ -165,10 +157,6 @@ class ExtraInfo(models.Model):
     def __str__(self):
         return self.student
 
-
-
-
-
 class MarkSheet(models.Model):
     student = models.OneToOneField(StudentProfile, on_delete=models.CASCADE)
     semester_1 = models.DecimalField(max_digits=5, decimal_places=3, validators=[MaxValueValidator(10.000),MinValueValidator(0.000)],blank=True, null=True)
@@ -188,11 +176,9 @@ class MarkSheet(models.Model):
         return self.student.enrollment_no
         #return "%s "%s" % (self.student.enrollment_no, self.student.name)
 
-
 class WorkExperience(models.Model):
 
     CATEGORY_CHOICE =(
-
         ('Internship', 'Internship'),
         ('Project', 'Project'),
         ('Training', 'Training'),
@@ -210,7 +196,6 @@ class WorkExperience(models.Model):
 
     def __str__(self):
         return str(self.student.enrollment_no +': '+ self.category +': '+ self.title)
-
 
 class SchoolEducation(models.Model):
 
@@ -233,7 +218,6 @@ class SchoolEducation(models.Model):
     def __str__(self):
         return self.student.enrollment_no
 
-
 class CollegeEducation(models.Model):
     student = models.ForeignKey(StudentProfile, on_delete=models.CASCADE)
     course = models.CharField(max_length=50, null=True, blank=True)
@@ -245,4 +229,3 @@ class CollegeEducation(models.Model):
 
     def __str__(self):
         return self.student.enrollment_no
-

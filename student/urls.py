@@ -5,6 +5,8 @@ app_name = 'student'
 
 urlpatterns = [
     path('', student_views.dashboard, name='dashboard'),
+    path('student_profile_dash_form/', student_views.studentProfileDashView, name='student_profile_dash_form'),
+
     path('edit-profile/', student_views.edit_profile, name='edit_profile'),
     path('marks/', student_views.createMarkSheetView, name='add_marks'),
     path('basic-details/', student_views.createExtraInfoView, name='basic_details'),

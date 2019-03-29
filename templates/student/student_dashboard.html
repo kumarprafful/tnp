@@ -1,102 +1,173 @@
 {% extends '../home/base.html' %}
 {% block body %}
-{% include './stud_nav.html' %}
 
 
-<div class="container">
+<div class="ui container">
+	<div class="ui card" style="margin-top:1em">
+		<div class="content">
+			<a><i id="m" class="right floated pencil alternate icon"></i></a>
+
+			<div class="ui modal">
+				<i class="close icon"></i>
+				<div class="header">
+					Personal Details 	<div class="error"></div>
+				</div>
+
+				<div class="scrolling content description">
+
+					<form class="ui form student-form">
+						{% csrf_token %}
+						<div class="profile-form">
+
+
+						</div>
+						<button class="ui button student-profile-form">Submit</button>
+
+						<!-- <div class="field">
+							<label for="name" class="auth-label">Full Name</label>
+							<div class="ui left icon input">
+								<input class="" type="text" name="name" placeholder="Full Name" required><br>
+								<i class="eye slash icon"></i>
+							</div>
+						</div>
+
+						<div class="field">
+							<label for="gender" class="auth-label">Gender</label>
+							<div class="ui left icon input ">
+								<select class="" name="">
+										<option value="Male" selected>Male</option>
+										<option value="Female">Female</option>
+										<option value="Others">Others</option>
+								</select>
+								<br>
+							</div>
+						</div>
+
+						<div class="field">
+							<label for="dob" class="auth-label">Date of Birth</label>
+							<div class="ui left icon input ">
+								<input class="" type="date" name="dob" required><br>
+							</div>
+						</div>
+
+						<div class="field">
+							<label for="name" class="auth-label">Course</label>
+							<div class="ui left icon input ">
+								<input class="" type="text" name="name" placeholder="Full Name" required><br>
+								<i class="eye slash icon"></i>
+							</div>
+						</div>
+
+						<div class="field">
+							<label for="name" class="auth-label">Admission year</label>
+							<div class="ui left icon input ">
+								<input class="" type="text" name="name" placeholder="Full Name" required><br>
+								<i class="eye slash icon"></i>
+							</div>
+						</div>
+
+						<div class="field">
+							<label for="name" class="auth-label">Passing Year</label>
+							<div class="ui left icon input ">
+								<input class="" type="text" name="name" placeholder="Full Name" required><br>
+								<i class="eye slash icon"></i>
+							</div>
+						</div>
+
+						<div class="field">
+							<label for="name" class="auth-label">Passing Year</label>
+							<div class="ui left icon input ">
+								<input class="" type="text" name="name" placeholder="Full Name" required><br>
+								<i class="eye slash icon"></i>
+							</div>
+						</div>
+
+						<div class="field">
+							<label for="name" class="auth-label">Passing Year</label>
+							<div class="ui left icon input ">
+								<input class="" type="text" name="name" placeholder="Full Name" required><br>
+								<i class="eye slash icon"></i>
+							</div>
+						</div> -->
+
+
+					</form>
+				</div>
+
+			</div>
+
+			<div class="header">
+				{% if student.name %}
+					{{student.name}}
+				{% else %}
+					<a>Edit name</a>
+				{% endif %}
+			</div>
+			<div class="meta">
+				<p>{{student.user.email}}</p>
+				<p>{{student.user.gender}}</p>
+				<p>{{student.user.dob}}</p>
+
+
+				<p>{{student.college}}</p>
+				<p>{{student.course}} ({{student.admission_year}}-{{student.passing_year}})</p>
+				<p>{{student.primary_mobile}}</p>
+				<p>{{student.address}}</p>
+				<p>{{student.region}}</p>
+				<p>{{student.category}}</p>
 
 
 
-<div class="row">
-	<div class="col s9">
-		 {% if Student.name %}
- 	 		<h4 class="center">
-				{{ Student.name }}
- 			</h4>
-	 	{% else %}
-			<h4>
-	 		<a href="{% url 'student:edit_profile' %}">Edit details</a>
-			</h4>
-	 	{% endif %}
+
+
+
+
+			</div>
+		</div>
+	</div>
 
 </div>
-<div class="col s3">
-<h4 class="center">{{ Student.enrollment_no }}</h4>
-</div>
-<div class="col s3" style="padding-top: 25px;">
 
-</div>
-</div>
+<script type="text/javascript">
+	$('#m').click(function(){
+		$('.modal').modal('show');
 
+	})
 
-<div class="divider"></div>
+	$('#m').click(function(){
+		var url = '{% url "student:student_profile_dash_form" %}';
+		$.ajax({
+			type:"GET",
+			url: url,
+			success: function(data){
+				$('.profile-form').html(data);
+				// alert(data);
+				console.log(data);
 
-<table class="centered">
+			}
+		});
+	});
 
-{% if Student.name %}
-  <tr>
-    <td>Full Name</td>
-    <td>{{ Student.name }}</td>
-  </tr>
-{% endif %}
+	$('.student-form').submit(function(e){
+		e.preventDefault();
+		var url = '{% url "student:student_profile_dash_form" %}';
+		var form = $(this);
+		console.log($(this));
+		$.ajax({
+			type: "POST",
+			url: url,
+			data: form.serialize(),
+			success: function(data){
+				if(data === 'INVALID FORM'){
+					$('.error').html(data)
+				}
+				else{
+					location.reload();
 
-{% if Student.college %}
-<tr>
-    <td>College</td>
-    <td>{{ Student.college }}</td>
-  </tr>
-{% endif %}
+				}
+			}
+		})
+	})
+</script>
 
-{% if Student.course %}
-  <tr>
-    <td>Course</td>
-    <td>{{ Student.get_course_display }}</td>
-  </tr>
-{% endif %}
-
-{% if Student.dob %}
-  <tr>
-    <td>Date of Birth</td>
-    <td>{{ Student.dob }}</td>
-  </tr>
-{% endif %}
-
-{% if Student.admission_year %}
-  <tr>
-    <td>Year of Admission</td>
-    <td>{{ Student.admission_year }}</td>
-  </tr>
-{% endif %}
-
-{% if Student.fathers_name %}
-  <tr>
-    <td>Father's name</td>
-    <td>{{ Student.fathers_name }}</td>
-  </tr>
-{% endif %}
-
-{% if Student.region %}
-  <tr>
-    <td>Region</td>
-    <td>{{ Student.get_region_display }}</td>
-  </tr>
-{% endif %}
-
-{% if Student.category %}
-  <tr>
-    <td>Category</td>
-    <td>{{ Student.get_category_display }}</td>
-  </tr>
-{% endif %}
-
-{% if Student.mobile %}
-  <tr>
-    <td>Mobile</td>
-    <td>{{ Student.mobile }}</td>
-  </tr>
-{% endif %}
-
-</table>
-
-</div>
 {% endblock %}
