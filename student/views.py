@@ -32,7 +32,12 @@ def dashboard(request):
         work_experience = WorkExperience.objects.filter(student=Student)
         school_education = SchoolEducation.objects.filter(student=Student)
         college_education = CollegeEducation.objects.filter(student=Student)
-        return render(request, template_name='student/student_dashboard.html', context = {'student' : Student, 'school_education': school_education, 'college_education': college_education})
+        return render(request, template_name='student/student_dashboard.html', context = {
+                            'student' : Student,
+                            'school_education': school_education,
+                            'college_education': college_education,
+                            'work_experience':work_experience
+                            })
 
 
 @login_required(login_url=reverse_lazy('account:student_login'))
@@ -188,3 +193,21 @@ def studentProfileDashView(request):
     else:
         studentProfile = StudentProfileDashForm(instance=student)
         return HttpResponse(studentProfile.as_p())
+
+def workExperienceDashView(request):
+    if request.user.is_faculty:
+        return HttpResponseRedirect(reverse('faculty:dashboard'))
+    else:
+        student = StudentProfile.objects.get(enrollment_no=request.user.enrollment_no)
+        if request.method == 'POST':
+            work_exp = WorkExperienceForm(data=request.POST)
+            if work_exp.is_valid():
+                edu = work_exp.save(commit=False)
+                edu.student = student
+                edu.save()
+                return HttpResponse('Form Submitted')
+            else:
+                return HttpResponse('INVALID FORM')
+        else:
+            work_exp = WorkExperienceForm()
+            return HttpResponse(work_exp.as_p())

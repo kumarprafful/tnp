@@ -15,6 +15,7 @@ urlpatterns = [
     path('deleteworkexperience/<int:pk>/', student_views.deleteWorkExperienceView, name='delete_work_experience'),
     path('school-education/', student_views.schoolEducation, name='school-education'),
     path('college-education/', student_views.collegeEducation, name='college-education'),
+    path('work-exp/', student_views.workExperienceDashView, name='work-exp'),
 
 
 ]

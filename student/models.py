@@ -219,12 +219,20 @@ class SchoolEducation(models.Model):
         return self.student.enrollment_no
 
 class CollegeEducation(models.Model):
+    ADMISSION_YEAR_CHOICES = []
+    for r in range((datetime.now().year-4), (datetime.now().year+1)):
+        ADMISSION_YEAR_CHOICES.append((r,r))
+
+    PASSING_YEAR_CHOICES = []
+    for r in range((datetime.now().year), (datetime.now().year+5)):
+        PASSING_YEAR_CHOICES.append((r,r))
+
     student = models.ForeignKey(StudentProfile, on_delete=models.CASCADE)
     course = models.CharField(max_length=50, null=True, blank=True)
     branch = models.CharField(max_length=50, null=True, blank=True)
     college = models.CharField(max_length=200, null=True, blank=True)
-    start_date = models.DateField(_("Starting Date"), null=True)
-    end_date = models.DateField(_("Ending Date"), blank=True, null=True)
+    start_date = models.IntegerField(_("Year of admission"), choices=ADMISSION_YEAR_CHOICES, blank=True, null=True)
+    end_date = models.IntegerField(_("Passing year"), choices=PASSING_YEAR_CHOICES, blank=True, null=True)
     marks = models.DecimalField(_("Aggregate Marks/CGPA"), max_digits=5, decimal_places=3, blank=True, null=True)
 
     def __str__(self):

@@ -8,7 +8,7 @@
 		<div class="content">
 			<a><i id="m" class="right floated pencil alternate icon"></i></a>
 
-			<div class="ui modal">
+			<div class="ui modal student-profile-modal">
 				<i class="close icon"></i>
 				<div class="header">
 					Personal Details 	<div class="error"></div>
@@ -78,7 +78,7 @@
 					<div class="header">
 						School Education
 					</div>
-					<div class="content description">
+					<div class="scrolling content description">
 						<form class="ui form school-edu-form-data">
 							{% csrf_token %}
 							<div class="school-edu-form"></div>
@@ -105,9 +105,11 @@
 				{% if college_education == None %}
 				{% else %}
 					{% for edu in college_education %}
+						{% if edu.course != None %}
 						{{edu.course}}
 						{{edu.branch}}
-
+						{% else %}
+						{% endif %}
 					{% endfor %}
 				{% endif %}
 				<div class="center college-edu-modal-btn">
@@ -120,31 +122,65 @@
 					<div class="header">
 						College Education
 					</div>
-					<div class="content description">
+					<div class="scrolling content description">
 						<form class="ui form college-edu-form-data">
 							{% csrf_token %}
 							<div class="college-edu-form"></div>
 							<button class="ui button">Submit</button>
 						</form>
 					</div>
-
 				</div>
-
 			</div>
-
 		</div>
-
 	</div>
 	<!-- Ends College Education -->
 
+	<!-- Work Experience -->
+	<div class="ui card">
+		<div class="content">
+			<div class="header">
+				Work Experience
+			</div>
+			<div class="content">
+				{% if work_experience == None %}
+				{% else %}
+					{% for exp in work_experience %}
+						{% if exp.category != None %}
+						{{exp.category}}
+						{{exp.title}}
+						{% else %}
+						{% endif %}
+					{% endfor %}
+				{% endif %}
+				<div class="center work-exp-modal-btn">
+					<i class="large plus icon"></i>
+					<p>Add work experience</p>
+				</div>
 
+				<div class="ui modal work-exp-modal">
+					<i class="close icon"></i>
+					<div class="header">
+						Work Experience
+					</div>
+					<div class="scrolling content description">
+						<form class="ui form work-exp-form-data">
+							{% csrf_token %}
+							<div class="work-exp-form"></div>
+							<button class="ui button">Submit</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Ends Work Experience -->
 
 
 </div>
 
 <script type="text/javascript">
 	$('#m').click(function(){
-		$('.modal').modal('show');
+		$('.student-profile-modal').modal('show');
 
 	})
 
@@ -155,6 +191,11 @@
 
 	$('.college-edu-modal-btn').click(function(){
 		$('.college-edu-modal').modal('show');
+
+	})
+
+	$('.work-exp-modal-btn').click(function(){
+		$('.work-exp-modal').modal('show');
 
 	})
 
@@ -250,9 +291,40 @@
 					$('.error').html(data);
 					}
 					else{
-						console.log(data);
-					// location.reload();
+						// console.log(data);
+						location.reload();
+					}
+			}
+		})
+	});
 
+	$('.work-exp-modal-btn').click(function(){
+		var url = '{% url "student:work-exp" %}';
+		$.ajax({
+			type: "GET",
+			url: url,
+			success: function(data){
+				$('.work-exp-form').html(data);
+			}
+		});
+	});
+
+	$('.work-exp-form-data').submit(function(e){
+		e.preventDefault();
+		var url = '{% url "student:work-exp" %}';
+		var form = $(this);
+		$.ajax({
+			type: 'POST',
+			url: url,
+			data: form.serialize(),
+			success: function(data){
+				console.log(data);
+				if(data==='INVALID FORM'){
+					$('.error').html(data);
+					}
+					else{
+						// console.log(data);
+						location.reload();
 					}
 			}
 		})

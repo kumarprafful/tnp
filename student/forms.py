@@ -42,7 +42,7 @@ class WorkExperienceForm(forms.ModelForm):
 
     start_date = forms.DateField(required = False, widget = DateInput())
     end_date = forms.DateField(required = False, widget = DateInput())
-    category = forms.CharField(widget=HiddenInput)
+    # category = forms.CharField(widget=HiddenInput)
 
     class Meta:
         model = WorkExperience
