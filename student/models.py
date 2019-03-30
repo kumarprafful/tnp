@@ -47,24 +47,24 @@ class StudentProfile(models.Model):
     GENDER = (
         ('Male', 'Male'),
         ('Female', 'Female'),
-        ('Transgender', 'Transgender'),
+        ('Others', 'Others'),
     )
 
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     enrollment_no = models.CharField(max_length=20, unique=True, null=False, blank=False)
-    name = models.CharField(_("Full Name"), max_length=100)
-    gender = models.CharField(max_length=11, choices=GENDER)
+    name = models.CharField(_("Full Name"), max_length=100, blank=True, null=True)
+    gender = models.CharField(max_length=11, choices=GENDER, blank=True, null=True)
     dob = models.DateField(_("Date of birth"), blank=True, null=True)
-    college = models.CharField(max_length=10,choices=COLLEGE,default='USICT')
-    #institute_code = models.IntegerField(default=0)
-    #program_code = models.IntegerField(default=0)
-    course = models.CharField(max_length = 20, choices=COURSE)
-    admission_year = models.IntegerField(_('Year of Admission'), blank=True, null=True, choices=ADMISSION_YEAR_CHOICES)
-    passing_year = models.IntegerField(_('Year of Passing Out'), blank=True, null=True, choices=PASSING_YEAR_CHOICES)
-    fathers_name = models.CharField(max_length=100)
-    region = models.CharField(max_length=20, choices=REGION)
-    category = models.CharField(max_length=20, choices=CATEGORY)
-    primary_mobile = models.PositiveIntegerField(_("Mobile Number"), blank=True, null=True, validators=[MaxValueValidator(9999999999)])
+    college = models.CharField(max_length=10,choices=COLLEGE, default='USICT')
+    # institute_code = models.IntegerField(default=0)
+    # program_code = models.IntegerField(default=0)
+    course = models.CharField(max_length = 20, choices=COURSE, blank=True, null=True)
+    admission_year = models.IntegerField(_('Year of Admission'), choices=ADMISSION_YEAR_CHOICES, blank=True, null=True)
+    passing_year = models.IntegerField(_('Year of Passing Out'), choices=PASSING_YEAR_CHOICES, blank=True, null=True)
+    fathers_name = models.CharField(max_length=100, blank=True, null=True)
+    region = models.CharField(max_length=20, choices=REGION, blank=True, null=True)
+    category = models.CharField(max_length=20, choices=CATEGORY, blank=True, null=True)
+    primary_mobile = models.PositiveIntegerField(_("Mobile Number"), validators=[MaxValueValidator(9999999999)], blank=True, null=True)
     secondary_mobile = models.PositiveIntegerField(_("Alternative Mobile Number"), blank=True, null=True, validators=[MaxValueValidator(9999999999)])
     address = models.TextField(max_length=200, blank=True, null=True)
 
@@ -200,8 +200,8 @@ class WorkExperience(models.Model):
 class SchoolEducation(models.Model):
 
     QUALIFICATON_CHOICE = (
-        ('HighSchool', 'High School'),
-        ('SeniorSecondary', 'Senior Secondary'),
+        ('X (Secondary)', 'X (Secondary)'),
+        ('XII (Senior Secondary)', 'XII (Senior Secondary)'),
     )
 
     YEAR_CHOICES = []
@@ -209,11 +209,11 @@ class SchoolEducation(models.Model):
         YEAR_CHOICES.append((r,r))
 
     student = models.ForeignKey(StudentProfile, on_delete=models.CASCADE)
-    qualificaion = models.CharField(choices=QUALIFICATON_CHOICE, max_length=20, null=True)
-    year = models.IntegerField(choices=YEAR_CHOICES, null=True, blank=True)
-    board = models.CharField(max_length=50, null=True, blank=True)
-    school = models.CharField(max_length=100, null=True, blank=True)
-    marks = models.CharField(_("Percentage/CGPA"), max_length=5, null=True, blank=True)
+    qualification = models.CharField(choices=QUALIFICATON_CHOICE, max_length=20, blank=True, null=True)
+    year = models.IntegerField(choices=YEAR_CHOICES, blank=True, null=True)
+    board = models.CharField(max_length=50, blank=True, null=True)
+    school = models.CharField(max_length=100, blank=True, null=True)
+    marks = models.DecimalField(_("Percentage/CGPA"), max_digits=5, decimal_places=2, null=True, blank=True)
 
     def __str__(self):
         return self.student.enrollment_no
@@ -228,9 +228,9 @@ class CollegeEducation(models.Model):
         PASSING_YEAR_CHOICES.append((r,r))
 
     student = models.ForeignKey(StudentProfile, on_delete=models.CASCADE)
-    course = models.CharField(max_length=50, null=True, blank=True)
-    branch = models.CharField(max_length=50, null=True, blank=True)
-    college = models.CharField(max_length=200, null=True, blank=True)
+    course = models.CharField(max_length=50)
+    branch = models.CharField(max_length=50)
+    college = models.CharField(max_length=200)
     start_date = models.IntegerField(_("Year of admission"), choices=ADMISSION_YEAR_CHOICES, blank=True, null=True)
     end_date = models.IntegerField(_("Passing year"), choices=PASSING_YEAR_CHOICES, blank=True, null=True)
     marks = models.DecimalField(_("Aggregate Marks/CGPA"), max_digits=5, decimal_places=3, blank=True, null=True)

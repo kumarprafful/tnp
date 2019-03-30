@@ -143,13 +143,14 @@ def deleteWorkExperienceView(request, pk):
     return HttpResponse('deletion successful')
 
 
-def schoolEducation(request):
+def schoolEducation(request,pk):
     if request.user.is_faculty:
         return HttpResponseRedirect(reverse('faculty:dashboard'))
     else:
         student = StudentProfile.objects.get(enrollment_no=request.user.enrollment_no)
+        school_edu = SchoolEducation.objects.get(student=student ,pk=pk)
         if request.method == 'POST':
-            school_education = SchoolEducationForm(data=request.POST)
+            school_education = SchoolEducationForm(data=request.POST, instance=school_edu)
             if school_education.is_valid():
                 edu = school_education.save(commit=False)
                 edu.student = student
@@ -158,7 +159,7 @@ def schoolEducation(request):
             else:
                 return HttpResponse('INVALID FORM')
         else:
-            school_education = SchoolEducationForm()
+            school_education = SchoolEducationForm(instance=school_edu)
             return HttpResponse(school_education.as_p())
 
 def collegeEducation(request):

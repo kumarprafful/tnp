@@ -25,7 +25,7 @@ class StudentProfileForm(forms.ModelForm):
 
     class Meta:
         model = StudentProfile
-        exclude = ['user', 'enrollment_no',]
+        fields = ['name', 'gender', 'course', 'admission_year', 'passing_year']
 
 class MarkSheetForm(forms.ModelForm):
 
@@ -52,7 +52,7 @@ class WorkExperienceForm(forms.ModelForm):
 class SchoolEducationForm(forms.ModelForm):
     class Meta:
         model = SchoolEducation
-        exclude = ['student',]
+        exclude = ['student', 'qualification']
 
 class CollegeEducationForm(forms.ModelForm):
     class Meta:
