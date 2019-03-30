@@ -7,7 +7,7 @@
 
 	<!-- Personal Deatils -->
 		<div class="content">
-			<a><i id="m" class="right floated pencil alternate icon"></i></a>
+			<a  data-tooltip="Edit this" data-inverted=""><i id="m" class="right floated pencil alternate icon"></i></a>
 
 			<div class="ui modal student-profile-modal">
 				<i class="close icon"></i>
@@ -68,7 +68,7 @@
 									<input type="hidden" name="" value={{edu.id}}>
 							</a>
 								{% else %}
-								<a class=" school-edu-modal-btn">
+								<a class=" school-edu-modal-btn" data-tooltip="Edit this" data-inverted="">
 									<i id="" class="right floated pencil alternate icon"></i>
 									<input type="hidden" name="" value={{edu.id}}>
 								</a>
