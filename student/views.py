@@ -17,6 +17,7 @@ from student.forms import(
     MarkSheetForm,
     ExtraInfoForm,
     WorkExperienceForm,
+    WorkExperienceEditForm,
     SchoolEducationForm,
     CollegeEducationForm,
     StudentProfileDashForm,
@@ -29,14 +30,23 @@ def dashboard(request):
         return HttpResponseRedirect(reverse('faculty:dashboard'))
     else:
         Student = StudentProfile.objects.get(enrollment_no = request.user.enrollment_no)
-        work_experience = WorkExperience.objects.filter(student=Student)
         school_education = SchoolEducation.objects.filter(student=Student)
         college_education = CollegeEducation.objects.filter(student=Student)
+        internship = WorkExperience.objects.filter(student=Student, category="Internship")
+        project = WorkExperience.objects.filter(student=Student, category="Project")
+        training = WorkExperience.objects.filter(student=Student, category="Training")
+        achievement = WorkExperience.objects.filter(student=Student, category="Achievement")
+        other = WorkExperience.objects.filter(student=Student, category="Other")
+
         return render(request, template_name='student/student_dashboard.html', context = {
                             'student' : Student,
                             'school_education': school_education,
                             'college_education': college_education,
-                            'work_experience':work_experience
+                            'internship': internship,
+                            'project': project,
+                            'training': training,
+                            'achievement': achievement,
+                            'other': other,
                             })
 
 
@@ -122,21 +132,6 @@ def WorkExperienceView(request):
 
         return render(request, 'student/work_experience.html', context)
 
-def editWorkExperienceView(request, pk):
-    print(request)
-    student = StudentProfile.objects.get(enrollment_no = request.user.enrollment_no)
-    instance = WorkExperience.objects.get(pk=pk)
-    if request.method == 'POST':
-        work_experience_form = WorkExperienceForm(data=request.POST, instance=instance)
-        if work_experience_form.is_valid():
-            work_experience_form.save()
-            return HttpResponse('edit successful')
-
-    else:
-        student_profile_form = WorkExperienceForm(instance=instance)
-        return HttpResponse(student_profile_form.as_p())
-
-
 def deleteWorkExperienceView(request, pk):
     instance = WorkExperience.objects.get(pk=pk)
     instance.delete()
@@ -195,10 +190,12 @@ def studentProfileDashView(request):
         studentProfile = StudentProfileDashForm(instance=student)
         return HttpResponse(studentProfile.as_p())
 
-def workExperienceDashView(request):
+def workExperienceDashView(request, category=None):
     if request.user.is_faculty:
         return HttpResponseRedirect(reverse('faculty:dashboard'))
     else:
+        print("THIS")
+
         student = StudentProfile.objects.get(enrollment_no=request.user.enrollment_no)
         if request.method == 'POST':
             work_exp = WorkExperienceForm(data=request.POST)
@@ -210,5 +207,19 @@ def workExperienceDashView(request):
             else:
                 return HttpResponse('INVALID FORM')
         else:
-            work_exp = WorkExperienceForm()
+            data = {'category': category}
+            work_exp = WorkExperienceForm(initial=data)
             return HttpResponse(work_exp.as_p())
+
+def editWorkExperienceDashView(request, pk):
+    student = StudentProfile.objects.get(enrollment_no = request.user.enrollment_no)
+    instance = WorkExperience.objects.get(student=student, pk=pk)
+    print("THIS")
+    if request.method == 'POST':
+        work_experience_form = WorkExperienceEditForm(data=request.POST, instance=instance)
+        if work_experience_form.is_valid():
+            work_experience_form.save()
+            return HttpResponse('edit successful')
+    else:
+        work_experience = WorkExperienceEditForm(instance=instance)
+        return HttpResponse(work_experience.as_p())

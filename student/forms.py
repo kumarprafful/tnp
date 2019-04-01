@@ -39,14 +39,22 @@ class ExtraInfoForm(forms.ModelForm):
         exclude = ['student',]
 
 class WorkExperienceForm(forms.ModelForm):
-
     start_date = forms.DateField(required = False, widget = DateInput())
     end_date = forms.DateField(required = False, widget = DateInput())
-    # category = forms.CharField(widget=HiddenInput)
+    category = forms.CharField(widget=HiddenInput)
 
     class Meta:
         model = WorkExperience
         exclude = ['student',]
+
+
+class WorkExperienceEditForm(forms.ModelForm):
+    start_date = forms.DateField(required = False, widget = DateInput())
+    end_date = forms.DateField(required = False, widget = DateInput())
+
+    class Meta:
+        model = WorkExperience
+        exclude = ['student', 'category']
 
 
 class SchoolEducationForm(forms.ModelForm):

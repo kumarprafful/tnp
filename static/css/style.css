@@ -48,7 +48,6 @@ input[type=number]::-webkit-outer-spin-button {
   color: #fff !important;
   border-radius: 0!important;
 }
-
 .navbar-right-menu{
   color: #fff;
   font-size: 1.2rem;
@@ -71,13 +70,10 @@ input[type=number]::-webkit-outer-spin-button {
 .ipu-title-brand:hover{
   color: yellow;
 }
-
-
 /* for login alerts */
 .close:not(:disabled):not(.disabled) {
     cursor: pointer;
 }
-
 .alert-dismissible .close {
     position: absolute;
     top: 0;
@@ -125,16 +121,13 @@ button.close {
   background: #757575;
   border-radius: 20px;
 } */
-
 .rm{
   padding: 0!important;
-
 }
 .card{
   width: auto !important;
   /* border-radius: 1px!important; */
 }
-
 .login-title{
   color: #222;
   text-align: center;
@@ -145,7 +138,6 @@ button.close {
 }
 .auth-label{
 }
-
 .tag{
   color: #fff;
   text-align: center;
@@ -153,7 +145,6 @@ button.close {
   width: 70%;
   margin: 2em auto;
 }
-
 .pages{
 
 }
@@ -165,5 +156,11 @@ button.close {
   font-weight: bold;
   color: #ff7350 /*, ffaf20*/;
   line-height: 1.8rem;
+}
+.work-exp-header{
+  font-size: 1.3rem;
+  color: #ff8907;
+  font-weight: bold;
 
+  /* 264f73 ffaf20 */
 }

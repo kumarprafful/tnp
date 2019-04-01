@@ -154,21 +154,120 @@
 				Work Experience
 			</div>
 			<div class="twelve wide column description">
-				{% if work_experience == None %}
-				{% else %}
-					{% for exp in work_experience %}
-						{% if exp.category != None %}
-						{{exp.category}}
-						{{exp.title}}
-						{% else %}
-						{% endif %}
+				{% if internship != None %}
+				<div class="work-exp-header">Internship</div>
+					{% for element in internship %}
+					<a class="work-exp-edit-modal-btn" data-tooltip="Edit this" data-inverted="">
+						<i id="" class="right floated pencil alternate icon"></i>
+						<input type="hidden" name="" value={{element.id}}>
+					</a>
+						<p><b>Company name</b> : {{element.title}}</p>
+						<p><b>Period</b> : {{element.start_date}} - {{element.end_date}}</p>
+						<p><b>URL</b> : {{element.url}}</p>
+						<p>{{element.description}}</p>
+						<br/>
 					{% endfor %}
+					<div class="ui divider"></div>
+				{% endif %}
+
+				{% if project != None %}
+				<div class="work-exp-header">Project</div>
+					{% for element in project %}
+					<a class="work-exp-edit-modal-btn" data-tooltip="Edit this" data-inverted="">
+						<i id="" class="right floated pencil alternate icon"></i>
+						<input type="hidden" name="" value={{element.id}}>
+					</a>
+						<p><b>Title</b> : {{element.title}}</p>
+						<p><b>Period</b> : {{element.start_date}} - {{element.end_date}}</p>
+						<p><b>URL</b> : {{element.url}}</p>
+						<p>{{element.description}}</p>
+						<br/>
+					{% endfor %}
+					<div class="ui divider"></div>
+				{% endif %}
+
+				{% if training != None %}
+				<div class="work-exp-header">Training</div>
+					{% for element in training %}
+					<a class="work-exp-edit-modal-btn" data-tooltip="Edit this" data-inverted="">
+						<i id="" class="right floated pencil alternate icon"></i>
+						<input type="hidden" name="" value={{element.id}}>
+					</a>
+						<p><b>Title</b> : {{element.title}}</p>
+						<p><b>Period</b> : {{element.start_date}} - {{element.end_date}}</p>
+						<p><b>URL</b> : {{element.url}}</p>
+						<p>{{element.description}}</p>
+						<br/>
+					{% endfor %}
+					<div class="ui divider"></div>
+				{% endif %}
+
+				{% if achievement != None %}
+				<div class="work-exp-header">Achievement</div>
+					{% for element in achievement %}
+					<a class="work-exp-edit-modal-btn" data-tooltip="Edit this" data-inverted="">
+						<i id="" class="right floated pencil alternate icon"></i>
+						<input type="hidden" name="" value={{element.id}}>
+					</a>
+						<p><b>Title</b> : {{element.title}}</p>
+						<p><b>Period</b> : {{element.start_date}} - {{element.end_date}}</p>
+						<p><b>URL</b> : {{element.url}}</p>
+						<p>{{element.description}}</p>
+						<br/>
+					{% endfor %}
+					<div class="ui divider"></div>
+				{% endif %}
+
+				{% if other != None %}
+				<div class="work-exp-header">Other</div>
+					{% for element in other %}
+					<a class="work-exp-edit-modal-btn" data-tooltip="Edit this" data-inverted="">
+						<i id="" class="right floated pencil alternate icon"></i>
+						<input type="hidden" name="" value={{element.id}}>
+					</a>
+						<p><b>Title</b> : {{element.title}}</p>
+						<p><b>Period</b> : {{element.start_date}} - {{element.end_date}}</p>
+						<p><b>URL</b> : {{element.url}}</p>
+						<p>{{element.description}}</p>
+						<br/>
+					{% endfor %}
+					<div class="ui divider"></div>
 				{% endif %}
 				<div class="center work-exp-modal-btn">
 					<i class="large plus icon"></i>
 					<p>Add work experience</p>
 				</div>
 
+				<div class="ui modal work-exp-pre-modal">
+					<i class="close icon"></i>
+					<div class="header">
+						Work Experience
+					</div>
+					<div class="content description center ">
+						<input class="ui large button work-exp-pre" type="button" name="Internship" value="Internship">
+						<input class="ui large button work-exp-pre" type="button" name="Project" value="Project">
+						<input class="ui large button work-exp-pre" type="button" name="Training" value="Training"><br/><br/>
+						<input class="ui large button work-exp-pre" type="button" name="Achievement" value="Achievement">
+						<input class="ui large button work-exp-pre" type="button" name="Other" value="Other">
+					</div>
+				</div>
+				<!-- EDIT FORM -->
+				<div class="ui modal work-exp-edit-modal">
+					<i class="close icon"></i>
+					<div class="header">
+						EDIT Work Experience <div class="error"></div>
+					</div>
+					<div class="scrolling content description">
+						<form class="ui form work-exp-form-data">
+							{% csrf_token %}
+							<div class="work-exp-edit-form"></div>
+							<button class="ui button">Submit</button>
+						</form>
+					</div>
+				</div>
+				<!-- EDIT FORM ENDS -->
+
+				<!-- ADD FORM -->
 				<div class="ui modal work-exp-modal">
 					<i class="close icon"></i>
 					<div class="header">
@@ -182,6 +281,8 @@
 						</form>
 					</div>
 				</div>
+				<!-- ADD FORM ENDS -->
+
 			</div>
 		</div>
 		</div>
@@ -207,9 +308,13 @@
 	})
 
 	$('.work-exp-modal-btn').click(function(){
-		$('.work-exp-modal').modal('show');
-
+		$('.work-exp-pre-modal').modal('show');
 	})
+
+	$('.work-exp-edit-modal-btn').click(function(){
+		$('.work-exp-edit-modal').modal('show');
+	})
+
 
 	$('#m').click(function(){
 		var url = '{% url "student:student_profile_dash_form" %}';
@@ -240,13 +345,12 @@
 				}
 				else{
 					location.reload();
-
 				}
 			}
 		});
 	});
 
-	 var school_edu_pk = 0;
+	var school_edu_pk = 0;
 	$('.school-edu-modal-btn').click(function(e){
 		console.log(e.currentTarget.children[1].value);
 		school_edu_pk = e.currentTarget.children[1].value;
@@ -314,17 +418,6 @@
 		})
 	});
 
-	$('.work-exp-modal-btn').click(function(){
-		var url = '{% url "student:work-exp" %}';
-		$.ajax({
-			type: "GET",
-			url: url,
-			success: function(data){
-				$('.work-exp-form').html(data);
-			}
-		});
-	});
-
 	$('.work-exp-form-data').submit(function(e){
 		e.preventDefault();
 		var url = '{% url "student:work-exp" %}';
@@ -344,6 +437,32 @@
 					}
 			}
 		})
+	});
+
+	$('.work-exp-pre').click(function(e){
+		console.log(e.target.value);
+		var category = e.target.value;
+		var url = '{% url "student:work-exp" 000 %}'.replace(000, category);
+		$.ajax({
+			type: "GET",
+			url: url,
+			success: function(data){
+				$('.work-exp-form').html(data);
+			}
+		});
+		$('.work-exp-modal').modal('show');
+	});
+
+	$('.work-exp-edit-modal-btn').click(function(e){
+		work_exp_pk = e.currentTarget.children[1].value;
+		var url = '{% url "student:editttt" pk=000 %}'.replace(000, work_exp_pk);
+		$.ajax({
+			type: "GET",
+			url: url,
+			success: function(data){
+				$('.work-exp-edit-form').html(data);
+			}
+		});
 	});
 </script>
 
