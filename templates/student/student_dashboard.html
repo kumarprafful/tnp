@@ -3,7 +3,6 @@
 
 
 <div class="ui container">
-	<!-- Personal Deatils -->
 	<div class="ui card" style="margin-top:1em">
 		<div class="content">
 			<a><i id="m" class="right floated pencil alternate icon"></i></a>
@@ -19,10 +18,82 @@
 					<form class="ui form student-form">
 						{% csrf_token %}
 						<div class="profile-form">
+
+
 						</div>
 						<button class="ui button student-profile-form">Submit</button>
+
+						<!-- <div class="field">
+							<label for="name" class="auth-label">Full Name</label>
+							<div class="ui left icon input">
+								<input class="" type="text" name="name" placeholder="Full Name" required><br>
+								<i class="eye slash icon"></i>
+							</div>
+						</div>
+
+						<div class="field">
+							<label for="gender" class="auth-label">Gender</label>
+							<div class="ui left icon input ">
+								<select class="" name="">
+										<option value="Male" selected>Male</option>
+										<option value="Female">Female</option>
+										<option value="Others">Others</option>
+								</select>
+								<br>
+							</div>
+						</div>
+
+						<div class="field">
+							<label for="dob" class="auth-label">Date of Birth</label>
+							<div class="ui left icon input ">
+								<input class="" type="date" name="dob" required><br>
+							</div>
+						</div>
+
+						<div class="field">
+							<label for="name" class="auth-label">Course</label>
+							<div class="ui left icon input ">
+								<input class="" type="text" name="name" placeholder="Full Name" required><br>
+								<i class="eye slash icon"></i>
+							</div>
+						</div>
+
+						<div class="field">
+							<label for="name" class="auth-label">Admission year</label>
+							<div class="ui left icon input ">
+								<input class="" type="text" name="name" placeholder="Full Name" required><br>
+								<i class="eye slash icon"></i>
+							</div>
+						</div>
+
+						<div class="field">
+							<label for="name" class="auth-label">Passing Year</label>
+							<div class="ui left icon input ">
+								<input class="" type="text" name="name" placeholder="Full Name" required><br>
+								<i class="eye slash icon"></i>
+							</div>
+						</div>
+
+						<div class="field">
+							<label for="name" class="auth-label">Passing Year</label>
+							<div class="ui left icon input ">
+								<input class="" type="text" name="name" placeholder="Full Name" required><br>
+								<i class="eye slash icon"></i>
+							</div>
+						</div>
+
+						<div class="field">
+							<label for="name" class="auth-label">Passing Year</label>
+							<div class="ui left icon input ">
+								<input class="" type="text" name="name" placeholder="Full Name" required><br>
+								<i class="eye slash icon"></i>
+							</div>
+						</div> -->
+
+
 					</form>
 				</div>
+
 			</div>
 
 			<div class="header">
@@ -44,50 +115,16 @@
 				<p>{{student.address}}</p>
 				<p>{{student.region}}</p>
 				<p>{{student.category}}</p>
+
+
+
+
+
+
+
 			</div>
 		</div>
 	</div>
-	<!-- Ends Personal Deatils -->
-
-	<!-- Work Experience -->
-	<div class="ui card">
-		<div class="content">
-			<div class="header">
-				School Education
-			</div>
-			<div class="content">
-				{% if school_education == None %}
-				{% else %}
-				{% endif %}
-				<div class="center school-edu-modal-btn">
-					<i class="large plus icon"></i>
-					<p>Add School Education</p>
-				</div>
-
-				<div class="ui modal school-edu-modal">
-					<i class="close icon"></i>
-					<div class="header">
-						School Education
-					</div>
-					<div class="content description">
-						<form class="ui form">
-							{% csrf_token %}
-							<div class="school-edu-form"></div>
-							<button class="ui button">Submit</button>
-						</form>
-					</div>
-
-				</div>
-
-			</div>
-
-		</div>
-
-	</div>
-	<!-- Ends Work Experience -->
-
-
-
 
 </div>
 
@@ -95,57 +132,6 @@
 	$('#m').click(function(){
 		$('.modal').modal('show');
 
-	})
-
-	$('.school-edu-modal-btn').click(function(){
-		$('.school-edu-modal').modal('show');
-
-	})
-
-	$('#m').click(function(){
-		var url = '{% url "student:student_profile_dash_form" %}';
-		$.ajax({
-			type:"GET",
-			url: url,
-			success: function(data){
-				$('.profile-form').html(data);
-				// alert(data);
-				console.log(data);
-
-			}
-		});
-	});
-
-	$('.student-form').submit(function(e){
-		e.preventDefault();
-		var url = '{% url "student:student_profile_dash_form" %}';
-		var form = $(this);
-		console.log($(this));
-		$.ajax({
-			type: "POST",
-			url: url,
-			data: form.serialize(),
-			success: function(data){
-				if(data === 'INVALID FORM'){
-					$('.error').html(data)
-				}
-				else{
-					location.reload();
-
-				}
-			}
-		});
-	});
-
-	$('.school-edu-modal-btn').click(function(){
-		var url = '{% url "student:school-education" %}';
-		$.ajax({
-			type: "GET",
-			url: url,
-			success: function(data){
-				$('.school-edu-form').html(data);
-			}
-		});
 	});
 </script>
 

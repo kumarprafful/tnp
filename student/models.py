@@ -61,7 +61,7 @@ class StudentProfile(models.Model):
     course = models.CharField(max_length = 20, choices=COURSE)
     admission_year = models.IntegerField(_('Year of Admission'), blank=True, null=True, choices=ADMISSION_YEAR_CHOICES)
     passing_year = models.IntegerField(_('Year of Passing Out'), blank=True, null=True, choices=PASSING_YEAR_CHOICES)
-    fathers_name = models.CharField(max_length=100)
+    fathers_name = models.CharField(max_length=100, blank=True, null=True)
     region = models.CharField(max_length=20, choices=REGION)
     category = models.CharField(max_length=20, choices=CATEGORY)
     primary_mobile = models.PositiveIntegerField(_("Mobile Number"), blank=True, null=True, validators=[MaxValueValidator(9999999999)])
