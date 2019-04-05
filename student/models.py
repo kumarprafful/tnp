@@ -227,8 +227,15 @@ class CollegeEducation(models.Model):
     for r in range((datetime.now().year), (datetime.now().year+5)):
         PASSING_YEAR_CHOICES.append((r,r))
 
+    COURSES = (
+        ('Graduation', 'Graduation'),
+        ('Post-Graduation', 'Post-Graduation'),
+        ('PhD', 'PhD'),
+        ('Diploma', 'Diploma'),
+    )
+
     student = models.ForeignKey(StudentProfile, on_delete=models.CASCADE)
-    course = models.CharField(max_length=50)
+    course = models.CharField(max_length=50, choices=COURSES)
     branch = models.CharField(max_length=50)
     college = models.CharField(max_length=200)
     start_date = models.IntegerField(_("Year of admission"), choices=ADMISSION_YEAR_CHOICES, blank=True, null=True)

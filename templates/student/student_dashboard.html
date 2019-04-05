@@ -128,6 +128,17 @@
 					<p>Add College</p>
 				</div>
 
+				<div class="ui modal college-edu-pre-modal">
+					<i class="close icon"></i>
+					<div class="header">Add College Education</div>
+					<div class="content description center">
+						<input class="ui large button college-edu-pre" type="button" name="Graduation" value="Graduation">
+						<input class="ui large button college-edu-pre" type="button" name="Post-Graduation" value="Post-Graduation">
+						<input class="ui large button college-edu-pre" type="button" name="PhD" value="PhD">
+						<input class="ui large button college-edu-pre" type="button" name="Diploma" value="Diploma">
+					</div>
+				</div>
+
 				<div class="ui modal college-edu-modal">
 					<i class="close icon"></i>
 					<div class="header">
@@ -143,7 +154,7 @@
 				</div>
 			</div>
 		</div>
-		</div>
+	</div>
 	<!-- Ends College Education -->
 	<div class="ui divider"></div>
 
@@ -294,26 +305,23 @@
 <script type="text/javascript">
 	$('#m').click(function(){
 		$('.student-profile-modal').modal('show');
-
-	})
+	});
 
 	$('.school-edu-modal-btn').click(function(){
 		$('.school-edu-modal').modal('show');
-
-	})
+	});
 
 	$('.college-edu-modal-btn').click(function(){
-		$('.college-edu-modal').modal('show');
-
-	})
+		$('.college-edu-pre-modal').modal('show');
+	});
 
 	$('.work-exp-modal-btn').click(function(){
 		$('.work-exp-pre-modal').modal('show');
-	})
+	});
 
 	$('.work-exp-edit-modal-btn').click(function(){
 		$('.work-exp-edit-modal').modal('show');
-	})
+	});
 
 
 	$('#m').click(function(){
@@ -385,8 +393,8 @@
 		});
 	});
 
-
-	$('.college-edu-modal-btn').click(function(){
+	$('.college-edu-pre').click(function(e){
+		var course = e.target.value;
 		var url = '{% url "student:college-education" %}';
 		$.ajax({
 			type: "GET",
@@ -440,7 +448,6 @@
 	});
 
 	$('.work-exp-pre').click(function(e){
-		console.log(e.target.value);
 		var category = e.target.value;
 		var url = '{% url "student:work-exp" 000 %}'.replace(000, category);
 		$.ajax({
