@@ -6,4 +6,5 @@ app_name = 'faculty'
 urlpatterns = [
     path('', faculty_views.dashboard, name='dashboard'),
     path('filter', faculty_views.filter, name='filter'),
+    path('student-detail/<int:enr>', faculty_views.studentDetail, name='student-detail'),
 ]

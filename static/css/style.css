@@ -164,3 +164,7 @@ button.close {
 
   /* 264f73 ffaf20 */
 }
+
+div.dataTables_length {
+  margin-right: 3em;
+}

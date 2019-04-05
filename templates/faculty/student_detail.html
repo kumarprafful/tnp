@@ -1,0 +1,36 @@
+{% extends '../home/base.html' %}
+{% block body %}
+
+
+<div class="ui container">
+	<div class="ui card" style="margin-top:1em">
+		<div class="content">
+
+			<div class="header">
+				{% if student.name %}
+					{{student.name}}
+				{% endif %}
+			</div>
+			<div class="meta">
+				<p>{{student.user.email}}</p>
+
+				<p>{{student.college}}</p>
+				<p>{{student.course}} ({{student.admission_year}}-{{student.passing_year}})</p>
+				<p>{{student.primary_mobile}}</p>
+				<p>{{student.address}}</p>
+				<p>{{student.region}}</p>
+				<p>{{student.category}}</p>
+
+
+
+
+
+
+
+			</div>
+		</div>
+	</div>
+
+</div>
+
+{% endblock %}

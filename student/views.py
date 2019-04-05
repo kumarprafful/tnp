@@ -20,7 +20,6 @@ from student.forms import(
     WorkExperienceEditForm,
     SchoolEducationForm,
     CollegeEducationForm,
-    StudentProfileDashForm,
     )
 
 # Create your views here.
@@ -49,7 +48,6 @@ def dashboard(request):
                             'other': other,
                             })
 
-
 @login_required(login_url=reverse_lazy('account:student_login'))
 def edit_profile(request):
 	if request.user.is_faculty:
@@ -65,7 +63,7 @@ def edit_profile(request):
 
 		else:
 			student_profile_form = StudentProfileForm(instance=Student)
-		return render(request, template_name='student/student_dashboard.html', context = {'student_profile_form': student_profile_form})
+		return render(request, template_name='student/edit_profile.html', context = {'student_profile_form': student_profile_form})
 
 
 def createMarkSheetView(request):
@@ -136,7 +134,6 @@ def deleteWorkExperienceView(request, pk):
     instance = WorkExperience.objects.get(pk=pk)
     instance.delete()
     return HttpResponse('deletion successful')
-
 
 def schoolEducation(request,pk):
     if request.user.is_faculty:
