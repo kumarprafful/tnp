@@ -25,7 +25,7 @@ class StudentProfileForm(forms.ModelForm):
 
     class Meta:
         model = StudentProfile
-        exclude = ['user', 'enrollment_no',]
+        fields = ['name', 'gender', 'course', 'admission_year', 'passing_year']
 
 class MarkSheetForm(forms.ModelForm):
 
@@ -39,7 +39,6 @@ class ExtraInfoForm(forms.ModelForm):
         exclude = ['student',]
 
 class WorkExperienceForm(forms.ModelForm):
-
     start_date = forms.DateField(required = False, widget = DateInput())
     end_date = forms.DateField(required = False, widget = DateInput())
     category = forms.CharField(widget=HiddenInput)
@@ -49,10 +48,19 @@ class WorkExperienceForm(forms.ModelForm):
         exclude = ['student',]
 
 
+class WorkExperienceEditForm(forms.ModelForm):
+    start_date = forms.DateField(required = False, widget = DateInput())
+    end_date = forms.DateField(required = False, widget = DateInput())
+
+    class Meta:
+        model = WorkExperience
+        exclude = ['student', 'category']
+
+
 class SchoolEducationForm(forms.ModelForm):
     class Meta:
         model = SchoolEducation
-        exclude = ['student',]
+        exclude = ['student', 'qualification']
 
 class CollegeEducationForm(forms.ModelForm):
     class Meta:

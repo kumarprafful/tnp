@@ -43,7 +43,9 @@ def student_register(request):
             MarkSheet.objects.create(student=student_profile)
             ExtraInfo.objects.create(student=student_profile)
             WorkExperience.objects.create(student=student_profile)
-            SchoolEducation.objects.create(student=student_profile)
+            SchoolEducation.objects.create(student=student_profile,qualification="X (Secondary)")
+            SchoolEducation.objects.create(student=student_profile,qualification="XII (Senior Secondary)")
+
             CollegeEducation.objects.create(student=student_profile)
             user.save()
 
