@@ -15,12 +15,17 @@ from student.models import (
 from student.forms import(
     StudentProfileForm,
     MarkSheetForm,
+<<<<<<< HEAD
+    ExtraInfoForm, 
+    WorkExperienceForm, 
+    SchoolEducationForm, 
+=======
     ExtraInfoForm,
     WorkExperienceForm,
     WorkExperienceEditForm,
     SchoolEducationForm,
+>>>>>>> 5452c7b9a548ed91067be750a9c47744eed5defc
     CollegeEducationForm,
-    StudentProfileDashForm,
     )
 
 # Create your views here.
@@ -29,6 +34,11 @@ def dashboard(request):
     if request.user.is_faculty:
         return HttpResponseRedirect(reverse('faculty:dashboard'))
     else:
+<<<<<<< HEAD
+    	Student = StudentProfile.objects.get(enrollment_no = request.user.enrollment_no)
+
+    	return render(request, template_name='student/student_dashboard.html', context = {'Student' : Student})
+=======
         Student = StudentProfile.objects.get(enrollment_no = request.user.enrollment_no)
         school_education = SchoolEducation.objects.filter(student=Student)
         college_education = CollegeEducation.objects.filter(student=Student)
@@ -48,6 +58,7 @@ def dashboard(request):
                             'achievement': achievement,
                             'other': other,
                             })
+>>>>>>> 5452c7b9a548ed91067be750a9c47744eed5defc
 
 
 @login_required(login_url=reverse_lazy('account:student_login'))
@@ -65,7 +76,7 @@ def edit_profile(request):
 
 		else:
 			student_profile_form = StudentProfileForm(instance=Student)
-		return render(request, template_name='student/student_dashboard.html', context = {'student_profile_form': student_profile_form})
+		return render(request, template_name='student/edit_profile.html', context = {'student_profile_form': student_profile_form})
 
 
 def createMarkSheetView(request):
@@ -129,7 +140,7 @@ def WorkExperienceView(request):
             'work_experience_all' : work_experience_all,
             'work_experience_form' : work_experience_form,
         }
-
+        
         return render(request, 'student/work_experience.html', context)
 
 def deleteWorkExperienceView(request, pk):
@@ -138,6 +149,10 @@ def deleteWorkExperienceView(request, pk):
     return HttpResponse('deletion successful')
 
 
+<<<<<<< HEAD
+def education(request):
+    return render(request, 'student/education.html')
+=======
 def schoolEducation(request,pk):
     if request.user.is_faculty:
         return HttpResponseRedirect(reverse('faculty:dashboard'))
@@ -223,3 +238,4 @@ def editWorkExperienceDashView(request, pk):
     else:
         work_experience = WorkExperienceEditForm(instance=instance)
         return HttpResponse(work_experience.as_p())
+>>>>>>> 5452c7b9a548ed91067be750a9c47744eed5defc
