@@ -1,36 +1,301 @@
 {% extends '../home/base.html' %}
 {% block body %}
 
+<style type="text/css">
 
+	.content{
+		padding-top: 0px !important;
+		padding-bottom: 0px !important;
+	}
+
+</style>
+
+<div class="background-for">
 <div class="ui container">
-	<div class="ui card" style="margin-top:1em">
+	<div class="ui card" style="margin:3em 0">
+
+	<!-- Primary Details -->
 		<div class="content">
 
 			<div class="header">
 				{% if student.name %}
-					{{student.name}}
+					{{student.name}}<br><br>
 				{% endif %}
 			</div>
-			<div class="meta">
-				<p>{{student.user.email}}</p>
+			<div>
+				<p>{{student.enrollment_no}}</p>
+				<p>{{student.get_course_display}} ( {{student.admission_year}} - {{student.passing_year}} )</p>
+				<p> {{student.user.email}}   
+					{% if student.primary_mobile %}
+						| {{student.primary_mobile}}
+					{% endif %}
+				</p>
+			</div>
+		</div>
+	<!-- Ends Primary Deatils -->
+	<div class="ui divider"></div>
 
-				<p>{{student.college}}</p>
-				<p>{{student.course}} ({{student.admission_year}}-{{student.passing_year}})</p>
-				<p>{{student.primary_mobile}}</p>
-				<p>{{student.address}}</p>
-				<p>{{student.region}}</p>
-				<p>{{student.category}}</p>
 
+	<!-- Personal Details -->
+	<div class="content">
+			<div class="ui grid">
+				<div class="four wide column header content-header">
+					Personal Details
+				</div>
+				<div class="twelve wide column description">
+					<div class="ui grid">
+						<div class="eight wide column">
+							<p><b>Gender</b> : 
+								{% if student.gender %}
+									{{ student.gender }}
+								{% else %}
+									--N/A--
+								{% endif %}
+							</p>
+						</div>
+						<div class="eight wide column">
+							<p><b>Date of Birth</b> : 
+								{% if student.dob %}
+									{{ student.dob }}
+								{% else %}
+									--N/A--
+								{% endif %}
+							</p>
+						</div>	
+					</div>
+					<div class="ui grid">
+						<div class="eight wide column">
+							<p><b>Region</b> : 
+								{% if student.region %}
+									{{ student.get_region_display }}
+								{% else %}
+									--N/A--
+								{% endif %}
+							</p>
+						</div>
+						<div class="eight wide column">
+							<p><b>Category</b> : 
+								{% if student.category %}
+									{{ student.get_category_display }}
+								{% else %}
+									--N/A--
+								{% endif %}
+							</p>
+						</div>	
+					</div>
+					<div class="ui grid">
+						<div class="eight wide column">
+							<p><b>Father's Name</b> : 
+								{% if student.fathers_name %}
+									{{ student.fathers_name }}
+								{% else %}
+									--N/A--
+								{% endif %}
+							</p>
+						</div>
+						<div class="eight wide column">
+							<p><b>Secondary Contact No.</b> : 
+								{% if student.secondary_mobile %}
+									{{ student.secondary_mobile }}
+								{% else %}
+									--N/A--
+								{% endif %}
+							</p>
+						</div>	
+					</div>
+					<div class="ui grid">
+						<div class="eight wide column">
+						<p><b>Address</b>: 
+							{% if student.address %}
+								{{ student.address }}
+							{% else %}
+								--N/A--
+							{% endif %}
+						</p>
+					</div>
+					</div>
 
+				</div>
+			</div>
+	</div>
+	<div class="ui divider"></div>
+	<!-- Ends Personal details -->
 
+	<!-- School Education -->
+		<div class="content">
+			<div class="ui grid">
+				<div class="four wide column header content-header">
+					School Education
+				</div>
+				<div class="twelve wide column description">
+					{% if school_education %}
+						
+					{% for edu in school_education reversed %}
+							{% if edu.school == None %}
+								{% else %}
+									<p><b>{{edu.qualification}}</b></p>
+									<p><b>School</b> : {{edu.school}}</p>
+									<p><b>Board</b> : {{edu.board}}</p>
+									<p><b>Year of completion</b> : {{edu.year}}</p>
+									<p><b>Percentage/CGPA</b> : {{edu.marks}}</p>
+									<br />
+								{% endif %}
+					{% endfor %}
+					{% else %}
+						<p>Information not filled by the Student</p>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	<!-- Ends School Education -->
+	<div class="ui divider"></div>
 
+	<!-- College Education -->
+	{% if college_education %}
+		<div class="content">
+			<div class="ui grid">
 
-
+			<div class="four wide column header content-header">
+				College Education
+			</div>
+			<div class="twelve wide column description">
+				{% if college_education == None %}
+				{% else %}
+					{% for edu in college_education %}
+						{% if edu.course != None %}
+						<p><b>{{edu.course}}</b></p>
+						<p><b>Branch</b> : {{edu.branch}}</p>
+						<p><b>College</b> : {{edu.college}}</p>
+						<p><b>Period</b> : {{edu.start_date}} - {{edu.end_date}}</p>
+						<p><b>Percentage/CGPA</b> : {{edu.marks}}</p>
+						<br />
+						{% else %}
+						{% endif %}
+					{% endfor %}
+				{% endif %}
 
 			</div>
 		</div>
 	</div>
+	<div class="ui divider"></div>
+	{% endif %}
+	<!-- Ends College Education -->
 
+
+	<!-- Internship -->
+	{% if internship %}
+		<div class="content">
+			<div class="ui grid">
+			<div class="four wide column header content-header">
+				Internships
+			</div>
+			<div class="twelve wide column description">
+					{% for element in internship %}
+						<p><b>Company</b> : {{element.title}}</p>
+						<p><b>Period</b> : {{element.start_date}} - {{element.end_date}}</p>
+						<p><b>URL</b> : {{element.url}}</p>
+						<p>{{element.description}}</p>
+						<br/>
+					{% endfor %}
+			</div>
+			</div>
+		</div>
+		<div class="ui divider"></div>
+	{% endif %}
+	<!-- Ends Internship -->
+
+
+	<!-- Projects --->
+	{% if project %}
+	<div class="content">
+			<div class="ui grid">
+			<div class="four wide column header content-header">
+				Projects
+			</div>
+			<div class="twelve wide column description">
+				{% for element in project %}
+					<p><b>Title</b> : {{element.title}}</p>
+					<p><b>Period</b> : {{element.start_date}} - {{element.end_date}}</p>
+					<p><b>URL</b> : {{element.url}}</p>
+					<p>{{element.description}}</p>
+					<br/>
+				{% endfor %}
+			</div>
+			</div>
+		</div>
+		<div class="ui divider"></div>
+	{% endif %}
+	<!-- Ends Projects -->
+
+
+	<!-- Training -->
+	{% if training %}
+	<div class="content">
+			<div class="ui grid">
+			<div class="four wide column header content-header">
+				Trainings
+			</div>
+			<div class="twelve wide column description">
+				{% for element in training %}
+					<p><b>Title</b> : {{element.title}}</p>
+					<p><b>Period</b> : {{element.start_date}} - {{element.end_date}}</p>
+					<p><b>URL</b> : {{element.url}}</p>
+					<p>{{element.description}}</p>
+					<br/>
+				{% endfor %}
+			</div>
+			</div>
+		</div>
+		<div class="ui divider"></div>
+	{% endif %}
+	<!-- Ends Training -->
+
+
+	<!-- Achievements -->
+	{% if achievement %}
+	<div class="content">
+			<div class="ui grid">
+			<div class="four wide column header content-header">
+				Achievements
+			</div>
+			<div class="twelve wide column description">
+				{% for element in achievement %}
+					<p><b>Title</b> : {{element.title}}</p>
+					<p><b>Period</b> : {{element.start_date}} - {{element.end_date}}</p>
+					<p><b>URL</b> : {{element.url}}</p>
+					<p>{{element.description}}</p>
+					<br/>
+				{% endfor %}
+			</div>
+			</div>
+		</div>
+		<div class="ui divider"></div>
+	{% endif %}
+	<!-- Ends Achievements -->
+
+
+	<!-- Others -->
+	{% if other %}
+	<div class="content">
+			<div class="ui grid">
+			<div class="four wide column header content-header">
+				Other
+			</div>
+			<div class="twelve wide column description">
+			{% for element in other %}
+				<p><b>Title</b> : {{element.title}}</p>
+				<p><b>Period</b> : {{element.start_date}} - {{element.end_date}}</p>
+				<p><b>URL</b> : {{element.url}}</p>
+				<p>{{element.description}}</p>
+				<br/>
+			{% endfor %}
+			</div>
+			</div>
+		</div>
+	{% endif %}
+	<!-- Ends Others -->
+</div>
+</div>
 </div>
 
 {% endblock %}
