@@ -172,3 +172,15 @@ button.close {
 div.dataTables_length {
   margin-right: 3em;
 }
+ 
+.marksheet-modal > .content{
+  padding: 30px 0px 20px 60px !important;
+}
+
+.marksheet-heading{
+  color: #ff7350;
+}
+
+.marksheet-modal > .content > .meta{
+  color: #696969 !important;
+}

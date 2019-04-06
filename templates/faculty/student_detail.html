@@ -17,11 +17,98 @@
 	<!-- Primary Details -->
 		<div class="content">
 
-			<div class="header">
+			<div class="ui right floated right aligned">
+				<p><b style="color: #ff7350;">CGPA: </b>
+					{% if marksheet %}
+						{{ marksheet.cgpa }}<br>
+						<a id="full-marksheet-button">view full marksheet</a>
+					{% else %}
+						<span class="meta">Not Available</span>
+					{% endif %}
+				</p>
+			</div>
+
+		<!-- MARKSHEET MODAL --->
+			<div class="ui small modal marksheet-modal">
+				<div class="content">
+					<div class="header marksheet-heading" style="font-size: 1.5rem;">
+						{% if student.name %}
+							<b>{{student.name}}</b>
+						{% endif %}
+					</div>
+			
+					<div class="meta">
+						<p>{{student.enrollment_no}}<br>
+						   {{student.get_course_display}} ( {{student.admission_year}} - {{student.passing_year}} )</p>
+					</div>
+				</div>
+					<div class="ui divider"></div>
+				<div class="content">
+					<div class="ui grid">
+						<div class="twelve wide column">
+							<div class="ui grid">
+								<div class="eight wide column">
+									{% if marksheet.semester_1 %}
+										<p><b class="marksheet-heading">Semester 1 :</b>{{ marksheet.semester_1 }}</p>
+									{% endif %}
+
+									{% if marksheet.semester_3 %}
+										<p><b class="marksheet-heading">Semester 3 :</b>{{ marksheet.semester_3 }}</p>
+									{% endif %}
+
+									{% if marksheet.semester_5 %}
+										<p><b class="marksheet-heading">Semester 5 :</b>{{ marksheet.semester_5 }}</p>
+									{% endif %}
+
+									{% if marksheet.semester_7 %}
+										<p><b class="marksheet-heading">Semester 7 :</b>{{ marksheet.semester_7 }}</p>
+									{% endif %}
+								</div>
+								<div class="eight wide column right aligned">
+									{% if marksheet.semester_2 %}
+										<p><b class="marksheet-heading">Semester 2 :</b>{{ marksheet.semester_2 }}</p>
+									{% endif %}
+
+									{% if marksheet.semester_4 %}
+										<p><b class="marksheet-heading">Semester 4 :</b>{{ marksheet.semester_4 }}</p>
+									{% endif %}
+
+									{% if marksheet.semester_6 %}
+										<p><b class="marksheet-heading">Semester 6 :</b>{{ marksheet.semester_6 }}</p>
+									{% endif %}
+
+									{% if marksheet.semester_8 %}
+										<p><b class="marksheet-heading">Semester 8 :</b>{{ marksheet.semester_8 }}</p>
+									{% endif %}
+								</div>
+							</div>
+
+							<div class="ui grid">
+								<div class="five wide column">
+									<p><b class="marksheet-heading">Credits Skipped: </b>{{ marksheet.credits_skipped }}</p>
+								</div>
+								<div class="five wide column center aligned">
+									<p><b class="marksheet-heading">Backlogs: </b>{{ marksheet.backlogs }}</p>
+								</div>
+								<div class="six wide column right aligned">
+									<p><b class="marksheet-heading">CGPA: </b>{{ marksheet.cgpa }}</p>
+								</div>
+							</div>
+						</div>
+						<div class="four wide column"></div>
+					</div>
+					<div style="padding: 100px 0px;"></div>
+				</div>
+			</div>
+
+		<!--- MARKSHET MODAL ENDS --->
+
+			<div class="header" style="font-size: 1.5rem;">
 				{% if student.name %}
 					{{student.name}}<br><br>
 				{% endif %}
 			</div>
+			
 			<div>
 				<p>{{student.enrollment_no}}</p>
 				<p>{{student.get_course_display}} ( {{student.admission_year}} - {{student.passing_year}} )</p>
@@ -49,7 +136,21 @@
 								{% if student.gender %}
 									{{ student.gender }}
 								{% else %}
-									--N/A--
+									<span class="meta">Not Available</span>
+								{% endif %}
+							</p>
+							<p><b>Region</b> : 
+								{% if student.region %}
+									{{ student.get_region_display }}
+								{% else %}
+									<span class="meta">Not Available</span>
+								{% endif %}
+							</p>
+							<p><b>Father's Name</b> : 
+								{% if student.fathers_name %}
+									{{ student.fathers_name }}
+								{% else %}
+									<span class="meta">Not Available</span>
 								{% endif %}
 							</p>
 						</div>
@@ -58,61 +159,34 @@
 								{% if student.dob %}
 									{{ student.dob }}
 								{% else %}
-									--N/A--
+									<span class="meta">Not Available</span>
 								{% endif %}
 							</p>
-						</div>	
-					</div>
-					<div class="ui grid">
-						<div class="eight wide column">
-							<p><b>Region</b> : 
-								{% if student.region %}
-									{{ student.get_region_display }}
-								{% else %}
-									--N/A--
-								{% endif %}
-							</p>
-						</div>
-						<div class="eight wide column">
 							<p><b>Category</b> : 
 								{% if student.category %}
 									{{ student.get_category_display }}
 								{% else %}
-									--N/A--
+									<span class="meta">Not Available</span>
 								{% endif %}
 							</p>
-						</div>	
-					</div>
-					<div class="ui grid">
-						<div class="eight wide column">
-							<p><b>Father's Name</b> : 
-								{% if student.fathers_name %}
-									{{ student.fathers_name }}
-								{% else %}
-									--N/A--
-								{% endif %}
-							</p>
-						</div>
-						<div class="eight wide column">
 							<p><b>Secondary Contact No.</b> : 
 								{% if student.secondary_mobile %}
 									{{ student.secondary_mobile }}
 								{% else %}
-									--N/A--
+									<span class="meta">Not Available</span>
 								{% endif %}
 							</p>
 						</div>	
 					</div>
+					
 					<div class="ui grid">
-						<div class="eight wide column">
 						<p><b>Address</b>: 
 							{% if student.address %}
 								{{ student.address }}
 							{% else %}
-								--N/A--
+								<span class="meta">Not Available</span>
 							{% endif %}
 						</p>
-					</div>
 					</div>
 
 				</div>
@@ -142,7 +216,7 @@
 								{% endif %}
 					{% endfor %}
 					{% else %}
-						<p>Information not filled by the Student</p>
+						<p class="meta">Not Available</p>
 					{% endif %}
 				</div>
 			</div>
@@ -297,5 +371,13 @@
 </div>
 </div>
 </div>
+
+<script>
+	$(document).ready(function(){
+		$('#full-marksheet-button').click(function(){
+			$('.marksheet-modal').modal('show');
+		});
+	});
+</script>
 
 {% endblock %}

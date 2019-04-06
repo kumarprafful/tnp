@@ -77,6 +77,10 @@ def studentDetail(request, enr):
 		training = WorkExperience.objects.filter(student=Student, category="Training")
 		achievement = WorkExperience.objects.filter(student=Student, category="Achievement")
 		other = WorkExperience.objects.filter(student=Student, category="Other")
+		marksheet = MarkSheet.objects.filter(student=Student)
+		if marksheet:
+			marksheet = marksheet[0]
+
 
 		context = {
         	'student' : Student,
@@ -87,7 +91,7 @@ def studentDetail(request, enr):
 			'training': training,
 			'achievement': achievement,
 			'other': other,
+			'marksheet': marksheet,
 			}
-
 
 		return render(request, template_name='faculty/student_detail.html', context=context )
