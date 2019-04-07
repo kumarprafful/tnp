@@ -36,7 +36,7 @@
 							<b>{{student.name}}</b>
 						{% endif %}
 					</div>
-			
+
 					<div class="meta">
 						<p>{{student.enrollment_no}}<br>
 						   {{student.get_course_display}} ( {{student.admission_year}} - {{student.passing_year}} )</p>
@@ -108,11 +108,11 @@
 					{{student.name}}<br><br>
 				{% endif %}
 			</div>
-			
+
 			<div>
 				<p>{{student.enrollment_no}}</p>
 				<p>{{student.get_course_display}} ( {{student.admission_year}} - {{student.passing_year}} )</p>
-				<p> {{student.user.email}}   
+				<p> {{student.user.email}}
 					{% if student.primary_mobile %}
 						| {{student.primary_mobile}}
 					{% endif %}
@@ -132,21 +132,21 @@
 				<div class="twelve wide column description">
 					<div class="ui grid">
 						<div class="eight wide column">
-							<p><b>Gender</b> : 
+							<p><b>Gender</b> :
 								{% if student.gender %}
 									{{ student.gender }}
 								{% else %}
 									<span class="meta">Not Available</span>
 								{% endif %}
 							</p>
-							<p><b>Region</b> : 
+							<p><b>Region</b> :
 								{% if student.region %}
 									{{ student.get_region_display }}
 								{% else %}
 									<span class="meta">Not Available</span>
 								{% endif %}
 							</p>
-							<p><b>Father's Name</b> : 
+							<p><b>Father's Name</b> :
 								{% if student.fathers_name %}
 									{{ student.fathers_name }}
 								{% else %}
@@ -155,32 +155,32 @@
 							</p>
 						</div>
 						<div class="eight wide column">
-							<p><b>Date of Birth</b> : 
+							<p><b>Date of Birth</b> :
 								{% if student.dob %}
 									{{ student.dob }}
 								{% else %}
 									<span class="meta">Not Available</span>
 								{% endif %}
 							</p>
-							<p><b>Category</b> : 
+							<p><b>Category</b> :
 								{% if student.category %}
 									{{ student.get_category_display }}
 								{% else %}
 									<span class="meta">Not Available</span>
 								{% endif %}
 							</p>
-							<p><b>Secondary Contact No.</b> : 
+							<p><b>Secondary Contact No.</b> :
 								{% if student.secondary_mobile %}
 									{{ student.secondary_mobile }}
 								{% else %}
 									<span class="meta">Not Available</span>
 								{% endif %}
 							</p>
-						</div>	
+						</div>
 					</div>
-					
+
 					<div class="ui grid">
-						<p><b>Address</b>: 
+						<p><b>Address</b>:
 							{% if student.address %}
 								{{ student.address }}
 							{% else %}
@@ -203,7 +203,7 @@
 				</div>
 				<div class="twelve wide column description">
 					{% if school_education %}
-						
+
 					{% for edu in school_education reversed %}
 							{% if edu.school == None %}
 								{% else %}

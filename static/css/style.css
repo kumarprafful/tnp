@@ -12,6 +12,17 @@ ul li {
   text-decoration: none;
   list-style: none;
 }
+.ui.inverted.indigo.button{
+  color: #264f73 !important;
+  background: transparent;
+  border: 1px solid #264f73;
+}
+.ui.inverted.indigo.button:hover{
+  background: #264f73!important ;
+  color: #fff!important;
+  border: 1px solid transparent;
+
+}
 .ui.divider{
   margin: 0rem 3rem;
 }
@@ -22,20 +33,31 @@ ul li {
   height: 18em;
 }
 .add-button{
-  border: 1px solid blue;
+  border: 1px solid #264f73;
   max-width: 11em;
   height: 5em;
   margin: 0 auto;
   padding-top: 1em;
-  color: blue;
+  color: #264f73;
   border-radius: 4px;
   font-weight: bold;
 }
 .add-button:hover{
   color: #fff;
-  background: blue;
+  background: #264f73;
   cursor: pointer;
   transition: background 0.5s, color 0.2s;
+}
+.edit-it{
+  margin-top: 1em;
+  font-weight: bold;
+  font-size: 1.5em;
+  color: blue;
+  width: max-content;
+}
+.edit-it:hover{
+  color: #264f73;
+  cursor: pointer;
 }
 
 .center{
@@ -182,10 +204,14 @@ button.close {
   /* 264f73 ffaf20 */
 }
 
-.header{
-  color: #ff7350 !important;
+.modal .header{
+  background: #ff7350 !important;
+  color: #fff !important;
 }
+.secondary-header{
+  color: #ff7350 /*, ffaf20*/!important;
 
+}
 div.dataTables_length {
   margin-right: 3em;
 }
@@ -209,4 +235,7 @@ div.dataTables_length {
 
 .data p{
   line-height: 1em;
+}
+.sub-btn{
+  margin: 1em 0!important;
 }
