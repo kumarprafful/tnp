@@ -17,15 +17,7 @@ class StudentProfileDashForm(forms.ModelForm):
 
     class Meta:
         model = StudentProfile
-        exclude = ['user', 'enrollment_no', 'college',]
-
-class StudentProfileForm(forms.ModelForm):
-
-    dob = forms.DateField(required = False, widget = DateInput())
-
-    class Meta:
-        model = StudentProfile
-        fields = ['name', 'gender', 'course', 'admission_year', 'passing_year']
+        exclude = ['user', 'enrollment_no', 'college', 'course', 'admission_year','passing_year']
 
 class MarkSheetForm(forms.ModelForm):
 
@@ -67,4 +59,4 @@ class CollegeEducationForm(forms.ModelForm):
 
     class Meta:
         model = CollegeEducation
-        exclude = ['student',]
+        exclude = ['student', 'from_profile']

@@ -68,6 +68,8 @@
 									<input type="hidden" name="" value={{edu.id}}>
 							</a>
 								{% else %}
+								<div class="data">
+
 								<a class=" school-edu-modal-btn" data-tooltip="Edit this" data-inverted="">
 									<i id="" class="right floated pencil alternate icon"></i>
 									<input type="hidden" name="" value={{edu.id}}>
@@ -77,7 +79,9 @@
 									<p><b>Year of completition</b> - {{edu.year}}</p>
 									<p><b>Board</b> - {{edu.board}}</p>
 									<p><b>Percentage/CGPA</b> - {{edu.marks}}</p>
-									<br />
+								</div>
+
+
 								{% endif %}
 					{% endfor %}
 					{% endif %}
@@ -117,10 +121,21 @@
 				{% else %}
 					{% for edu in college_education %}
 						{% if edu.course != None %}
-						<p>{{edu.course}}</p>
-						<p>{{edu.branch}}</p>
-						<p>{{edu.college}}</p>
+							{% if edu.from_profile %}
+							<div class="data">
+								<p><b>Course</b> : {{edu.course}}  ({{edu.start_date}} - {{edu.end_date}})</p>
+								<p><b>College</b> : {{edu.college}}</p>
+							</div>
+							{% else %}
+							<div class="data">
+								<p><b>Course:</b> {{edu.course}}</p>
+								<p><b>Branch:</b> {{edu.branch}} ({{edu.start_date}} - {{edu.end_date}})</p>
+								<p><b>College:</b> {{edu.college}}</p>
+								<p><b>Marks:</b> {{edu.marks}}</p>
 
+							</div>
+
+							{% endif %}
 						{% else %}
 						{% endif %}
 					{% endfor %}
@@ -167,84 +182,84 @@
 				Work Experience
 			</div>
 			<div class="twelve wide column description">
-				{% if internship != None %}
+				{% if internship %}
 				<div class="work-exp-header">Internship</div>
 					{% for element in internship %}
-					<a class="work-exp-edit-modal-btn" data-tooltip="Edit this" data-inverted="">
-						<i id="" class="right floated pencil alternate icon"></i>
-						<input type="hidden" name="" value={{element.id}}>
-					</a>
+					<div class="data">
+						<a class="work-exp-edit-modal-btn" data-tooltip="Edit this" data-inverted="">
+							<i id="" class="right floated pencil alternate icon"></i>
+							<input type="hidden" name="" value={{element.id}}>
+						</a>
 						<p><b>Company name</b> : {{element.title}}</p>
 						<p><b>Period</b> : {{element.start_date}} - {{element.end_date}}</p>
 						<p><b>URL</b> : {{element.url}}</p>
 						<p>{{element.description}}</p>
-						<br/>
+					</div>
 					{% endfor %}
-					<div class="ui divider"></div>
 				{% endif %}
 
-				{% if project != None %}
+				{% if project %}
 				<div class="work-exp-header">Project</div>
 					{% for element in project %}
-					<a class="work-exp-edit-modal-btn" data-tooltip="Edit this" data-inverted="">
-						<i id="" class="right floated pencil alternate icon"></i>
-						<input type="hidden" name="" value={{element.id}}>
-					</a>
+					<div class="data">
+						<a class="work-exp-edit-modal-btn" data-tooltip="Edit this" data-inverted="">
+							<i id="" class="right floated pencil alternate icon"></i>
+							<input type="hidden" name="" value={{element.id}}>
+						</a>
 						<p><b>Title</b> : {{element.title}}</p>
 						<p><b>Period</b> : {{element.start_date}} - {{element.end_date}}</p>
 						<p><b>URL</b> : {{element.url}}</p>
 						<p>{{element.description}}</p>
-						<br/>
+					</div>
 					{% endfor %}
-					<div class="ui divider"></div>
 				{% endif %}
 
-				{% if training != None %}
+				{% if training %}
 				<div class="work-exp-header">Training</div>
 					{% for element in training %}
-					<a class="work-exp-edit-modal-btn" data-tooltip="Edit this" data-inverted="">
-						<i id="" class="right floated pencil alternate icon"></i>
-						<input type="hidden" name="" value={{element.id}}>
-					</a>
+					<div class="data">
+						<a class="work-exp-edit-modal-btn" data-tooltip="Edit this" data-inverted="">
+							<i id="" class="right floated pencil alternate icon"></i>
+							<input type="hidden" name="" value={{element.id}}>
+						</a>
 						<p><b>Title</b> : {{element.title}}</p>
 						<p><b>Period</b> : {{element.start_date}} - {{element.end_date}}</p>
 						<p><b>URL</b> : {{element.url}}</p>
 						<p>{{element.description}}</p>
-						<br/>
+					</div>
 					{% endfor %}
-					<div class="ui divider"></div>
 				{% endif %}
 
-				{% if achievement != None %}
+				{% if achievement %}
 				<div class="work-exp-header">Achievement</div>
 					{% for element in achievement %}
-					<a class="work-exp-edit-modal-btn" data-tooltip="Edit this" data-inverted="">
-						<i id="" class="right floated pencil alternate icon"></i>
-						<input type="hidden" name="" value={{element.id}}>
-					</a>
+					<div class="data">
+						<a class="work-exp-edit-modal-btn" data-tooltip="Edit this" data-inverted="">
+							<i id="" class="right floated pencil alternate icon"></i>
+							<input type="hidden" name="" value={{element.id}}>
+						</a>
 						<p><b>Title</b> : {{element.title}}</p>
 						<p><b>Period</b> : {{element.start_date}} - {{element.end_date}}</p>
 						<p><b>URL</b> : {{element.url}}</p>
 						<p>{{element.description}}</p>
-						<br/>
+					</div>
 					{% endfor %}
-					<div class="ui divider"></div>
 				{% endif %}
 
-				{% if other != None %}
+				{% if other %}
 				<div class="work-exp-header">Other</div>
 					{% for element in other %}
-					<a class="work-exp-edit-modal-btn" data-tooltip="Edit this" data-inverted="">
-						<i id="" class="right floated pencil alternate icon"></i>
-						<input type="hidden" name="" value={{element.id}}>
-					</a>
+					<div class="data">
+						<a class="work-exp-edit-modal-btn" data-tooltip="Edit this" data-inverted="">
+							<i id="" class="right floated pencil alternate icon"></i>
+							<input type="hidden" name="" value={{element.id}}>
+						</a>
 						<p><b>Title</b> : {{element.title}}</p>
 						<p><b>Period</b> : {{element.start_date}} - {{element.end_date}}</p>
 						<p><b>URL</b> : {{element.url}}</p>
 						<p>{{element.description}}</p>
-						<br/>
+					</div>
 					{% endfor %}
-					<div class="ui divider"></div>
 				{% endif %}
 				<div class="center work-exp-modal-btn">
 					<i class="large plus icon"></i>
@@ -256,7 +271,7 @@
 					<div class="header">
 						Work Experience
 					</div>
-					<div class="content description center ">
+					<div class="content description center">
 						<input class="ui large button work-exp-pre" type="button" name="Internship" value="Internship">
 						<input class="ui large button work-exp-pre" type="button" name="Project" value="Project">
 						<input class="ui large button work-exp-pre" type="button" name="Training" value="Training"><br/><br/>
