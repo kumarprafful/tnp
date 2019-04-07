@@ -29,7 +29,7 @@ def dashboard(request):
     if request.user.is_faculty:
         return HttpResponseRedirect(reverse('faculty:dashboard'))
     else:
-        Student = StudentProfile.objects.get(enrollment_no = request.user.enrollment_no)
+        Student = StudentProfile.objects.get(user = request.user)
         school_education = SchoolEducation.objects.filter(student=Student)
         college_education = CollegeEducation.objects.filter(student=Student)
         internship = WorkExperience.objects.filter(student=Student, category="Internship")

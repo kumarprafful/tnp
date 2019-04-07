@@ -2,10 +2,17 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, JsonResponse
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.decorators import login_required
-from student.models import StudentProfile
 import json
 from django.core import serializers
 from account.models import User
+from student.models import (
+    StudentProfile,
+    MarkSheet,
+    ExtraInfo,
+    WorkExperience,
+    SchoolEducation,
+    CollegeEducation,
+    )
 
 # Create your views here.
 @login_required(login_url=reverse_lazy('account:faculty_login'))
@@ -62,7 +69,29 @@ def studentDetail(request, enr):
 		return HttpResponseRedirect(reverse('student:dashboard'))
 
 	else:
-		student = get_object_or_404(StudentProfile, enrollment_no=enr)
+		Student = get_object_or_404(StudentProfile, enrollment_no=enr)
+		school_education = SchoolEducation.objects.filter(student=Student)
+		college_education = CollegeEducation.objects.filter(student=Student)
+		internship = WorkExperience.objects.filter(student=Student, category="Internship")
+		project = WorkExperience.objects.filter(student=Student, category="Project")
+		training = WorkExperience.objects.filter(student=Student, category="Training")
+		achievement = WorkExperience.objects.filter(student=Student, category="Achievement")
+		other = WorkExperience.objects.filter(student=Student, category="Other")
+		marksheet = MarkSheet.objects.filter(student=Student)
+		if marksheet:
+			marksheet = marksheet[0]
 
-		return render(request, 'faculty/student_detail.html', context={'student': student})
 
+		context = {
+        	'student' : Student,
+			'school_education': school_education,
+			'college_education': college_education,
+			'internship': internship,
+			'project': project,
+			'training': training,
+			'achievement': achievement,
+			'other': other,
+			'marksheet': marksheet,
+			}
+
+		return render(request, template_name='faculty/student_detail.html', context=context )
