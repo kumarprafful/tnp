@@ -21,6 +21,23 @@ ul li {
   width: 100%;
   height: 18em;
 }
+.add-button{
+  border: 1px solid blue;
+  max-width: 11em;
+  height: 5em;
+  margin: 0 auto;
+  padding-top: 1em;
+  color: blue;
+  border-radius: 4px;
+  font-weight: bold;
+}
+.add-button:hover{
+  color: #fff;
+  background: blue;
+  cursor: pointer;
+  transition: background 0.5s, color 0.2s;
+}
+
 .center{
   text-align: center;
 }
@@ -188,8 +205,6 @@ div.dataTables_length {
 .data{
   margin-right: 1em;
   margin-bottom: 1.5em;
-
-
 }
 
 .data p{
