@@ -14,6 +14,7 @@ from student.models import (
 
 from student.forms import(
     StudentProfileForm,
+    StudentProfileDashForm,
     MarkSheetForm,
     ExtraInfoForm,
     WorkExperienceForm,
@@ -220,3 +221,23 @@ def editWorkExperienceDashView(request, pk):
     else:
         work_experience = WorkExperienceEditForm(instance=instance)
         return HttpResponse(work_experience.as_p())
+
+
+def collegeEducationDashView(request, course=None):
+    if request.user.is_faculty:
+        return HttpResponseRedirect(reverse('faculty:dashboard'))
+    else:
+        student = StudentProfile.objects.get(enrollment_no=request.user.enrollment_no)
+        if request.method == 'POST':
+            college_edu = CollegeEducationForm(data=request.POST)
+            if college_edu.is_valid():
+                edu = college_edu.save(commit=False)
+                edu.student = student
+                edu.save()
+                return HttpResponse('Form Submitted')
+            else:
+                return HttpResponse('INVALID FORM')
+        else:
+            data = {'course': course}
+            college_edu = CollegeEducationForm(initial=data)
+            return HttpResponse(college_edu.as_p())

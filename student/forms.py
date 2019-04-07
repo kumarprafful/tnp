@@ -63,6 +63,8 @@ class SchoolEducationForm(forms.ModelForm):
         exclude = ['student', 'qualification']
 
 class CollegeEducationForm(forms.ModelForm):
+    course = forms.CharField(widget=HiddenInput)
+
     class Meta:
         model = CollegeEducation
         exclude = ['student',]

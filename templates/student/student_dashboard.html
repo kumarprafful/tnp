@@ -117,8 +117,10 @@
 				{% else %}
 					{% for edu in college_education %}
 						{% if edu.course != None %}
-						{{edu.course}}
-						{{edu.branch}}
+						<p>{{edu.course}}</p>
+						<p>{{edu.branch}}</p>
+						<p>{{edu.college}}</p>
+
 						{% else %}
 						{% endif %}
 					{% endfor %}
@@ -395,7 +397,7 @@
 
 	$('.college-edu-pre').click(function(e){
 		var course = e.target.value;
-		var url = '{% url "student:college-education" %}';
+		var url = '{% url "student:college-education" 0 %}'.replace(0, course);
 		$.ajax({
 			type: "GET",
 			url: url,
@@ -403,6 +405,7 @@
 				$('.college-edu-form').html(data);
 			}
 		});
+		$('.college-edu-modal').modal('show');
 	});
 
 	$('.college-edu-form-data').submit(function(e){
