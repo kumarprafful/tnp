@@ -142,25 +142,30 @@
 				College Education
 			</div>
 			<div class="twelve wide column description">
-				{% if college_education == None %}
-				{% else %}
+				{% if current_college_education %}
+				<div class="data">
+					<p class="work-exp-header">Currently pursuing</p>
+					<p><b>Course</b> : {{current_college_education.course}}  ({{current_college_education.start_date}} - {{current_college_education.end_date}})</p>
+					<p><b>College</b> : {{current_college_education.college}}</p>
+					<p><b>Marks</b> : {{current_college_education.Marks}}</p>
+				</div>
+				{% endif %}
+
+				{% if college_education %}
+					<p class="work-exp-header">Past educations</p>
 					{% for edu in college_education %}
-						{% if edu.course != None %}
-							{% if edu.from_profile %}
+						{% if edu.course %}
 							<div class="data">
-								<p><b>Course</b> : {{edu.course}}  ({{edu.start_date}} - {{edu.end_date}})</p>
-								<p><b>College</b> : {{edu.college}}</p>
-							</div>
-							{% else %}
-							<div class="data">
+								<a class="college-edu-edit-modal-btn" data-tooltip="Edit this" data-inverted="">
+									<i id="" class="right floated pencil alternate icon"></i>
+									<input type="hidden" name="" value={{edu.id}}>
+								</a>
 								<p><b>Course:</b> {{edu.course}}</p>
 								<p><b>Branch:</b> {{edu.branch}} ({{edu.start_date}} - {{edu.end_date}})</p>
 								<p><b>College:</b> {{edu.college}}</p>
 								<p><b>Marks:</b> {{edu.marks}}</p>
-
 							</div>
 
-							{% endif %}
 						{% else %}
 						{% endif %}
 					{% endfor %}
@@ -446,6 +451,22 @@
 			}
 		});
 		$('.college-edu-modal').modal('show');
+	});
+
+	$('.college-edu-edit-modal-btn').click(function(e){
+		var pk = e.currentTarget.children[1].value;
+		console.log(pk);
+		var url = '{% url "student:college-education-edit" 0 %}'.replace(0, pk);
+		var form = $(this);
+		$.ajax({
+			type: 'GET',
+			url: url,
+			success: function(data){
+				$('.college-edu-form').html(data);
+			}
+		});
+		$('.college-edu-modal').modal('show');
+
 	});
 
 	$('.college-edu-form-data').submit(function(e){

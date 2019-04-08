@@ -69,7 +69,7 @@ def studentDetail(request, enr):
 		return HttpResponseRedirect(reverse('student:dashboard'))
 
 	else:
-		Student = get_object_or_404(StudentProfile, enrollment_no=enr)
+		Student = StudentProfile.objects.get(enrollment_no=enr)
 		school_education = SchoolEducation.objects.filter(student=Student)
 		college_education = CollegeEducation.objects.filter(student=Student)
 		internship = WorkExperience.objects.filter(student=Student, category="Internship")

@@ -18,7 +18,7 @@ class StudentProfileForm(forms.ModelForm):
     # dob = forms.DateField(required = False, widget = DateInput())
     class Meta:
         model = StudentProfile
-        fields = ['course', 'admission_year', 'passing_year']
+        fields = ['name', 'course', 'admission_year', 'passing_year', 'primary_mobile']
 
 class FacultyUserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())

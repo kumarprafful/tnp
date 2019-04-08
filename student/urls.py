@@ -23,4 +23,7 @@ urlpatterns = [
     path('college-education/', student_views.collegeEducationDashView, name='college-education'),
     path('college-education/<course>/', student_views.collegeEducationDashView, name='college-education'),
 
+    path('college-education/edit/<pk>/', student_views.collegeEducationEdit, name='college-education-edit'),
+
+
 ]

@@ -13,7 +13,7 @@ class DateInput(forms.DateInput):
 
 
 class StudentProfileDashForm(forms.ModelForm):
-    dob = forms.DateField(required = False, widget = DateInput())
+    date_of_birth = forms.DateField(required = False, widget = DateInput())
 
     class Meta:
         model = StudentProfile
