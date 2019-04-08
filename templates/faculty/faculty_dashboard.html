@@ -114,12 +114,37 @@
             {% for student in Students %}
             <tr>
                     <td><a href="{% url 'faculty:student-detail' student.enrollment_no %}">{{ student.enrollment_no }}</a></td>
-                    <td>{{ student.name }}</td>
-                    <td>{{ student.gender }}</td>
-                    <td>{{ student.get_course_display }}</td>
-                    <td>{{ student.get_passing_year_display }}</td>
+                    <td>{% if student.name %}
+                          {{ student.name }}
+                        {% else %}
+                        <span class="meta">Not Available</span>
+                        {% endif %}
+                    </td>
+                    <td>{% if student.gender %}
+                          {{ student.gender }}
+                        {% else %}
+                        <span class="meta">Not Available</span>
+                        {% endif %}
+                    </td>
+                    <td>{% if student.get_course_display %}
+                          {{ student.get_course_display }}
+                        {% else %}
+                        <span class="meta">Not Available</span>
+                        {% endif %}
+                    </td>
+                    <td>{% if student.get_passing_year_display %}
+                          {{ student.get_passing_year_display }}
+                        {% else %}
+                        <span class="meta">Not Available</span>
+                        {% endif %}
+                    </td>
                     <td>{{ student.user.email }}</td>
-                    <td>{{ student.primary_mobile }}</td>
+                    <td>{% if student.primary_mobile %}
+                          {{ student.primary_mobile }}
+                        {% else %}
+                        <span class="meta">Not Available</span>
+                        {% endif %}
+                    </td>
             </tr>
           {% endfor %}
           </tbody>

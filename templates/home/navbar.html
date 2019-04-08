@@ -11,7 +11,7 @@
       </div>
 
     </a>
-    <ul id="nav-mobile" class="right menu">
+    <ul id="nav-mobile" class="right menu" style="padding-right: 10px;">
       {% if user.is_authenticated %}
         <li class="navbar-right-menu"><a href="{% url 'account:logout' %}" class="ui button inverted primary">Logout</a></li>
       {% else %}
