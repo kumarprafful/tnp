@@ -14,12 +14,12 @@ class StudentProfile(models.Model):
     )
 
     COURSE = (
-        ('BtechCSE', 'B.TECH - CSE'),
-        ('BtechIT', 'B.TECH - IT'),
-        ('BtechECE', 'B.TECH - ECE'),
-        ('MtechCSE', 'M.TECH - CSE'),
-        ('MtechIT', 'M.TECH - IT'),
-        ('MtechECE', 'M.TECH - ECE'),
+        ('B.TECH - CSE', 'B.TECH - CSE'),
+        ('B.TECH - IT', 'B.TECH - IT'),
+        ('B.TECH - ECE', 'B.TECH - ECE'),
+        ('M.TECH - CSE', 'M.TECH - CSE'),
+        ('M.TECH - IT', 'M.TECH - IT'),
+        ('M.TECH - ECE', 'M.TECH - ECE'),
         ('MCA', 'MCA'),
     )
 
@@ -32,12 +32,12 @@ class StudentProfile(models.Model):
         PASSING_YEAR_CHOICES.append((r,r))
 
     REGION = (
-        ('DEL', 'Delhi'),
-        ('ODEL', 'Outside Delhi'),
+        ('Delhi', 'Delhi'),
+        ('Outside Delhi', 'Outside Delhi'),
     )
 
     CATEGORY = (
-        ('UR', 'Unreserved'),
+        ('Unreserved', 'Unreserved'),
         ('OBC', 'OBC'),
         ('SC', 'SC'),
         ('ST', 'ST'),
@@ -47,7 +47,7 @@ class StudentProfile(models.Model):
     GENDER = (
         ('Male', 'Male'),
         ('Female', 'Female'),
-        ('Transgender', 'Transgender'),
+        ('Others', 'Others'),
     )
 
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -195,7 +195,7 @@ class WorkExperience(models.Model):
     description = models.TextField(max_length = 200, null=True)
 
     def __str__(self):
-        return str(self.student.enrollment_no +': '+ self.category +': '+ self.title)
+        return self.student.enrollment_no
 
 class SchoolEducation(models.Model):
 
@@ -235,6 +235,7 @@ class CollegeEducation(models.Model):
     )
 
     student = models.ForeignKey(StudentProfile, on_delete=models.CASCADE)
+    from_profile = models.BooleanField(default=False)
     course = models.CharField(max_length=50, choices=COURSES)
     branch = models.CharField(max_length=50)
     college = models.CharField(max_length=200)

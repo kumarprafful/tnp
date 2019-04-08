@@ -7,7 +7,7 @@
 
 	<!-- Personal Deatils -->
 		<div class="content">
-			<a  data-tooltip="Edit this" data-inverted=""><i id="m" class="right floated pencil alternate icon"></i></a>
+			<a  data-tooltip="Edit this" data-inverted=""><i id="m" class="personal-details right floated pencil alternate icon"></i></a>
 
 			<div class="ui modal student-profile-modal">
 				<i class="close icon"></i>
@@ -21,31 +21,56 @@
 						{% csrf_token %}
 						<div class="profile-form">
 						</div>
-						<button class="ui button student-profile-form">Submit</button>
+						<button class="ui button student-profile-form sub-btn fluid">Submit</button>
 					</form>
 				</div>
 			</div>
 
-			<div class="header">
+			<div class="content-header">
 				{% if student.name %}
 					{{student.name}}
 				{% else %}
-					<a>Edit name</a>
+					<a class="personal-details">Edit name</a>
 				{% endif %}
 			</div>
-			<div class="meta">
-				<p>{{student.user.email}}</p>
-				<p>{{student.user.gender}}</p>
-				<p>{{student.user.dob}}</p>
+			<div class="meta" style="margin:1em 0">
+				<div class="ui grid">
+					<div class="six wide column">
+						<p><b>Email</b> : {{student.user.email}}</p>
+						<p><b>Enrollment number</b> : {{student.user.enrollment_no}}</p>
+						{% if student.region %}
+							<p><b>Region</b> : {{student.region}}</p>
+						{% endif %}
+						{% if student.category %}
+							<p><b>Category</b> : {{student.category}}</p>
+						{% endif %}
+						{% if student.gender %}
+							<p><b>Gender</b> : {{student.gender}}</p>
+						{% endif %}
+					</div>
+					<div class="eight wide column">
+						{% if student.dob %}
+							<p><b>Date of birth</b> : {{student.dob}}</p>
+						{% endif %}
+						{% if student.fathers_name %}
+							<p><b>Father's name</b> : {{student.fathers_name }}</p>
+						{% endif %}
+						{% if student.primary_mobile %}
+							<p><b>Primary contact</b> : {{student.primary_mobile}}</p>
+						{% endif %}
+						{% if student.secondary_mobile %}
+							<p><b>Alternate contact</b> : {{student.secondary_mobile}}</p>
+						{% endif %}
+						{% if student.address %}
+							<p><b>Address</b> : {{student.address}}</p>
+						{% endif %}
+					</div>
+				</div>
 
-
-				<p>{{student.college}}</p>
-				<p>{{student.course}} ({{student.admission_year}}-{{student.passing_year}})</p>
-				<p>{{student.primary_mobile}}</p>
-				<p>{{student.address}}</p>
-				<p>{{student.region}}</p>
-				<p>{{student.category}}</p>
 			</div>
+			<!-- {% if not student.name or not student.region or not student.category or not student.gender or not student.dob or not student.fathers_name or not student.primary_mobile or not student.secondary_mobile or not student.address %}
+				<p class="personal-details edit-it">Edit personal details</p>
+			{% endif %} -->
 		</div>
 	<!-- Ends Personal Deatils -->
 	<div class="ui divider"></div>
@@ -68,6 +93,8 @@
 									<input type="hidden" name="" value={{edu.id}}>
 							</a>
 								{% else %}
+								<div class="data">
+
 								<a class=" school-edu-modal-btn" data-tooltip="Edit this" data-inverted="">
 									<i id="" class="right floated pencil alternate icon"></i>
 									<input type="hidden" name="" value={{edu.id}}>
@@ -77,7 +104,9 @@
 									<p><b>Year of completition</b> - {{edu.year}}</p>
 									<p><b>Board</b> - {{edu.board}}</p>
 									<p><b>Percentage/CGPA</b> - {{edu.marks}}</p>
-									<br />
+								</div>
+
+
 								{% endif %}
 					{% endfor %}
 					{% endif %}
@@ -95,7 +124,7 @@
 							<form class="ui form school-edu-form-data">
 								{% csrf_token %}
 								<div class="school-edu-form"></div>
-								<button class="ui button">Submit</button>
+								<button class="ui button sub-btn fluid">Submit</button>
 							</form>
 						</div>
 					</div>
@@ -117,13 +146,26 @@
 				{% else %}
 					{% for edu in college_education %}
 						{% if edu.course != None %}
-						{{edu.course}}
-						{{edu.branch}}
+							{% if edu.from_profile %}
+							<div class="data">
+								<p><b>Course</b> : {{edu.course}}  ({{edu.start_date}} - {{edu.end_date}})</p>
+								<p><b>College</b> : {{edu.college}}</p>
+							</div>
+							{% else %}
+							<div class="data">
+								<p><b>Course:</b> {{edu.course}}</p>
+								<p><b>Branch:</b> {{edu.branch}} ({{edu.start_date}} - {{edu.end_date}})</p>
+								<p><b>College:</b> {{edu.college}}</p>
+								<p><b>Marks:</b> {{edu.marks}}</p>
+
+							</div>
+
+							{% endif %}
 						{% else %}
 						{% endif %}
 					{% endfor %}
 				{% endif %}
-				<div class="center college-edu-modal-btn">
+				<div class="center add-button college-edu-modal-btn">
 					<i class="large plus icon"></i>
 					<p>Add College</p>
 				</div>
@@ -148,7 +190,7 @@
 						<form class="ui form college-edu-form-data">
 							{% csrf_token %}
 							<div class="college-edu-form"></div>
-							<button class="ui button">Submit</button>
+							<button class="ui button sub-btn fluid">Submit</button>
 						</form>
 					</div>
 				</div>
@@ -165,86 +207,86 @@
 				Work Experience
 			</div>
 			<div class="twelve wide column description">
-				{% if internship != None %}
+				{% if internship %}
 				<div class="work-exp-header">Internship</div>
 					{% for element in internship %}
-					<a class="work-exp-edit-modal-btn" data-tooltip="Edit this" data-inverted="">
-						<i id="" class="right floated pencil alternate icon"></i>
-						<input type="hidden" name="" value={{element.id}}>
-					</a>
+					<div class="data">
+						<a class="work-exp-edit-modal-btn" data-tooltip="Edit this" data-inverted="">
+							<i id="" class="right floated pencil alternate icon"></i>
+							<input type="hidden" name="" value={{element.id}}>
+						</a>
 						<p><b>Company name</b> : {{element.title}}</p>
 						<p><b>Period</b> : {{element.start_date}} - {{element.end_date}}</p>
 						<p><b>URL</b> : {{element.url}}</p>
 						<p>{{element.description}}</p>
-						<br/>
+					</div>
 					{% endfor %}
-					<div class="ui divider"></div>
 				{% endif %}
 
-				{% if project != None %}
+				{% if project %}
 				<div class="work-exp-header">Project</div>
 					{% for element in project %}
-					<a class="work-exp-edit-modal-btn" data-tooltip="Edit this" data-inverted="">
-						<i id="" class="right floated pencil alternate icon"></i>
-						<input type="hidden" name="" value={{element.id}}>
-					</a>
+					<div class="data">
+						<a class="work-exp-edit-modal-btn" data-tooltip="Edit this" data-inverted="">
+							<i id="" class="right floated pencil alternate icon"></i>
+							<input type="hidden" name="" value={{element.id}}>
+						</a>
 						<p><b>Title</b> : {{element.title}}</p>
 						<p><b>Period</b> : {{element.start_date}} - {{element.end_date}}</p>
 						<p><b>URL</b> : {{element.url}}</p>
 						<p>{{element.description}}</p>
-						<br/>
+					</div>
 					{% endfor %}
-					<div class="ui divider"></div>
 				{% endif %}
 
-				{% if training != None %}
+				{% if training %}
 				<div class="work-exp-header">Training</div>
 					{% for element in training %}
-					<a class="work-exp-edit-modal-btn" data-tooltip="Edit this" data-inverted="">
-						<i id="" class="right floated pencil alternate icon"></i>
-						<input type="hidden" name="" value={{element.id}}>
-					</a>
+					<div class="data">
+						<a class="work-exp-edit-modal-btn" data-tooltip="Edit this" data-inverted="">
+							<i id="" class="right floated pencil alternate icon"></i>
+							<input type="hidden" name="" value={{element.id}}>
+						</a>
 						<p><b>Title</b> : {{element.title}}</p>
 						<p><b>Period</b> : {{element.start_date}} - {{element.end_date}}</p>
 						<p><b>URL</b> : {{element.url}}</p>
 						<p>{{element.description}}</p>
-						<br/>
+					</div>
 					{% endfor %}
-					<div class="ui divider"></div>
 				{% endif %}
 
-				{% if achievement != None %}
+				{% if achievement %}
 				<div class="work-exp-header">Achievement</div>
 					{% for element in achievement %}
-					<a class="work-exp-edit-modal-btn" data-tooltip="Edit this" data-inverted="">
-						<i id="" class="right floated pencil alternate icon"></i>
-						<input type="hidden" name="" value={{element.id}}>
-					</a>
+					<div class="data">
+						<a class="work-exp-edit-modal-btn" data-tooltip="Edit this" data-inverted="">
+							<i id="" class="right floated pencil alternate icon"></i>
+							<input type="hidden" name="" value={{element.id}}>
+						</a>
 						<p><b>Title</b> : {{element.title}}</p>
 						<p><b>Period</b> : {{element.start_date}} - {{element.end_date}}</p>
 						<p><b>URL</b> : {{element.url}}</p>
 						<p>{{element.description}}</p>
-						<br/>
+					</div>
 					{% endfor %}
-					<div class="ui divider"></div>
 				{% endif %}
 
-				{% if other != None %}
+				{% if other %}
 				<div class="work-exp-header">Other</div>
 					{% for element in other %}
-					<a class="work-exp-edit-modal-btn" data-tooltip="Edit this" data-inverted="">
-						<i id="" class="right floated pencil alternate icon"></i>
-						<input type="hidden" name="" value={{element.id}}>
-					</a>
+					<div class="data">
+						<a class="work-exp-edit-modal-btn" data-tooltip="Edit this" data-inverted="">
+							<i id="" class="right floated pencil alternate icon"></i>
+							<input type="hidden" name="" value={{element.id}}>
+						</a>
 						<p><b>Title</b> : {{element.title}}</p>
 						<p><b>Period</b> : {{element.start_date}} - {{element.end_date}}</p>
 						<p><b>URL</b> : {{element.url}}</p>
 						<p>{{element.description}}</p>
-						<br/>
+					</div>
 					{% endfor %}
-					<div class="ui divider"></div>
 				{% endif %}
-				<div class="center work-exp-modal-btn">
+				<div class="center add-button work-exp-modal-btn">
 					<i class="large plus icon"></i>
 					<p>Add work experience</p>
 				</div>
@@ -254,7 +296,7 @@
 					<div class="header">
 						Work Experience
 					</div>
-					<div class="content description center ">
+					<div class="content description center">
 						<input class="ui large button work-exp-pre" type="button" name="Internship" value="Internship">
 						<input class="ui large button work-exp-pre" type="button" name="Project" value="Project">
 						<input class="ui large button work-exp-pre" type="button" name="Training" value="Training"><br/><br/>
@@ -272,7 +314,7 @@
 						<form class="ui form work-exp-form-data">
 							{% csrf_token %}
 							<div class="work-exp-edit-form"></div>
-							<button class="ui button">Submit</button>
+							<button class="ui button sub-btn fluid">Submit</button>
 						</form>
 					</div>
 				</div>
@@ -288,7 +330,7 @@
 						<form class="ui form work-exp-form-data">
 							{% csrf_token %}
 							<div class="work-exp-form"></div>
-							<button class="ui button">Submit</button>
+							<button class="ui button sub-btn fluid">Submit</button>
 						</form>
 					</div>
 				</div>
@@ -303,7 +345,7 @@
 </div>
 
 <script type="text/javascript">
-	$('#m').click(function(){
+	$('.personal-details').click(function(){
 		$('.student-profile-modal').modal('show');
 	});
 
@@ -324,7 +366,7 @@
 	});
 
 
-	$('#m').click(function(){
+	$('.personal-details').click(function(){
 		var url = '{% url "student:student_profile_dash_form" %}';
 		$.ajax({
 			type:"GET",
@@ -395,7 +437,7 @@
 
 	$('.college-edu-pre').click(function(e){
 		var course = e.target.value;
-		var url = '{% url "student:college-education" %}';
+		var url = '{% url "student:college-education" 0 %}'.replace(0, course);
 		$.ajax({
 			type: "GET",
 			url: url,
@@ -403,6 +445,7 @@
 				$('.college-edu-form').html(data);
 			}
 		});
+		$('.college-edu-modal').modal('show');
 	});
 
 	$('.college-edu-form-data').submit(function(e){

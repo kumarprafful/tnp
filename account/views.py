@@ -13,8 +13,8 @@ from student.models import (
     SchoolEducation,
     CollegeEducation,
     )
-from .models import FacultyProfile
-from .forms import UserForm, FacultyUserForm, FacultyProfileForm
+from account.models import FacultyProfile
+from account.forms import UserForm, FacultyUserForm, FacultyProfileForm, StudentProfileForm
 
 # Create your views here.
 def index(request):
@@ -26,18 +26,14 @@ def student_register(request):
         return HttpResponseRedirect(reverse('student:dashboard'))
     elif request.method == 'POST':
         user_form = UserForm(data=request.POST)
-       # student_profile_form = StudentProfileForm(data=request.POST)
-        if user_form.is_valid(): #and student_profile_form.is_valid():
+        student_profile_form = StudentProfileForm(data=request.POST)
+        if user_form.is_valid() and student_profile_form.is_valid():
             user = user_form.save()
             user.set_password(user.password)
-
-
             # user.save(commit=False)
-
-
-            #student_profile = student_profile_form.save(commit=False)
-            student_profile = StudentProfile.objects.create(user = user)
-            #student_profile.user = user
+            student_profile = student_profile_form.save(commit=False)
+            # student_profile = StudentProfile.objects.create(user = user)
+            student_profile.user = user
             student_profile.enrollment_no = user.enrollment_no
             student_profile.save()
             MarkSheet.objects.create(student=student_profile)
@@ -45,16 +41,22 @@ def student_register(request):
             WorkExperience.objects.create(student=student_profile)
             SchoolEducation.objects.create(student=student_profile,qualification="X (Secondary)")
             SchoolEducation.objects.create(student=student_profile,qualification="XII (Senior Secondary)")
-
-            CollegeEducation.objects.create(student=student_profile)
+            CollegeEducation.objects.create(
+                                student=student_profile,
+                                from_profile=True,
+                                course=student_profile.course,
+                                start_date=student_profile.admission_year,
+                                end_date=student_profile.passing_year,
+                                college=student_profile.college
+                                )
             user.save()
 
             registered = True
             return HttpResponseRedirect(reverse('account:student_login'))
     else:
         user_form = UserForm()
-        #student_profile_form = StudentProfileForm()
-    return render(request, 'registration/student_register.html', {'registered': registered, 'user_form': user_form }) #, 'student_profile_form': student_profile_form})
+        student_profile_form = StudentProfileForm()
+    return render(request, 'registration/student_register.html', {'registered': registered, 'user_form': user_form, 'student_profile_form': student_profile_form})
 
 def faculty_register(request):
     registered = False
