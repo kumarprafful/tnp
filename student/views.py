@@ -224,6 +224,15 @@ def editWorkExperienceDashView(request, pk):
         work_experience = WorkExperienceEditForm(instance=instance)
         return HttpResponse(work_experience.as_p())
 
+def workExperienceDelete(request, pk):
+    if request.user.is_faculty:
+        return HttpResponseRedirect(reverse('faculty:dashboard'))
+    else:
+        student = StudentProfile.objects.get(enrollment_no=request.user.enrollment_no)
+        work_exp = WorkExperience.objects.get(student=student, pk=pk)
+        work_exp.delete()
+        return HttpResponse('Deleted')
+
 
 def collegeEducationDashView(request, course=None):
     if request.user.is_faculty:
@@ -261,3 +270,12 @@ def collegeEducationEdit(request, pk):
         else:
             college_edu = CollegeEducationForm(instance=college_education)
             return HttpResponse(college_edu.as_p())
+
+def collegeEducationDelete(request, pk):
+    if request.user.is_faculty:
+        return HttpResponseRedirect(reverse('faculty:dashboard'))
+    else:
+        student = StudentProfile.objects.get(enrollment_no=request.user.enrollment_no)
+        college_education = CollegeEducation.objects.get(student=student, pk=pk)
+        college_education.delete()
+        return HttpResponse('Deleted')

@@ -146,8 +146,10 @@
 				<div class="data">
 					<p class="work-exp-header">Currently pursuing</p>
 					<p><b>Course</b> : {{current_college_education.course}}  ({{current_college_education.start_date}} - {{current_college_education.end_date}})</p>
-					<p><b>College</b> : {{current_college_education.college}}</p>
-					<p><b>Marks</b> : {{current_college_education.Marks}}</p>
+					<div class="meta">
+						<p><b>College</b> : {{current_college_education.college}}</p>
+						<p><b>Marks</b> : {{current_college_education.Marks}}</p>
+					</div>
 				</div>
 				{% endif %}
 
@@ -156,16 +158,39 @@
 					{% for edu in college_education %}
 						{% if edu.course %}
 							<div class="data">
+								<a class="college-edu-delete-modal-btn" data-tooltip="Delete" data-inverted="">
+									<i id="" class="right floated trash alternate icon large"></i>
+								</a>
 								<a class="college-edu-edit-modal-btn" data-tooltip="Edit this" data-inverted="">
-									<i id="" class="right floated pencil alternate icon"></i>
+									<i id="" class="right floated pencil alternate icon large"></i>
 									<input type="hidden" name="" value={{edu.id}}>
 								</a>
 								<p><b>Course:</b> {{edu.course}}</p>
-								<p><b>Branch:</b> {{edu.branch}} ({{edu.start_date}} - {{edu.end_date}})</p>
-								<p><b>College:</b> {{edu.college}}</p>
-								<p><b>Marks:</b> {{edu.marks}}</p>
+								<div class="meta">
+									<p><b>Branch:</b> {{edu.branch}} ({{edu.start_date}} - {{edu.end_date}})</p>
+									<p><b>College:</b> {{edu.college}}</p>
+									<p><b>Marks:</b> {{edu.marks}}</p>
+								</div>
 							</div>
-
+							<div class="ui basic modal college-edu-delete-modal">
+								<div class="ui icon delete-header">
+									<i class="trash icon"></i>
+								</div>
+								<div class="content">
+									<!-- <p>Your inbox is getting full, would you like us to enable automatic archiving of old messages?</p> -->
+								</div>
+								<div class="actions">
+									<div class="ui red basic cancel inverted button">
+										<i class="remove icon"></i>
+										No
+									</div>
+									<div class="ui green ok inverted button college-edu-delete-confirm">
+										<i class="checkmark icon"></i>
+										Yes
+										<input type="hidden" name="" value={{edu.id}}>
+									</div>
+								</div>
+							</div>
 						{% else %}
 						{% endif %}
 					{% endfor %}
@@ -174,6 +199,8 @@
 					<i class="large plus icon"></i>
 					<p>Add College</p>
 				</div>
+
+
 
 				<div class="ui modal college-edu-pre-modal">
 					<i class="close icon"></i>
@@ -216,14 +243,39 @@
 				<div class="work-exp-header">Internship</div>
 					{% for element in internship %}
 					<div class="data">
+						<a class="work-exp-delete-modal-btn" data-tooltip="Delete" data-inverted="">
+							<i id="" class="right floated trash alternate icon large"></i>
+						</a>
 						<a class="work-exp-edit-modal-btn" data-tooltip="Edit this" data-inverted="">
-							<i id="" class="right floated pencil alternate icon"></i>
+							<i id="" class="right floated pencil alternate icon large"></i>
 							<input type="hidden" name="" value={{element.id}}>
 						</a>
 						<p><b>Company name</b> : {{element.title}}</p>
-						<p><b>Period</b> : {{element.start_date}} - {{element.end_date}}</p>
-						<p><b>URL</b> : {{element.url}}</p>
-						<p>{{element.description}}</p>
+						<div class="meta">
+							<p><b>Period</b> : {{element.start_date}} - {{element.end_date}}</p>
+							<p><b>URL</b> :&nbsp; <a target="_blank" href="{{element.url}}">{{element.url}}</a></p>
+							<p>{{element.description}}</p>
+						</div>
+					</div>
+
+					<div class="ui basic modal work-exp-delete-modal">
+						<div class="ui icon delete-header">
+							<i class="trash icon"></i>
+						</div>
+						<div class="content">
+							<!-- <p>Your inbox is getting full, would you like us to enable automatic archiving of old messages?</p> -->
+						</div>
+						<div class="actions">
+							<div class="ui red basic cancel inverted button">
+								<i class="remove icon"></i>
+								No
+							</div>
+							<div class="ui green ok inverted button work-exp-delete-confirm">
+								<i class="checkmark icon"></i>
+								Yes
+								<input type="hidden" name="" value={{element.id}}>
+							</div>
+						</div>
 					</div>
 					{% endfor %}
 				{% endif %}
@@ -232,14 +284,39 @@
 				<div class="work-exp-header">Project</div>
 					{% for element in project %}
 					<div class="data">
+						<a class="work-exp-delete-modal-btn" data-tooltip="Delete" data-inverted="">
+							<i id="" class="right floated trash alternate icon large"></i>
+						</a>
 						<a class="work-exp-edit-modal-btn" data-tooltip="Edit this" data-inverted="">
-							<i id="" class="right floated pencil alternate icon"></i>
+							<i id="" class="right floated pencil alternate icon large"></i>
 							<input type="hidden" name="" value={{element.id}}>
 						</a>
 						<p><b>Title</b> : {{element.title}}</p>
-						<p><b>Period</b> : {{element.start_date}} - {{element.end_date}}</p>
-						<p><b>URL</b> : {{element.url}}</p>
-						<p>{{element.description}}</p>
+						<div class="meta">
+							<p><b>Period</b> : {{element.start_date}} - {{element.end_date}}</p>
+							<p><b>URL</b> :&nbsp; <a target="_blank" href="{{element.url}}">{{element.url}}</a></p>
+							<p>{{element.description}}</p>
+						</div>
+					</div>
+
+					<div class="ui basic modal work-exp-delete-modal">
+						<div class="ui icon delete-header">
+							<i class="trash icon"></i>
+						</div>
+						<div class="content">
+							<!-- <p>Your inbox is getting full, would you like us to enable automatic archiving of old messages?</p> -->
+						</div>
+						<div class="actions">
+							<div class="ui red basic cancel inverted button">
+								<i class="remove icon"></i>
+								No
+							</div>
+							<div class="ui green ok inverted button work-exp-delete-confirm">
+								<i class="checkmark icon"></i>
+								Yes
+								<input type="hidden" name="" value={{element.id}}>
+							</div>
+						</div>
 					</div>
 					{% endfor %}
 				{% endif %}
@@ -248,14 +325,39 @@
 				<div class="work-exp-header">Training</div>
 					{% for element in training %}
 					<div class="data">
+						<a class="work-exp-delete-modal-btn" data-tooltip="Delete" data-inverted="">
+							<i id="" class="right floated trash alternate icon large"></i>
+						</a>
 						<a class="work-exp-edit-modal-btn" data-tooltip="Edit this" data-inverted="">
-							<i id="" class="right floated pencil alternate icon"></i>
+							<i id="" class="right floated pencil alternate icon large"></i>
 							<input type="hidden" name="" value={{element.id}}>
 						</a>
 						<p><b>Title</b> : {{element.title}}</p>
-						<p><b>Period</b> : {{element.start_date}} - {{element.end_date}}</p>
-						<p><b>URL</b> : {{element.url}}</p>
-						<p>{{element.description}}</p>
+						<div class="meta">
+							<p><b>Period</b> : {{element.start_date}} - {{element.end_date}}</p>
+							<p><b>URL</b> :&nbsp; <a target="_blank" href="{{element.url}}">{{element.url}}</a></p>
+							<p>{{element.description}}</p>
+						</div>
+					</div>
+
+					<div class="ui basic modal work-exp-delete-modal">
+						<div class="ui icon delete-header">
+							<i class="trash icon"></i>
+						</div>
+						<div class="content">
+							<!-- <p>Your inbox is getting full, would you like us to enable automatic archiving of old messages?</p> -->
+						</div>
+						<div class="actions">
+							<div class="ui red basic cancel inverted button">
+								<i class="remove icon"></i>
+								No
+							</div>
+							<div class="ui green ok inverted button work-exp-delete-confirm">
+								<i class="checkmark icon"></i>
+								Yes
+								<input type="hidden" name="" value={{element.id}}>
+							</div>
+						</div>
 					</div>
 					{% endfor %}
 				{% endif %}
@@ -264,14 +366,39 @@
 				<div class="work-exp-header">Achievement</div>
 					{% for element in achievement %}
 					<div class="data">
+						<a class="work-exp-delete-modal-btn" data-tooltip="Delete" data-inverted="">
+							<i id="" class="right floated trash alternate icon large"></i>
+						</a>
 						<a class="work-exp-edit-modal-btn" data-tooltip="Edit this" data-inverted="">
-							<i id="" class="right floated pencil alternate icon"></i>
+							<i id="" class="right floated pencil alternate icon large"></i>
 							<input type="hidden" name="" value={{element.id}}>
 						</a>
 						<p><b>Title</b> : {{element.title}}</p>
-						<p><b>Period</b> : {{element.start_date}} - {{element.end_date}}</p>
-						<p><b>URL</b> : {{element.url}}</p>
-						<p>{{element.description}}</p>
+						<div class="meta">
+							<p><b>Period</b> : {{element.start_date}} - {{element.end_date}}</p>
+							<p><b>URL</b> :&nbsp; <a target="_blank" href="{{element.url}}">{{element.url}}</a></p>
+							<p>{{element.description}}</p>
+						</div>
+					</div>
+
+					<div class="ui basic modal work-exp-delete-modal">
+						<div class="ui icon delete-header">
+							<i class="trash icon"></i>
+						</div>
+						<div class="content">
+							<!-- <p>Your inbox is getting full, would you like us to enable automatic archiving of old messages?</p> -->
+						</div>
+						<div class="actions">
+							<div class="ui red basic cancel inverted button">
+								<i class="remove icon"></i>
+								No
+							</div>
+							<div class="ui green ok inverted button work-exp-delete-confirm">
+								<i class="checkmark icon"></i>
+								Yes
+								<input type="hidden" name="" value={{element.id}}>
+							</div>
+						</div>
 					</div>
 					{% endfor %}
 				{% endif %}
@@ -280,14 +407,39 @@
 				<div class="work-exp-header">Other</div>
 					{% for element in other %}
 					<div class="data">
+						<a class="work-exp-delete-modal-btn" data-tooltip="Delete" data-inverted="">
+							<i id="" class="right floated trash alternate icon large"></i>
+						</a>
 						<a class="work-exp-edit-modal-btn" data-tooltip="Edit this" data-inverted="">
-							<i id="" class="right floated pencil alternate icon"></i>
+							<i id="" class="right floated pencil alternate icon large"></i>
 							<input type="hidden" name="" value={{element.id}}>
 						</a>
 						<p><b>Title</b> : {{element.title}}</p>
-						<p><b>Period</b> : {{element.start_date}} - {{element.end_date}}</p>
-						<p><b>URL</b> : {{element.url}}</p>
-						<p>{{element.description}}</p>
+						<div class="meta">
+							<p><b>Period</b> : {{element.start_date}} - {{element.end_date}}</p>
+							<p><b>URL</b> :&nbsp;<a target="_blank" href="{{element.url}}">{{element.url}}</a></p>
+							<p>{{element.description}}</p>
+						</div>
+					</div>
+
+					<div class="ui basic modal work-exp-delete-modal">
+						<div class="ui icon delete-header">
+							<i class="trash icon"></i>
+						</div>
+						<div class="content">
+							<!-- <p>Your inbox is getting full, would you like us to enable automatic archiving of old messages?</p> -->
+						</div>
+						<div class="actions">
+							<div class="ui red basic cancel inverted button">
+								<i class="remove icon"></i>
+								No
+							</div>
+							<div class="ui green ok inverted button work-exp-delete-confirm">
+								<i class="checkmark icon"></i>
+								Yes
+								<input type="hidden" name="" value={{element.id}}>
+							</div>
+						</div>
 					</div>
 					{% endfor %}
 				{% endif %}
@@ -313,7 +465,7 @@
 				<div class="ui modal work-exp-edit-modal">
 					<i class="close icon"></i>
 					<div class="header">
-						EDIT Work Experience <div class="error"></div>
+						Edit Work Experience <div class="error"></div>
 					</div>
 					<div class="scrolling content description">
 						<form class="ui form work-exp-form-data">
@@ -361,6 +513,9 @@
 	$('.college-edu-modal-btn').click(function(){
 		$('.college-edu-pre-modal').modal('show');
 	});
+	$('.college-edu-delete-modal-btn').click(function(){
+		$('.college-edu-delete-modal').modal('show');
+	})
 
 	$('.work-exp-modal-btn').click(function(){
 		$('.work-exp-pre-modal').modal('show');
@@ -369,6 +524,10 @@
 	$('.work-exp-edit-modal-btn').click(function(){
 		$('.work-exp-edit-modal').modal('show');
 	});
+	$('.work-exp-delete-modal-btn').click(function(){
+		$('.work-exp-delete-modal').modal('show');
+	});
+
 
 
 	$('.personal-details').click(function(){
@@ -455,7 +614,6 @@
 
 	$('.college-edu-edit-modal-btn').click(function(e){
 		var pk = e.currentTarget.children[1].value;
-		console.log(pk);
 		var url = '{% url "student:college-education-edit" 0 %}'.replace(0, pk);
 		var form = $(this);
 		$.ajax({
@@ -466,6 +624,21 @@
 			}
 		});
 		$('.college-edu-modal').modal('show');
+
+	});
+
+	$('.college-edu-delete-confirm').click(function(e){
+		var pk = e.currentTarget.children[1].value;
+		var url = '{% url "student:college-education-delete" 0 %}'.replace(0, pk);
+		var form = $(this);
+		$.ajax({
+			type: 'GET',
+			url: url,
+			success: function(data){
+				location.reload();
+			}
+		});
+
 
 	});
 
@@ -526,12 +699,25 @@
 
 	$('.work-exp-edit-modal-btn').click(function(e){
 		work_exp_pk = e.currentTarget.children[1].value;
-		var url = '{% url "student:editttt" pk=000 %}'.replace(000, work_exp_pk);
+		var url = '{% url "student:work-exp-edit" pk=000 %}'.replace(000, work_exp_pk);
 		$.ajax({
 			type: "GET",
 			url: url,
 			success: function(data){
 				$('.work-exp-edit-form').html(data);
+			}
+		});
+	});
+
+	$('.work-exp-delete-confirm').click(function(e){
+		var pk = e.currentTarget.children[1].value;
+		var url = '{% url "student:work-exp-delete" 0 %}'.replace(0, pk);
+		var form = $(this);
+		$.ajax({
+			type: 'GET',
+			url: url,
+			success: function(data){
+				location.reload();
 			}
 		});
 	});

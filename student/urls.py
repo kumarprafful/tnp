@@ -18,12 +18,11 @@ urlpatterns = [
     # path('college-education/', student_views.collegeEducation, name='college-education'),
     path('work-exp/<category>/', student_views.workExperienceDashView, name='work-exp'),
     path('work-exp/', student_views.workExperienceDashView, name='work-exp'),
-    path('work-exp/edit/<int:pk>/', student_views.editWorkExperienceDashView, name='editttt'),
+    path('work-exp/edit/<int:pk>/', student_views.editWorkExperienceDashView, name='work-exp-edit'),
+    path('work-exp/delete/<int:pk>/', student_views.workExperienceDelete, name='work-exp-delete'),
 
     path('college-education/', student_views.collegeEducationDashView, name='college-education'),
     path('college-education/<course>/', student_views.collegeEducationDashView, name='college-education'),
-
     path('college-education/edit/<pk>/', student_views.collegeEducationEdit, name='college-education-edit'),
-
-
+    path('college-education/delete/<pk>/', student_views.collegeEducationDelete, name='college-education-delete'),
 ]
