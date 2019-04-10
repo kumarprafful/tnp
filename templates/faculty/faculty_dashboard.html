@@ -33,8 +33,7 @@
           <p>
             <label>
               <input type="checkbox" class="filled-in" name="courses" value="B.TECH - IT" />
-              <span>B.TECH - I T </span>
-            </label>
+              <span>B.TECH-IT </span>
           </p>
           <p>
             <label>
@@ -51,7 +50,7 @@
           <p>
             <label>
               <input type="checkbox" class="filled-in" name="courses" value="M.TECH - IT" />
-              <span>M.TECH - I T </span>
+              <span>M.TECH-IT </span>
             </label>
           </p>
           <p>
@@ -219,7 +218,7 @@
             var url = '{% url "faculty:student-detail"  000 %}'.replace(000, students[i].enrollment_no);
             $('#student-table > tbody').append('<tr><td><a href='+url+'>'+students[i].enrollment_no+'</a></td><td>'+students[i].name+'</td><td>'+students[i].gender+'</td><td>'+students[i].course+'</td><td>'+students[i].passing_year+'</td><td>'+students[i].email+'</td><td>'+students[i].primary_mobile+'  </td></tr>');
             }
-            
+
 
             table = $('#student-table').DataTable({
                buttons: [

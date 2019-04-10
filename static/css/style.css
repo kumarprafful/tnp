@@ -12,6 +12,9 @@ ul li {
   text-decoration: none;
   list-style: none;
 }
+.meta{
+  color: #00000087!important;
+}
 .ui.inverted.indigo.button{
   color: #264f73 !important;
   background: transparent;
@@ -210,11 +213,19 @@ button.close {
   margin: 0 1em 1em 0em;
   /* 264f73 ffaf20 */
 }
+.delete-header{
+  text-align: center;
+  margin: 0 auto;
+}
+.delete-header i{
+  font-size: 4rem;
+}
 
 .modal .header{
   background: #ff7350 !important;
   color: #fff !important;
 }
+
 .secondary-header{
   color: #ff7350 /*, ffaf20*/!important;
 

@@ -29,9 +29,10 @@ def dashboard(request):
     if request.user.is_faculty:
         return HttpResponseRedirect(reverse('faculty:dashboard'))
     else:
-        Student = StudentProfile.objects.get(user = request.user)
+        Student = StudentProfile.objects.get(user=request.user)
         school_education = SchoolEducation.objects.filter(student=Student)
-        college_education = CollegeEducation.objects.filter(student=Student)
+        current_college_education = CollegeEducation.objects.get(student=Student, from_profile=True)
+        college_education = CollegeEducation.objects.filter(student=Student, from_profile=False)
         internship = WorkExperience.objects.filter(student=Student, category="Internship")
         project = WorkExperience.objects.filter(student=Student, category="Project")
         training = WorkExperience.objects.filter(student=Student, category="Training")
@@ -41,6 +42,7 @@ def dashboard(request):
         return render(request, template_name='student/student_dashboard.html', context = {
                             'student' : Student,
                             'school_education': school_education,
+                            'current_college_education': current_college_education,
                             'college_education': college_education,
                             'internship': internship,
                             'project': project,
@@ -222,6 +224,15 @@ def editWorkExperienceDashView(request, pk):
         work_experience = WorkExperienceEditForm(instance=instance)
         return HttpResponse(work_experience.as_p())
 
+def workExperienceDelete(request, pk):
+    if request.user.is_faculty:
+        return HttpResponseRedirect(reverse('faculty:dashboard'))
+    else:
+        student = StudentProfile.objects.get(enrollment_no=request.user.enrollment_no)
+        work_exp = WorkExperience.objects.get(student=student, pk=pk)
+        work_exp.delete()
+        return HttpResponse('Deleted')
+
 
 def collegeEducationDashView(request, course=None):
     if request.user.is_faculty:
@@ -241,3 +252,30 @@ def collegeEducationDashView(request, course=None):
             data = {'course': course}
             college_edu = CollegeEducationForm(initial=data)
             return HttpResponse(college_edu.as_p())
+
+def collegeEducationEdit(request, pk):
+    if request.user.is_faculty:
+        return HttpResponseRedirect(reverse('faculty:dashboard'))
+    else:
+        student = StudentProfile.objects.get(enrollment_no=request.user.enrollment_no)
+        college_education = CollegeEducation.objects.get(student=student, pk=pk)
+        if request.method == 'POST':
+            college_edu = CollegeEducationForm(data=request.POST, instance=college_education)
+            if college_edu.is_valid():
+                edu = college_edu.save(commit=False)
+                edu.save()
+                return HttpResponse('Form Submitted')
+            else:
+                return HttpResponse('INVALID FORM')
+        else:
+            college_edu = CollegeEducationForm(instance=college_education)
+            return HttpResponse(college_edu.as_p())
+
+def collegeEducationDelete(request, pk):
+    if request.user.is_faculty:
+        return HttpResponseRedirect(reverse('faculty:dashboard'))
+    else:
+        student = StudentProfile.objects.get(enrollment_no=request.user.enrollment_no)
+        college_education = CollegeEducation.objects.get(student=student, pk=pk)
+        college_education.delete()
+        return HttpResponse('Deleted')

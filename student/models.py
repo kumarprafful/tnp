@@ -54,7 +54,7 @@ class StudentProfile(models.Model):
     enrollment_no = models.CharField(max_length=20, unique=True, null=False, blank=False)
     name = models.CharField(_("Full Name"), max_length=100)
     gender = models.CharField(max_length=11, choices=GENDER)
-    dob = models.DateField(_("Date of birth"), blank=True, null=True)
+    date_of_birth = models.DateField(_("Date of birth"), blank=True, null=True)
     college = models.CharField(max_length=10,choices=COLLEGE,default='USICT')
     #institute_code = models.IntegerField(default=0)
     #program_code = models.IntegerField(default=0)
