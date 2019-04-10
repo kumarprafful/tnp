@@ -16,12 +16,12 @@ GENDER = (
 COLLEGE = ('USICT')
 
 COURSE = (
-        'BtechCSE',
-        'BtechIT',
-        'BtechECE',
-        'MtechCSE',
-        'MtechIT',
-        'MtechECE',
+        'B.TECH - CSE',
+        'B.TECH - IT',
+        'B.TECH - ECE',
+        'M.TECH - CSE',
+        'M.TECH - IT',
+        'M.TECH - ECE',
         'MCA',
     )
 
@@ -30,12 +30,12 @@ for r in range(2015, (datetime.datetime.now().year+1)):
     YEAR_CHOICES.append(r)
 
 REGION = (
-        'DEL',
-        'ODEL',
+        'Delhi',
+        'Outside Delhi',
     )
 
 CATEGORY = (
-        'UR',
+        'Unreserved',
         'OBC',
         'SC',
         'ST',

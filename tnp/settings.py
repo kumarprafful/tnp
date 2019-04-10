@@ -167,3 +167,10 @@ MESSAGE_TAGS = {
     messages.WARNING: 'alert-warning',
     messages.ERROR: 'alert-danger',
 }
+
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'stark.girl6839@gmail.com'
+EMAIL_HOST_PASSWORD = '1234@root'
+EMAIL_PORT = 587

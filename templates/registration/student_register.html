@@ -16,6 +16,15 @@
              {% endfor %}
             {% endif %}
 
+            {% for message in messages %}
+                <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  {{ message }}
+                </div>
+              {% endfor %}
+
               <div class="content">
 
               <form class="ui form" method="POST">
@@ -44,6 +53,14 @@
                   <label for="password" class="auth-label">Password</label>
                   <div class="ui left icon input ">
                     <input class="" type="password" name="password" placeholder="Enter your password" required><br>
+                    <i class="eye slash icon"></i>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label for="confirm_password" class="auth-label">Confirm Password</label>
+                  <div class="ui left icon input ">
+                    <input class="" type="password" name="confirm_password" placeholder="Confirm password" required><br>
                     <i class="eye slash icon"></i>
                   </div>
                 </div>
