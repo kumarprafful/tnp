@@ -191,6 +191,22 @@
 									</div>
 								</div>
 							</div>
+
+							<div class="ui modal college-edu-edit-modal">
+								<i class="close icon"></i>
+								<div class="header">
+									Edit College Education <div class="error"></div>
+								</div>
+								<div class="scrolling content description">
+									<form class="ui form college-edu-edit-form-data">
+										{% csrf_token %}
+										<input type="hidden" name="" value={{edu.id}}>
+
+										<div class="college-edu-edit-form"></div>
+										<button class="ui button sub-btn fluid">Submit</button>
+									</form>
+								</div>
+							</div>
 						{% else %}
 						{% endif %}
 					{% endfor %}
@@ -199,8 +215,6 @@
 					<i class="large plus icon"></i>
 					<p>Add College</p>
 				</div>
-
-
 
 				<div class="ui modal college-edu-pre-modal">
 					<i class="close icon"></i>
@@ -226,6 +240,8 @@
 						</form>
 					</div>
 				</div>
+
+
 			</div>
 		</div>
 	</div>
@@ -468,7 +484,7 @@
 						Edit Work Experience <div class="error"></div>
 					</div>
 					<div class="scrolling content description">
-						<form class="ui form work-exp-form-data">
+						<form class="ui form work-exp-edit-form-data">
 							{% csrf_token %}
 							<div class="work-exp-edit-form"></div>
 							<button class="ui button sub-btn fluid">Submit</button>
@@ -503,169 +519,233 @@
 
 <script type="text/javascript">
 	$('.personal-details').click(function(){
-		$('.student-profile-modal').modal('show');
+	  $('.student-profile-modal').modal('show');
 	});
 
 	$('.school-edu-modal-btn').click(function(){
-		$('.school-edu-modal').modal('show');
+	  $('.school-edu-modal').modal('show');
 	});
 
 	$('.college-edu-modal-btn').click(function(){
-		$('.college-edu-pre-modal').modal('show');
+	  $('.college-edu-pre-modal').modal('show');
 	});
 	$('.college-edu-delete-modal-btn').click(function(){
-		$('.college-edu-delete-modal').modal('show');
+	  $('.college-edu-delete-modal').modal('show');
 	})
 
 	$('.work-exp-modal-btn').click(function(){
-		$('.work-exp-pre-modal').modal('show');
+	  $('.work-exp-pre-modal').modal('show');
 	});
 
 	$('.work-exp-edit-modal-btn').click(function(){
-		$('.work-exp-edit-modal').modal('show');
+	  $('.work-exp-edit-modal').modal('show');
 	});
 	$('.work-exp-delete-modal-btn').click(function(){
-		$('.work-exp-delete-modal').modal('show');
+	  $('.work-exp-delete-modal').modal('show');
 	});
 
-
-
 	$('.personal-details').click(function(){
-		var url = '{% url "student:student_profile_dash_form" %}';
-		$.ajax({
-			type:"GET",
-			url: url,
-			success: function(data){
-				$('.profile-form').html(data);
-				// alert(data);
-				console.log(data);
-
-			}
-		});
+	  var url = '{% url "student:student_profile_dash_form" %}';
+	  $.ajax({
+	    type:"GET",
+	    url: url,
+	    success: function(data){
+	      $('.profile-form').html(data);
+	      // alert(data);
+	      console.log(data);
+	    }
+	  });
 	});
 
 	$('.student-form').submit(function(e){
-		e.preventDefault();
-		var url = '{% url "student:student_profile_dash_form" %}';
-		var form = $(this);
-		console.log($(this));
-		$.ajax({
-			type: "POST",
-			url: url,
-			data: form.serialize(),
-			success: function(data){
-				if(data === 'INVALID FORM'){
-					$('.error').html(data)
-				}
-				else{
-					location.reload();
-				}
-			}
-		});
+	  e.preventDefault();
+	  var url = '{% url "student:student_profile_dash_form" %}';
+	  var form = $(this);
+	  console.log($(this));
+	  $.ajax({
+	    type: "POST",
+	    url: url,
+	    data: form.serialize(),
+	    success: function(data){
+	      if(data === 'INVALID FORM'){
+	        $('.error').html(data)
+	      }
+	      else{
+	        location.reload();
+	      }
+	    }
+	  });
 	});
 
 	var school_edu_pk = 0;
 	$('.school-edu-modal-btn').click(function(e){
-		console.log(e.currentTarget.children[1].value);
-		school_edu_pk = e.currentTarget.children[1].value;
-		var url = '{% url "student:school-education" 000 %}'.replace(000,school_edu_pk);
-		$.ajax({
-			type: "GET",
-			url: url,
-			success: function(data){
-				$('.school-edu-form').html(data);
-			}
-		});
+	  console.log(e.currentTarget.children[1].value);
+	  school_edu_pk = e.currentTarget.children[1].value;
+	  var url = '{% url "student:school-education" 000 %}'.replace(000,school_edu_pk);
+	  $.ajax({
+	    type: "GET",
+	    url: url,
+	    success: function(data){
+	      $('.school-edu-form').html(data);
+	    }
+	  });
 	});
 
 	$('.school-edu-form-data').submit(function(e){
-		e.preventDefault();
-		console.log(e);
-		var url = '{% url "student:school-education" 000 %}'.replace(000, school_edu_pk);
-		var form = $(this);
-		$.ajax({
-			type: 'POST',
-			url: url,
-			data: form.serialize(),
-			success: function(data) {
-				if(data === 'INVALID FORM'){
-					$('.error').html(data);
-				}
-				else{
-					location.reload();
-
-				}
-			}
-		});
+	  e.preventDefault();
+	  console.log(e);
+	  var url = '{% url "student:school-education" 000 %}'.replace(000, school_edu_pk);
+	  var form = $(this);
+	  $.ajax({
+	    type: 'POST',
+	    url: url,
+	    data: form.serialize(),
+	    success: function(data) {
+	      if(data === 'INVALID FORM'){
+	        $('.error').html(data);
+	      }
+	      else{
+	        location.reload();
+	      }
+	    }
+	  });
 	});
 
 	$('.college-edu-pre').click(function(e){
-		var course = e.target.value;
-		var url = '{% url "student:college-education" 0 %}'.replace(0, course);
-		$.ajax({
-			type: "GET",
-			url: url,
-			success: function(data){
-				$('.college-edu-form').html(data);
-			}
-		});
-		$('.college-edu-modal').modal('show');
+	  var course = e.target.value;
+	  var url = '{% url "student:college-education" 0 %}'.replace(0, course);
+	  $.ajax({
+	    type: "GET",
+	    url: url,
+	    success: function(data){
+	      $('.college-edu-form').html(data);
+	    }
+	  });
+	  $('.college-edu-modal').modal('show');
 	});
 
 	$('.college-edu-edit-modal-btn').click(function(e){
-		var pk = e.currentTarget.children[1].value;
-		var url = '{% url "student:college-education-edit" 0 %}'.replace(0, pk);
-		var form = $(this);
-		$.ajax({
-			type: 'GET',
-			url: url,
-			success: function(data){
-				$('.college-edu-form').html(data);
-			}
-		});
-		$('.college-edu-modal').modal('show');
+	  var pk = e.currentTarget.children[1].value;
+	  var url = '{% url "student:college-education-edit" 0 %}'.replace(0, pk);
+	  var form = $(this);
+	  $.ajax({
+	    type: 'GET',
+	    url: url,
+	    success: function(data){
+	      $('.college-edu-edit-form').html(data);
+	    }
+	  });
+	  $('.college-edu-edit-modal').modal('show');
 
 	});
 
 	$('.college-edu-delete-confirm').click(function(e){
-		var pk = e.currentTarget.children[1].value;
-		var url = '{% url "student:college-education-delete" 0 %}'.replace(0, pk);
-		var form = $(this);
-		$.ajax({
-			type: 'GET',
-			url: url,
-			success: function(data){
-				location.reload();
-			}
-		});
-
-
+	  var pk = e.currentTarget.children[1].value;
+	  var url = '{% url "student:college-education-delete" 0 %}'.replace(0, pk);
+	  var form = $(this);
+	  $.ajax({
+	    type: 'GET',
+	    url: url,
+	    success: function(data){
+	      location.reload();
+	    }
+	  });
 	});
 
 	$('.college-edu-form-data').submit(function(e){
-		e.preventDefault();
-		var url = '{% url "student:college-education" %}';
-		var form = $(this);
-		$.ajax({
-			type: 'POST',
-			url: url,
-			data: form.serialize(),
-			success: function(data){
-				console.log(data);
-				if(data==='INVALID FORM'){
-					$('.error').html(data);
-					}
-					else{
-						// console.log(data);
-						location.reload();
-					}
-			}
-		})
+	  e.preventDefault();
+	  var url = '{% url "student:college-education" %}';
+	  var form = $(this);
+	  $.ajax({
+	    type: 'POST',
+	    url: url,
+	    data: form.serialize(),
+	    success: function(data){
+	      console.log(data);
+	      if(data==='INVALID FORM'){
+	        $('.error').html(data);
+	        }
+	        else{
+	          // console.log(data);
+	          location.reload();
+	        }
+	    }
+	  })
+	});
+
+	$('.college-edu-edit-form-data').submit(function(e){
+	  e.preventDefault();
+		console.log(e.currentTarget[1].value);
+		var pk = e.currentTarget[1].value;
+	  var url = '{% url "student:college-education-edit" 000 %}'.replace(000, pk);
+	  var form = $(this);
+	  $.ajax({
+	    type: 'POST',
+	    url: url,
+	    data: form.serialize(),
+	    success: function(data){
+	      console.log(data);
+	      if(data==='INVALID FORM'){
+	        $('.error').html(data);
+	        }
+	        else{
+	          // console.log(data);
+	          location.reload();
+	        }
+	    }
+	  })
 	});
 
 	$('.work-exp-form-data').submit(function(e){
+	  e.preventDefault();
+	  var url = '{% url "student:work-exp" %}';
+	  var form = $(this);
+	  $.ajax({
+	    type: 'POST',
+	    url: url,
+	    data: form.serialize(),
+	    success: function(data){
+	      console.log(data);
+	      if(data==='INVALID FORM'){
+	        $('.error').html(data);
+	        }
+	        else{
+	          // console.log(data);
+	          location.reload();
+	        }
+	    }
+	  })
+	});
+
+	$('.work-exp-pre').click(function(e){
+	  var category = e.target.value;
+	  var url = '{% url "student:work-exp" 000 %}'.replace(000, category);
+	  $.ajax({
+	    type: "GET",
+	    url: url,
+	    success: function(data){
+	      $('.work-exp-form').html(data);
+	    }
+	  });
+	  $('.work-exp-modal').modal('show');
+	});
+
+	var work_exp_pk = 0;
+	$('.work-exp-edit-modal-btn').click(function(e){
+	  work_exp_pk = e.currentTarget.children[1].value;
+	  var url = '{% url "student:work-exp-edit" pk=000 %}'.replace(000, work_exp_pk);
+	  $.ajax({
+	    type: "GET",
+	    url: url,
+	    success: function(data){
+	      $('.work-exp-edit-form').html(data);
+	    }
+	  });
+	});
+
+	$('.work-exp-edit-form-data').submit(function(e){
 		e.preventDefault();
-		var url = '{% url "student:work-exp" %}';
+		var url = '{% url "student:work-exp-edit" 0 %}'.replace(0, work_exp_pk);
 		var form = $(this);
 		$.ajax({
 			type: 'POST',
@@ -684,42 +764,17 @@
 		})
 	});
 
-	$('.work-exp-pre').click(function(e){
-		var category = e.target.value;
-		var url = '{% url "student:work-exp" 000 %}'.replace(000, category);
-		$.ajax({
-			type: "GET",
-			url: url,
-			success: function(data){
-				$('.work-exp-form').html(data);
-			}
-		});
-		$('.work-exp-modal').modal('show');
-	});
-
-	$('.work-exp-edit-modal-btn').click(function(e){
-		work_exp_pk = e.currentTarget.children[1].value;
-		var url = '{% url "student:work-exp-edit" pk=000 %}'.replace(000, work_exp_pk);
-		$.ajax({
-			type: "GET",
-			url: url,
-			success: function(data){
-				$('.work-exp-edit-form').html(data);
-			}
-		});
-	});
-
 	$('.work-exp-delete-confirm').click(function(e){
-		var pk = e.currentTarget.children[1].value;
-		var url = '{% url "student:work-exp-delete" 0 %}'.replace(0, pk);
-		var form = $(this);
-		$.ajax({
-			type: 'GET',
-			url: url,
-			success: function(data){
-				location.reload();
-			}
-		});
+	  var pk = e.currentTarget.children[1].value;
+	  var url = '{% url "student:work-exp-delete" 0 %}'.replace(0, pk);
+	  var form = $(this);
+	  $.ajax({
+	    type: 'GET',
+	    url: url,
+	    success: function(data){
+	      location.reload();
+	    }
+	  });
 	});
 </script>
 
