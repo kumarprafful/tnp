@@ -29,7 +29,7 @@
 					<p><b style="color: #ff7350;">CGPA: </b>
 						{% if marksheet %}
 							{{ marksheet.cgpa }}<br>
-							<a id="full-marksheet-button">view full marksheet</a>
+							<a id="full-marksheet-button"><i class="calendar outline icon"></i> view full marksheet</a>
 						{% else %}
 							<span class="meta">Not Available</span>
 						{% endif %}
@@ -37,6 +37,7 @@
 				</div>
 				<!-- MARKSHEET MODAL --->
 					<div class="ui small modal marksheet-modal">
+						<i class="close icon"></i>
 						<div class="content">
 							<div class="ui grid">
 								<div class="eleven wide column">
