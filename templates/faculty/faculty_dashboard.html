@@ -26,37 +26,36 @@
           <h5>COURSE</h5>
           <p>
             <label>
-              <input type="checkbox" class="filled-in" name="courses" value="BtechCSE" />
+              <input type="checkbox" class="filled-in" name="courses" value="B.TECH - CSE" />
               <span>B.TECH-CSE</span>
             </label>
           </p>
           <p>
             <label>
-              <input type="checkbox" class="filled-in" name="courses" value="BtechIT" />
-              <span>B.TECH - IT </span>
-            </label>
+              <input type="checkbox" class="filled-in" name="courses" value="B.TECH - IT" />
+              <span>B.TECH-IT </span>
           </p>
           <p>
             <label>
-              <input type="checkbox" class="filled-in" name="courses" value="BtechECE" />
+              <input type="checkbox" class="filled-in" name="courses" value="B.TECH - ECE" />
               <span>B.TECH-ECE</span>
             </label>
           </p>
           <p>
             <label>
-              <input type="checkbox" class="filled-in" name="courses" value="MtechCSE" />
+              <input type="checkbox" class="filled-in" name="courses" value="M.TECH - CSE" />
               <span>M.TECH-CSE</span>
             </label>
           </p>
           <p>
             <label>
-              <input type="checkbox" class="filled-in" name="courses" value="MtechIT" />
-              <span>M.TECH - I T </span>
+              <input type="checkbox" class="filled-in" name="courses" value="M.TECH - IT" />
+              <span>M.TECH-IT </span>
             </label>
           </p>
           <p>
             <label>
-              <input type="checkbox" class="filled-in" name="courses" value="MtechECE" />
+              <input type="checkbox" class="filled-in" name="courses" value="M.TECH - ECE" />
               <span>M.TECH-ECE</span>
             </label>
           </p>
@@ -126,7 +125,7 @@
                         <span class="meta">Not Available</span>
                         {% endif %}
                     </td>
-                    <td>{% if student.get_course_display %}
+                    <td>{% if student.course %}
                           {{ student.get_course_display }}
                         {% else %}
                         <span class="meta">Not Available</span>
