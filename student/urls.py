@@ -25,4 +25,8 @@ urlpatterns = [
     path('college-education/<course>/', student_views.collegeEducationDashView, name='college-education'),
     path('college-education/edit/<pk>/', student_views.collegeEducationEdit, name='college-education-edit'),
     path('college-education/delete/<pk>/', student_views.collegeEducationDelete, name='college-education-delete'),
+
+    path('marksheet/edit/<int:pk>/', student_views.marksheetEdit, name='marksheet-edit'),
+
+
 ]

@@ -110,7 +110,7 @@ input[type=number]::-webkit-outer-spin-button {
   font-size: 1.2rem;
 }
 .ipu-title-brand:hover{
-  color: #ff7350;
+  color: #faff50;
 }
 /* for login alerts */
 .close:not(:disabled):not(.disabled) {

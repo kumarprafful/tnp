@@ -39,6 +39,8 @@ def dashboard(request):
         achievement = WorkExperience.objects.filter(student=Student, category="Achievement")
         other = WorkExperience.objects.filter(student=Student, category="Other")
 
+        marksheet = MarkSheet.objects.get(student=Student)
+
         return render(request, template_name='student/student_dashboard.html', context = {
                             'student' : Student,
                             'school_education': school_education,
@@ -49,6 +51,7 @@ def dashboard(request):
                             'training': training,
                             'achievement': achievement,
                             'other': other,
+                            'marksheet': marksheet,
                             })
 
 # @login_required(login_url=reverse_lazy('account:student_login'))
@@ -279,3 +282,21 @@ def collegeEducationDelete(request, pk):
         college_education = CollegeEducation.objects.get(student=student, pk=pk)
         college_education.delete()
         return HttpResponse('Deleted')
+
+def marksheetEdit(request, pk):
+    if request.user.is_faculty:
+        return HttpResponseRedirect(reverse('faculty:dashboard'))
+    else:
+        student = StudentProfile.objects.get(enrollment_no=request.user.enrollment_no)
+        marksheet = MarkSheet.objects.get(student=student, pk=pk)
+        if request.method == 'POST':
+            marksheet_form = MarkSheetForm(data=request.POST, instance=marksheet)
+            if marksheet_form.is_valid():
+                edu = marksheet_form.save(commit=False)
+                edu.save()
+                return HttpResponse('Form Submitted')
+            else:
+                return HttpResponse('INVALID FORM')
+        else:
+            marksheet_form = MarkSheetForm(instance=marksheet)
+            return HttpResponse(marksheet_form.as_p())

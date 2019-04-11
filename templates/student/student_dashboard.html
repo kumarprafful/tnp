@@ -5,6 +5,137 @@
 <div class="ui container">
 	<div class="ui card" style="margin:3em 0">
 
+		<div class="content">
+			<div class="ui grid">
+				<div class="eleven wide column">
+					<div class="content-header">
+						{% if student.name %}
+							{{student.name}}
+						{% else %}
+							<a class="personal-details">Edit name</a>
+						{% endif %}
+					</div>
+					<br>
+					<div class="description meta">
+						<p><b>Email</b> : {{student.user.email}}</p>
+						<p><b>Enrollment number</b> : {{student.user.enrollment_no}}</p>
+						{% if student.primary_mobile %}
+							<p><b>Primary contact</b> : {{student.primary_mobile}}</p>
+						{% endif %}
+					</div>
+				</div>
+
+				<div class="four wide column">
+					<p><b style="color: #ff7350;">CGPA: </b>
+						{% if marksheet %}
+							{{ marksheet.cgpa }}<br>
+							<a id="full-marksheet-button">view full marksheet</a>
+						{% else %}
+							<span class="meta">Not Available</span>
+						{% endif %}
+					</p>
+				</div>
+				<!-- MARKSHEET MODAL --->
+					<div class="ui small modal marksheet-modal">
+						<div class="content">
+							<div class="ui grid">
+								<div class="eleven wide column">
+									<div class="content-header marksheet-heading">
+										{% if student.name %}
+											<b>{{student.name}}</b>
+										{% endif %}
+									</div>
+
+									<div class="meta">
+										<p>{{student.enrollment_no}}<br>
+											 {{student.get_course_display}} ( {{student.admission_year}} - {{student.passing_year}} )</p>
+									</div>
+							</div>
+							<div class="three wide column">
+								<button class="ui button marksheet-edit-btn" value="{{marksheet.id}}">Edit marksheet</button>
+							</div>
+						</div>
+					</div>
+
+							<div class="ui divider"></div>
+						<div class="content">
+							<div class="ui grid">
+								<div class="twelve wide column">
+									<div class="ui grid">
+										<div class="eight wide column">
+											{% if marksheet.semester_1 %}
+												<p><b class="marksheet-heading">Semester 1 :</b>{{ marksheet.semester_1 }}</p>
+											{% endif %}
+
+											{% if marksheet.semester_3 %}
+												<p><b class="marksheet-heading">Semester 3 :</b>{{ marksheet.semester_3 }}</p>
+											{% endif %}
+
+											{% if marksheet.semester_5 %}
+												<p><b class="marksheet-heading">Semester 5 :</b>{{ marksheet.semester_5 }}</p>
+											{% endif %}
+
+											{% if marksheet.semester_7 %}
+												<p><b class="marksheet-heading">Semester 7 :</b>{{ marksheet.semester_7 }}</p>
+											{% endif %}
+										</div>
+										<div class="eight wide column right aligned">
+											{% if marksheet.semester_2 %}
+												<p><b class="marksheet-heading">Semester 2 :</b>{{ marksheet.semester_2 }}</p>
+											{% endif %}
+
+											{% if marksheet.semester_4 %}
+												<p><b class="marksheet-heading">Semester 4 :</b>{{ marksheet.semester_4 }}</p>
+											{% endif %}
+
+											{% if marksheet.semester_6 %}
+												<p><b class="marksheet-heading">Semester 6 :</b>{{ marksheet.semester_6 }}</p>
+											{% endif %}
+
+											{% if marksheet.semester_8 %}
+												<p><b class="marksheet-heading">Semester 8 :</b>{{ marksheet.semester_8 }}</p>
+											{% endif %}
+										</div>
+									</div>
+
+									<div class="ui grid">
+										<div class="five wide column">
+											<p><b class="marksheet-heading">Credits Skipped: </b>{{ marksheet.credits_skipped }}</p>
+										</div>
+										<div class="five wide column center aligned">
+											<p><b class="marksheet-heading">Backlogs: </b>{{ marksheet.backlogs }}</p>
+										</div>
+										<div class="six wide column right aligned">
+											<p><b class="marksheet-heading">CGPA: </b>{{ marksheet.cgpa }}</p>
+										</div>
+									</div>
+								</div>
+								<div class="four wide column"></div>
+							</div>
+							<div style="padding: 100px 0px;"></div>
+						</div>
+					</div>
+
+					<div class="ui modal marksheet-edit-modal">
+						<i class="close icon"></i>
+						<div class="content header">Edit Marksheet</div>
+						<div class="scrolling content description">
+							<form class="ui form marksheet-edit-form-data">
+								{% csrf_token %}
+								<div class="marksheet-edit-form"></div>
+								<button class="ui button fluid">Submit</button>
+							</form>
+						</div>
+
+					</div>
+
+				<!--- MARKSHET MODAL ENDS --->
+
+
+			</div>
+		</div>
+		<div class="ui divider"></div>
+
 	<!-- Personal Deatils -->
 		<div class="content">
 			<a  data-tooltip="Edit this" data-inverted=""><i id="m" class="personal-details right floated pencil alternate icon"></i></a>
@@ -27,17 +158,12 @@
 			</div>
 
 			<div class="content-header">
-				{% if student.name %}
-					{{student.name}}
-				{% else %}
-					<a class="personal-details">Edit name</a>
-				{% endif %}
+				Personal Details
 			</div>
 			<div class="meta" style="margin:1em 0">
 				<div class="ui grid">
 					<div class="six wide column">
-						<p><b>Email</b> : {{student.user.email}}</p>
-						<p><b>Enrollment number</b> : {{student.user.enrollment_no}}</p>
+
 						{% if student.region %}
 							<p><b>Region</b> : {{student.region}}</p>
 						{% endif %}
@@ -55,9 +181,7 @@
 						{% if student.fathers_name %}
 							<p><b>Father's name</b> : {{student.fathers_name }}</p>
 						{% endif %}
-						{% if student.primary_mobile %}
-							<p><b>Primary contact</b> : {{student.primary_mobile}}</p>
-						{% endif %}
+
 						{% if student.secondary_mobile %}
 							<p><b>Alternate contact</b> : {{student.secondary_mobile}}</p>
 						{% endif %}
@@ -74,6 +198,7 @@
 		</div>
 	<!-- Ends Personal Deatils -->
 	<div class="ui divider"></div>
+
 
 	<!-- School Education -->
 		<div class="content">
@@ -544,6 +669,10 @@
 	  $('.work-exp-delete-modal').modal('show');
 	});
 
+	$('#full-marksheet-button').click(function(){
+		$('.marksheet-modal').modal('show');
+	});
+
 	$('.personal-details').click(function(){
 	  var url = '{% url "student:student_profile_dash_form" %}';
 	  $.ajax({
@@ -776,6 +905,42 @@
 	    }
 	  });
 	});
+	var msPK = null;
+	$('.marksheet-edit-btn').click(function(e){
+		msPK = e.target.value;
+		var url = '{% url "student:marksheet-edit" 0 %}'.replace(0, msPK);
+		$.ajax({
+			type: 'GET',
+			url: url,
+			success: function(data){
+				$('.marksheet-edit-form').html(data);
+			}
+		});
+		$('.marksheet-edit-modal').modal('show');
+	});
+
+	$('.marksheet-edit-form-data').submit(function(e){
+		e.preventDefault();
+		console.log(e);
+
+		var url = '{% url "student:marksheet-edit" 0 %}'.replace(0, msPK);
+		var form = $(this);
+		$.ajax({
+			type: 'POST',
+			url: url,
+			data: form.serialize(),
+			success: function(data){
+				if (data=="INVALID FORM") {
+					$('.error').html(data);
+					console.log(data);
+				}
+				else{
+					location.reload();
+				}
+			}
+		})
+	});
+
 </script>
 
 {% endblock %}
