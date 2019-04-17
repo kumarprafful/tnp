@@ -84,7 +84,7 @@ def student_register(request):
                 )
                 email.send()
 
-                return HttpResponse('Please check your email inbox for account activation')
+                return render(request, 'registration/email_activate_done.html')
     else:
         user_form = UserForm()
         student_profile_form = StudentProfileForm()
