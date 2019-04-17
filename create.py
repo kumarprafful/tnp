@@ -57,7 +57,7 @@ for i in range(100):
                                 name=fake.name(),
                                 gender=choose(GENDER),
                                 course=choose(COURSE),
-                                dob=fake.date_between(start_date="-20y", end_date="-18y"),
+                                date_of_birth=fake.date_between(start_date="-20y", end_date="-18y"),
                                 admission_year=admission_date,
                                 passing_year=passing_date,
                                 fathers_name=fake.name(),
