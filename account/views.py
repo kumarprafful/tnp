@@ -36,7 +36,7 @@ def student_register(request):
         user_form = UserForm(data=request.POST)
         student_profile_form = StudentProfileForm(data=request.POST)
         if user_form.is_valid() and student_profile_form.is_valid():
-            
+
             if user_form.cleaned_data['password'] != user_form.cleaned_data['confirm_password']:
                 messages.error(request, 'Password and confirm password does not match.')
                 return HttpResponseRedirect(reverse('account:student_register'))
@@ -66,7 +66,7 @@ def student_register(request):
                                     end_date=student_profile.passing_year,
                                     college=student_profile.college
                                     )
-                
+
 
                 registered = True
                 print(user)
@@ -129,6 +129,7 @@ def student_login(request):
                     return HttpResponseRedirect(reverse('account:student_login'))
             else:
                 # write a message for violation
+                messages.error(request, 'Invalid credentials. Try again.')
                 return HttpResponseRedirect(reverse('account:student_login'))
         else:
             messages.error(request, 'Invalid credentials. Try again.')
@@ -179,7 +180,7 @@ def activate(request, uidb64, token):
         user_profile = UserProfile.objects.get(user=user)
     except:
         user_profile=None
- 
+
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
         user.save()

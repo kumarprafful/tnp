@@ -17,6 +17,9 @@ ul li {
 .meta{
   color: #00000087!important;
 }
+.login-card{
+  margin-top: 2rem!important;
+}
 .ui.inverted.indigo.button{
   color: #264f73 !important;
   background: transparent;
@@ -258,4 +261,36 @@ div.dataTables_length {
 }
 .sub-btn{
   margin: 1em 0!important;
+}
+
+ @media screen and (max-width: 768px) {
+  #nav-mobile{
+    display: none;
+  }
+  .navbar{
+    height: 7rem;
+    text-align: center;
+  }
+  .ipu_logo{
+    height: 5em;
+  }
+  .ui.grid>[class*="ten wide"].column{
+    width: 100%!important;
+  }
+  .ui.card>.content{
+    margin: 1.5em!important;
+  }
+  .ui.grid>[class*="four wide"].column{
+    width: 100%!important;
+  }
+  .ui.grid>[class*="twelve wide"].column{
+    width: 100%!important;
+  }
+  .ui.grid>[class*="six wide"].column{
+    width: 100%!important;
+  }
+  .ui.grid>[class*="eight wide"].column{
+    width: 100%!important;
+  }
+
 }

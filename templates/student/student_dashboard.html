@@ -123,7 +123,11 @@
 						<div class="scrolling content description">
 							<form class="ui form marksheet-edit-form-data">
 								{% csrf_token %}
-								<div class="marksheet-edit-form"></div>
+								<div class="marksheet-edit-form">
+									<div class="ui active inverted dimmer">
+										<div class="ui large text loader">Loading</div>
+									</div>
+								</div>
 								<button class="ui button fluid">Submit</button>
 							</form>
 						</div>
@@ -249,7 +253,11 @@
 						<div class="scrolling content description">
 							<form class="ui form school-edu-form-data">
 								{% csrf_token %}
-								<div class="school-edu-form"></div>
+								<div class="school-edu-form">
+									<div class="ui active inverted dimmer">
+    								<div class="ui large text loader">Loading</div>
+  								</div>
+								</div>
 								<button class="ui button sub-btn fluid">Submit</button>
 							</form>
 						</div>
@@ -328,7 +336,11 @@
 										{% csrf_token %}
 										<input type="hidden" name="" value={{edu.id}}>
 
-										<div class="college-edu-edit-form"></div>
+										<div class="college-edu-edit-form">
+											<div class="ui active inverted dimmer">
+												<div class="ui large text loader">Loading</div>
+											</div>
+										</div>
 										<button class="ui button sub-btn fluid">Submit</button>
 									</form>
 								</div>
@@ -361,7 +373,11 @@
 					<div class="scrolling content description">
 						<form class="ui form college-edu-form-data">
 							{% csrf_token %}
-							<div class="college-edu-form"></div>
+							<div class="college-edu-form">
+								<div class="ui active inverted dimmer">
+									<div class="ui large text loader">Loading</div>
+								</div>
+							</div>
 							<button class="ui button sub-btn fluid">Submit</button>
 						</form>
 					</div>
@@ -395,7 +411,7 @@
 						<p><b>Company name</b> : {{element.title}}</p>
 						<div class="meta">
 							<p><b>Period</b> : {{element.start_date}} - {{element.end_date}}</p>
-							<p><b>URL</b> :&nbsp; <a target="_blank" href="{{element.url}}">{{element.url}}</a></p>
+							<p><b>{% if element.url %} URL</b> :&nbsp; <a target="_blank" href="{{element.url}}">{{element.url}}</a>{% endif %} </p>
 							<p>{{element.description}}</p>
 						</div>
 					</div>
@@ -436,7 +452,7 @@
 						<p><b>Title</b> : {{element.title}}</p>
 						<div class="meta">
 							<p><b>Period</b> : {{element.start_date}} - {{element.end_date}}</p>
-							<p><b>URL</b> :&nbsp; <a target="_blank" href="{{element.url}}">{{element.url}}</a></p>
+							<p><b>{% if element.url %} URL</b> :&nbsp; <a target="_blank" href="{{element.url}}">{{element.url}}</a>{% endif %} </p>
 							<p>{{element.description}}</p>
 						</div>
 					</div>
@@ -477,7 +493,7 @@
 						<p><b>Title</b> : {{element.title}}</p>
 						<div class="meta">
 							<p><b>Period</b> : {{element.start_date}} - {{element.end_date}}</p>
-							<p><b>URL</b> :&nbsp; <a target="_blank" href="{{element.url}}">{{element.url}}</a></p>
+							<p><b>{% if element.url %} URL</b> :&nbsp; <a target="_blank" href="{{element.url}}">{{element.url}}</a>{% endif %} </p>
 							<p>{{element.description}}</p>
 						</div>
 					</div>
@@ -518,7 +534,7 @@
 						<p><b>Title</b> : {{element.title}}</p>
 						<div class="meta">
 							<p><b>Period</b> : {{element.start_date}} - {{element.end_date}}</p>
-							<p><b>URL</b> :&nbsp; <a target="_blank" href="{{element.url}}">{{element.url}}</a></p>
+							<p><b>{% if element.url %} URL</b> :&nbsp; <a target="_blank" href="{{element.url}}">{{element.url}}</a>{% endif %} </p>
 							<p>{{element.description}}</p>
 						</div>
 					</div>
@@ -559,7 +575,7 @@
 						<p><b>Title</b> : {{element.title}}</p>
 						<div class="meta">
 							<p><b>Period</b> : {{element.start_date}} - {{element.end_date}}</p>
-							<p><b>URL</b> :&nbsp;<a target="_blank" href="{{element.url}}">{{element.url}}</a></p>
+							<p><b>{% if element.url %} URL</b> :&nbsp;<a target="_blank" href="{{element.url}}">{{element.url}}</a><{% endif %} /p>
 							<p>{{element.description}}</p>
 						</div>
 					</div>
@@ -612,7 +628,11 @@
 					<div class="scrolling content description">
 						<form class="ui form work-exp-edit-form-data">
 							{% csrf_token %}
-							<div class="work-exp-edit-form"></div>
+							<div class="work-exp-edit-form">
+								<div class="ui active inverted dimmer">
+									<div class="ui large text loader">Loading</div>
+								</div>
+							</div>
 							<button class="ui button sub-btn fluid">Submit</button>
 						</form>
 					</div>
@@ -628,7 +648,11 @@
 					<div class="scrolling content description">
 						<form class="ui form work-exp-form-data">
 							{% csrf_token %}
-							<div class="work-exp-form"></div>
+							<div class="work-exp-form">
+								<div class="ui active inverted dimmer">
+									<div class="ui large text loader">Loading</div>
+								</div>
+							</div>
 							<button class="ui button sub-btn fluid">Submit</button>
 						</form>
 					</div>
