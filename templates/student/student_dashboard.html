@@ -816,13 +816,14 @@
 	    data: form.serialize(),
 	    success: function(data){
 	      console.log(data);
-	      if(data==='INVALID FORM'){
-	        $('.error').html(data);
-	        }
-	        else{
-	          // console.log(data);
-	          location.reload();
-	        }
+					if(data==='Form Submitted'){
+	 				 location.reload();
+
+	 				 }
+	 				 else{
+	 					 $('.college-edu-form').html(data);
+	 					 // console.log(data);
+	 				 }
 	    }
 	  })
 	});
@@ -839,12 +840,12 @@
 	    data: form.serialize(),
 	    success: function(data){
 	      console.log(data);
-	      if(data==='INVALID FORM'){
-	        $('.error').html(data);
+				if(data==='Form Submitted'){
+					location.reload();
 	        }
 	        else{
+						$('.college-edu-edit-form').html(data);
 	          // console.log(data);
-	          location.reload();
 	        }
 	    }
 	  })
@@ -859,13 +860,13 @@
 	    url: url,
 	    data: form.serialize(),
 	    success: function(data){
-	      console.log(data);
-	      if(data==='INVALID FORM'){
-	        $('.error').html(data);
+	      if(data==='Form Submitted'){
+					location.reload();
+
 	        }
 	        else{
+						$('.work-exp-form').html(data);
 	          // console.log(data);
-	          location.reload();
 	        }
 	    }
 	  })
@@ -907,13 +908,14 @@
 			data: form.serialize(),
 			success: function(data){
 				console.log(data);
-				if(data==='INVALID FORM'){
-					$('.error').html(data);
-					}
-					else{
-						// console.log(data);
-						location.reload();
-					}
+				if(data==='Form Submitted'){
+					location.reload();
+
+	        }
+	        else{
+						$('.work-exp-edit-form').html(data);
+	          // console.log(data);
+	        }
 			}
 		})
 	});

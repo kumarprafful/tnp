@@ -158,7 +158,7 @@ def schoolEducation(request,pk):
                 return HttpResponse('INVALID FORM')
         else:
             school_education = SchoolEducationForm(instance=school_edu)
-            return HttpResponse(school_education.as_p())
+        return HttpResponse(school_education.as_p())
 
 # def collegeEducation(request):
 #     if request.user.is_faculty:
@@ -197,8 +197,6 @@ def workExperienceDashView(request, category=None):
     if request.user.is_faculty:
         return HttpResponseRedirect(reverse('faculty:dashboard'))
     else:
-        print("THIS")
-
         student = StudentProfile.objects.get(enrollment_no=request.user.enrollment_no)
         if request.method == 'POST':
             work_exp = WorkExperienceForm(data=request.POST)
@@ -207,12 +205,12 @@ def workExperienceDashView(request, category=None):
                 edu.student = student
                 edu.save()
                 return HttpResponse('Form Submitted')
-            else:
-                return HttpResponse('INVALID FORM')
+            # else:
+            #     return HttpResponse('INVALID FORM')
         else:
             data = {'category': category}
             work_exp = WorkExperienceForm(initial=data)
-            return HttpResponse(work_exp.as_p())
+    return HttpResponse(work_exp.as_p())
 
 def editWorkExperienceDashView(request, pk):
     student = StudentProfile.objects.get(enrollment_no = request.user.enrollment_no)
@@ -222,10 +220,10 @@ def editWorkExperienceDashView(request, pk):
         work_experience_form = WorkExperienceEditForm(data=request.POST, instance=instance)
         if work_experience_form.is_valid():
             work_experience_form.save()
-            return HttpResponse('edit successful')
+            return HttpResponse('Form Submitted')
     else:
-        work_experience = WorkExperienceEditForm(instance=instance)
-        return HttpResponse(work_experience.as_p())
+        work_experience_form = WorkExperienceEditForm(instance=instance)
+    return HttpResponse(work_experience_form.as_p())
 
 def workExperienceDelete(request, pk):
     if request.user.is_faculty:
@@ -254,7 +252,7 @@ def collegeEducationDashView(request, course=None):
         else:
             data = {'course': course}
             college_edu = CollegeEducationForm(initial=data)
-            return HttpResponse(college_edu.as_p())
+        return HttpResponse(college_edu.as_p())
 
 def collegeEducationEdit(request, pk):
     if request.user.is_faculty:
@@ -272,7 +270,7 @@ def collegeEducationEdit(request, pk):
                 return HttpResponse('INVALID FORM')
         else:
             college_edu = CollegeEducationForm(instance=college_education)
-            return HttpResponse(college_edu.as_p())
+        return HttpResponse(college_edu.as_p())
 
 def collegeEducationDelete(request, pk):
     if request.user.is_faculty:
